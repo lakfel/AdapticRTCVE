@@ -340,6 +340,21 @@
     <Reference Include="UnityEditor.Purchasing">
       <HintPath>C:/Users/Imagine/Documents/jf.gonzalez695/RetargPlusAdaptic/MouseShiftingTest/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
     </Reference>
+    <Reference Include="GitHub.Api.45">
+      <HintPath>C:/Users/Imagine/Documents/jf.gonzalez695/RetargPlusAdaptic/MouseShiftingTest/Assets/Plugins/GitHub/Editor/GitHub.Api.45.dll</HintPath>
+    </Reference>
+    <Reference Include="GitHub.Unity.45">
+      <HintPath>C:/Users/Imagine/Documents/jf.gonzalez695/RetargPlusAdaptic/MouseShiftingTest/Assets/Plugins/GitHub/Editor/GitHub.Unity.45.dll</HintPath>
+    </Reference>
+    <Reference Include="sfw.net">
+      <HintPath>C:/Users/Imagine/Documents/jf.gonzalez695/RetargPlusAdaptic/MouseShiftingTest/Assets/Plugins/GitHub/Editor/sfw.net.dll</HintPath>
+    </Reference>
+    <Reference Include="GitHub.UnityShim">
+      <HintPath>C:/Users/Imagine/Documents/jf.gonzalez695/RetargPlusAdaptic/MouseShiftingTest/Assets/Plugins/GitHub/Editor/GitHub.UnityShim.dll</HintPath>
+    </Reference>
+    <Reference Include="GitHub.Logging">
+      <HintPath>C:/Users/Imagine/Documents/jf.gonzalez695/RetargPlusAdaptic/MouseShiftingTest/Assets/Plugins/GitHub/Editor/GitHub.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.2f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
     </Reference>

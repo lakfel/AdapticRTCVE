@@ -65,6 +65,7 @@
     <Compile Include="Assets\DefaultCapsuleHand.cs" />
     <Compile Include="Assets\GenericHand.cs" />
     <Compile Include="Assets\HandHTCTrack.cs" />
+    <Compile Include="Assets\HeadSync.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ColliderEvent\ColliderEventCaster.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ColliderEvent\ColliderEventData.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ColliderEvent\ColliderEventInterfaces.cs" />

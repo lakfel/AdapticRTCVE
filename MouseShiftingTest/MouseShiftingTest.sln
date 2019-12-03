@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamVR_Input_Editor", "Ste
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamVR_Windows_EditorHelper", "SteamVR_Windows_EditorHelper.csproj", "{08B1C4AF-7C2E-6EA4-35AE-196378BA18DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor-firstpass", "Assembly-CSharp-Editor-firstpass.csproj", "{B7D51CD9-8E12-05B1-AE53-37652031C006}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{08B1C4AF-7C2E-6EA4-35AE-196378BA18DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08B1C4AF-7C2E-6EA4-35AE-196378BA18DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08B1C4AF-7C2E-6EA4-35AE-196378BA18DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7D51CD9-8E12-05B1-AE53-37652031C006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7D51CD9-8E12-05B1-AE53-37652031C006}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7D51CD9-8E12-05B1-AE53-37652031C006}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7D51CD9-8E12-05B1-AE53-37652031C006}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
