@@ -74,8 +74,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 110}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 5
+  instantiationId: 5
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &110
@@ -1562,8 +1562,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 105}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 7
+  instantiationId: 7
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &111
@@ -2465,8 +2465,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 108}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 6
+  instantiationId: 6
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!1 &477295765005958288
@@ -2603,8 +2603,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 107936707979203496}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 2
+  instantiationId: 2
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &107936707979203496
@@ -2697,4 +2697,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ababa0340fd88f345aa6c64b456a80e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
+  camera: {fileID: 64}
