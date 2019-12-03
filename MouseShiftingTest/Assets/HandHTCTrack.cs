@@ -42,13 +42,13 @@ public class HandHTCTrack : MonoBehaviour, GenericHand
     // Start is called before the first frame update
     void Start()
     {
-        if(targeted == null)
+        if (targeted == null)
             targeted = gameObject.transform.parent.gameObject.GetComponent<TargetedController>();
         if (!GetComponent<PhotonView>().isMine)
         {
             tracker.SetActive(false);
         }
-
+    }
     // Update is called once per frame
     void Update()
     {

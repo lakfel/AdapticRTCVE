@@ -24,24 +24,23 @@ public class HTCCompensate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         if (!selfConfigured)
-        {
-            GameObject camera = GameObject.Find("Camera");
-            if (camera != null)
+            if (GetComponent<PhotonView>().isMine)    
             {
-                float cameraYDegree = camera.transform.eulerAngles.y;
-                float myYDegree = transform.eulerAngles.y;
-                float diff = cameraYDegree - myYDegree;
-                transform.Rotate(new Vector3(0f, -diff, 0f));
-                selfConfigured = true;
+                GameObject camera = transform.Find("Camera").gameObject;
+                if (camera != null)
+                {
+                    float cameraYDegree = camera.transform.eulerAngles.y;
+                    float myYDegree = transform.eulerAngles.y;
+                    float diff = cameraYDegree - myYDegree;
+                    transform.Rotate(new Vector3(0f, -diff, 0f));
+                    selfConfigured = true;
+                }
+                else
+                {
+                    selfConfigured = true;
+                    Debug.Log("JFGA -- No camera found");
+                }
             }
-            else
-            {
-                selfConfigured = true;
-                Debug.Log("JFGA -- No camera found");
-            }
-        }
     }
 }
