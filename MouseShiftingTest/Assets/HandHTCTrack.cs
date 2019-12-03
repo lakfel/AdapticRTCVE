@@ -44,17 +44,22 @@ public class HandHTCTrack : MonoBehaviour, GenericHand
     {
         if(targeted == null)
             targeted = gameObject.transform.parent.gameObject.GetComponent<TargetedController>();
-
-    }
+        if (!GetComponent<PhotonView>().isMine)
+        {
+            tracker.SetActive(false);
+        }
 
     // Update is called once per frame
     void Update()
     {
-        if (!configured)
+        if (GetComponent<PhotonView>().isMine)
         {
-            initialStatus();
+            if (!configured)
+            {
+                initialStatus();
+            }
+            transform.position = targeted.giveRetargetedPosition(tracker.transform.position);
+            transform.rotation = tracker.transform.rotation * Quaternion.Inverse(initialRotation);
         }
-        transform.position = targeted.giveRetargetedPosition( tracker.transform.position);
-        transform.rotation = tracker.transform.rotation * Quaternion.Inverse(initialRotation);
     }
 }
