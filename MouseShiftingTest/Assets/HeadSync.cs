@@ -17,7 +17,7 @@ public class HeadSync : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GetComponent<PhotonView>().isMine)
+        if (GetComponent<PhotonView>().isMine)
         {
             transform.position = camera.transform.position;
             transform.rotation = camera.transform.rotation;
