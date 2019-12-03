@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// In Adaptic + retargetin project this script manages the whole logic.
+// In second project this mannages only the user logic, locally and in network
 public class MasterController : MonoBehaviour
 {
     // Networking mannagement here//
@@ -14,83 +17,74 @@ public class MasterController : MonoBehaviour
     public static GameObject LocalPlayerInstance;
     #endregion
 
+    public enum CONDITION
+    {
+        SM_RT,
+        SM_OO,
+        NM_RT,
+        NM_OO
+    }
 
-    public bool isDemo;
-    private PersistanceManager persistanceManager;
+    // Script for manage tracking. 
+    // TODO review if needed it. Now we will have only on condition.
     private TrackerMannager trackerMannager;
-    private NotificationsMannager notificationsMannager;
-    private SurveyMannager surveyMannager;
-    private Logic logic;
-    public bool surveyActivated;
 
-    
+    // Information for the user. No sync here
+    private NotificationsMannager notificationsMannager;
+
+    // Survey to be performed in each case.
+    private SurveyMannager surveyMannager;
+
+    //TODO Need to have stages. And mannage this in the data output.
+    private Logic logic;
+
+    // Base condition
+    public CONDITION condition;
 
     public bool started;
 
-    public int subjectOrder;
-
-    public readonly int[,] ordersStages = new int[,] { { 1, 2, 4, 3 } ,  {2, 3, 1, 4 } , { 3, 4, 2, 1 } , { 4, 1, 3, 2 } }; //balanced Latin square
-
-    public enum EXP_STAGE
-    {
-        TUTORIAL,
-        PROP_MATCHING_PLUS_RETARGETING,
-        PROP_MATCHING_NO_RETARGETING,
-        PROP_NOT_MATCHING_PLUS_RETARGETING,
-        PROP_NOT_MATCHING_NO_RETARGETING
-    }
-
-
-
-    public GameObject notificacionTextObject;
-
-    private bool[] stagesDone;
-    private EXP_STAGE[] stages;
+    
+    public LevelController levelController; 
    
 
     public int stageCounter;
 
-    public EXP_STAGE currentStage;
+    public bool surveyActivated;
+
+
+    private void Awake()
+    {
+        this.gameObject.name = GetComponent<PhotonView>().owner.NickName;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        
-        persistanceManager = gameObject.GetComponent<PersistanceManager>();
         trackerMannager = gameObject.GetComponent<TrackerMannager>();
         notificationsMannager = gameObject.GetComponent<NotificationsMannager>();
         surveyMannager = gameObject.GetComponent<SurveyMannager>();
         logic = gameObject.GetComponent<Logic>();
 
-        surveyActivated = false;
-
-        if(!isDemo)
-            setNew();
+        GameObject objLevelController = GameObject.Find("LevelMannager");
+        if (objLevelController != null)
+            levelController = objLevelController.GetComponent<LevelController>();
         else
-        {
-            currentStage = EXP_STAGE.PROP_MATCHING_PLUS_RETARGETING;
-            notificationsMannager.lightStepNotification(1);
-            started = true;
-            if (notificacionTextObject != null)
-            {
-                TextMesh text = notificacionTextObject.GetComponent<TextMesh>();
-                text.text = "Welcome!!";
-            }
-            if(persistanceManager != null)
-            {
-                persistanceManager.storeLocal = false;
-                persistanceManager.storeInForms = false;
-            }
-            
-        }
+            Debug.Log("JFGA -- No Level controller FOUND!");
 
+        surveyActivated = false;
         
+        // TODO the steps should be shared. Notification Mannager to be changes drasticly
+        //notificationsMannager.lightStepNotification(1);
 
-        //Debug.Log("-----------Waiting---------");
+        started = true;
+
+         
+         
     }
 
     public void setNew()
     {
+        /*
         started = false;
         if (notificacionTextObject != null)
             notificacionTextObject.SetActive(true);
@@ -113,65 +107,64 @@ public class MasterController : MonoBehaviour
         persistanceManager.recording = false;
         persistanceManager.userId = System.DateTime.Now.ToString("yyMMddHHmmss");
         TextMesh text = notificacionTextObject.GetComponent<TextMesh>();
-        text.text = "Welcome";
+        text.text = "Welcome";*/
     }
 
     // Update is called once per frame
     
     void Update()
     {
-        if(!isDemo)
-            if (Input.GetKeyDown(KeyCode.Space))
-            //if(OVRInput.GetDown(OVRInput.Button.One))
-            {
-                trackerMannager.setTrackers();
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+           /* trackerMannager.setTrackers();
 
-                if (!started)
+            if (!started)
+            {
+                started = true;
+
+                currentStage = EXP_STAGE.PROP_NOT_MATCHING_PLUS_RETARGETING;
+                stagesDone[0] = true;
+
+                notificationsMannager.lightStepNotification(1);
+
+                if (notificacionTextObject != null)
                 {
-                    started = true;
-
-                    currentStage = EXP_STAGE.PROP_NOT_MATCHING_PLUS_RETARGETING;
-                    stagesDone[0] = true;
-
-                    notificationsMannager.lightStepNotification(1);
-
-                    if (notificacionTextObject != null)
-                    {
-                        TextMesh text = notificacionTextObject.GetComponent<TextMesh>();
-                        text.text = "TUTORIAL";
-                    }
-
-                    if (persistanceManager != null)
-                        persistanceManager.saveGeneral();
-                    else
-                        Debug.LogError("PersistanceMannager missing!!! No results reported");
-                    //Call persistance to update
+                    TextMesh text = notificacionTextObject.GetComponent<TextMesh>();
+                    text.text = "TUTORIAL";
                 }
+
+                if (persistanceManager != null)
+                    persistanceManager.saveGeneral();
                 else
-                    nextStage();
-
-                trackerMannager.setTrackers();
+                    Debug.LogError("PersistanceMannager missing!!! No results reported");
+                //Call persistance to update
             }
-            else if (Input.GetKeyDown(KeyCode.R))
-            {
-                setNew();
-                notificationsMannager.normalSettings();
-                persistanceManager.recording = false;
+            else
+                nextStage();
 
-                GameObject leftProp = GameObject.Find("LeftProp");
-                if (leftProp != null)
-                    leftProp.GetComponent<PropController>().angleNumber = 0;
+            trackerMannager.setTrackers();
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            setNew();
+            notificationsMannager.normalSettings();
+            persistanceManager.recording = false;
 
-                GameObject rightProp = GameObject.Find("RightProp");
-                if (rightProp != null)
-                    rightProp.GetComponent<PropController>().angleNumber = 0;
+            GameObject leftProp = GameObject.Find("LeftProp");
+            if (leftProp != null)
+                leftProp.GetComponent<PropController>().angleNumber = 0;
 
-            }
+            GameObject rightProp = GameObject.Find("RightProp");
+            if (rightProp != null)
+                rightProp.GetComponent<PropController>().angleNumber = 0;*/
+
+        }
     }
 
     public void nextStage()
     {
-        persistanceManager.recording = true;
+      /*  persistanceManager.recording = true;
         if(stageCounter < 4)
         {
             logic.stage = -1;
@@ -189,7 +182,7 @@ public class MasterController : MonoBehaviour
         if (stageCounter >= 2 && stageCounter <= 5)
         {
             surveyMannager.startSurvey(stageCounter, currentStage.ToString("G"));
-        }
+        }*/
     }
 
     

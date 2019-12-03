@@ -44,4 +44,6 @@ MonoBehaviour:
   - RequestForPickupTimes
   - TaggedPlayer
   - ActivatePlayer
+  - pressNextsStage
+  - setIdTrial
   DisableAutoOpenWizard: 1

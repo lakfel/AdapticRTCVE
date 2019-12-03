@@ -30,7 +30,7 @@ public class ViveTracker : ITracker
     private Logic logic;
 
     public override void attach()
-    {
+    {/*
         if (PositionReference != null)
         {
             if (masterController.currentStage == MasterController.EXP_STAGE.PROP_MATCHING_PLUS_RETARGETING || masterController.currentStage == MasterController.EXP_STAGE.PROP_NOT_MATCHING_PLUS_RETARGETING)
@@ -48,7 +48,7 @@ public class ViveTracker : ITracker
             firstTrackedPosition = gameObject.transform.position;
             attached = true;
         }
-     
+     */
     } 
     public override void detach()
     {

@@ -25,10 +25,15 @@ public class TrackerMannager : MonoBehaviour
         
     }
 
+
+
+    // Pair tracker with propcontroller. If RT condition is applied, both cirutl objects will be attached to the same
+    // tracker. Left one here.
     public void setTrackers()
-    {
+    {/*
         masterController = gameObject.GetComponent<MasterController>();
-        if (masterController.currentStage == MasterController.EXP_STAGE.PROP_MATCHING_PLUS_RETARGETING || masterController.currentStage == MasterController.EXP_STAGE.PROP_NOT_MATCHING_PLUS_RETARGETING)
+        if (masterController.currentCondition == MasterController.CONDITION.NM_RT ||
+                masterController.currentCondition == MasterController.CONDITION.SM_RT)
         {
             leftProp.dTracker = leftTracker;
             rightProp.dTracker = leftTracker;
@@ -37,6 +42,6 @@ public class TrackerMannager : MonoBehaviour
         {
             leftProp.dTracker = leftTracker;
             rightProp.dTracker = rightTracker;
-        }
+        }*/
     }
 }

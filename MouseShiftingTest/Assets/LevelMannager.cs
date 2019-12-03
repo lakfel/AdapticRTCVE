@@ -81,20 +81,6 @@ public class LevelMannager : Photon.PunBehaviour, IPunObservable
                 userGameObject = UserViveVTVT;
                 contentNames = "Vive_VTVT";
                 break;
-                //TODO JFGA Add all platforms
-           /** case Platform.GearVR:
-                playerArray = gearVRPlayer;
-                contentNames = new string[playerArray.Length];
-                contentNames[0] = "GRCamera";
-                contentNames[1] = "GRAvatar";
-                break;
-            case Platform.HTCVive:
-
-                playerArray = htcVivePlayer;
-                contentNames = new string[playerArray.Length];
-                contentNames[0] = "HTCCamera";
-                contentNames[1] = "HTCPlayer";
-                break;*/
         }
 
         if(userGameObject != null)
@@ -105,10 +91,6 @@ public class LevelMannager : Photon.PunBehaviour, IPunObservable
         {
             Debug.Log("JFGA LevelMannager.cs ----Error Not prefab selected ----");
         }
-
-      
-        //Debug.Log("Player to be instantiated is: " + newPlayer.name);
-        //Debug.Log("INFO IMPORTANTE : InstantiateOnNetwork is: " + PhotonNetwork.InstantiateInRoomOnly + " , inRoom: " + PhotonNetwork.inRoom);
     }
 
     /// <summary>

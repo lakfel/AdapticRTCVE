@@ -26,8 +26,8 @@ public class PropMannager : MonoBehaviour
     {
         mySPort.Open();
         mySPort.ReadTimeout = 10;
-        if(masterController.isDemo)
-            mySPort.Write("<-99,4>");
+       // if(masterController.isDemo)
+         //   mySPort.Write("<-99,4>");
     }
     // Start is called before the first frame update
     void Start()
@@ -64,8 +64,8 @@ public class PropMannager : MonoBehaviour
         }*/
         try
         {
-            if (mySPort.CDHolding)
-            { }
+         //   if (mySPort.CDHolding)
+          //  { }
         }
         catch (Exception e)
         {
@@ -74,7 +74,7 @@ public class PropMannager : MonoBehaviour
            // openPort(); REMOVE THIS
         }
 
-        if (string.Equals(readData(), "OK"))
+        /*if (string.Equals(readData(), "OK"))
             {
                 GameObject tracker1 = GameObject.Find("Tracker1");
                 if (tracker1 != null)
@@ -87,13 +87,13 @@ public class PropMannager : MonoBehaviour
                         // hTracker.PositionReference = propContr;
                     }
                 }
-            }
+            }*/
        
     }
 
     public void adapticCommand(PRESET_TYPE type)
     {
-        
+        /*
         //Debug.Log("PropManager ---- Adaptic  " + type.ToString());
         if (type == PRESET_TYPE.FLAT)
         {
@@ -107,13 +107,13 @@ public class PropMannager : MonoBehaviour
         {
             mySPort.Write("<1>");
         }
-        mySPort.DiscardOutBuffer();
+        mySPort.DiscardOutBuffer();*/
     }
 
     public string readData()
     {
         string data = "";
-        //for(int i =0; i<10000 && !string.Equals(data,"OK"); i++)
+        /*//for(int i =0; i<10000 && !string.Equals(data,"OK"); i++)
             try
             {
                 data = mySPort.ReadLine();
@@ -121,7 +121,7 @@ public class PropMannager : MonoBehaviour
             catch(Exception e)
             {
 
-            }
+            }*/
 
         return data;
     }

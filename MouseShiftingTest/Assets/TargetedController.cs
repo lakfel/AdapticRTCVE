@@ -25,11 +25,33 @@ public class TargetedController : MonoBehaviour
     private Vector3 endPosition;
 
     /**
-     * Retargetered position
+     * Retargetered position in real world
      */
     public GameObject retargetedPosition;
 
-    
+    /*
+     * Master contoller of the player
+     */
+    public MasterController masterController;
+
+    /*
+     * Level controller 
+     */
+    public LevelController levelController;
+
+    private void Start()
+    {
+        retargetedPosition = GameObject.Find("MiddlePropPosition");
+        masterController = gameObject.GetComponent<MasterController>();
+        GameObject objLevelController = GameObject.Find("LevelMannager");
+        levelController = objLevelController.GetComponent<LevelController>();
+
+        // TODO delete this. Only test purpouses
+        GameObject testRetargeting = GameObject.Find("RightPropPosition");
+        GameObject initialP = GameObject.Find("HandStartPoint");
+        starShifting(testRetargeting.transform.position, initialP.transform.position);
+        // Test ends here
+    }
 
     /**
      *  Compensation factors
@@ -56,7 +78,7 @@ public class TargetedController : MonoBehaviour
 
         compensationFactorX = (xGoal - xCenter) / zCenter;
         // compensationFactorZ = (zGoal) / zCenter; It is actually this but that must be one cuz they are at the same position in z
-        // For some reason, when the goal is the right prop, the z value is higher, it is actually the parent object z value.
+        // It is not working good since the position in Z is dispalced -3 mts and something. But, since the cocients should be close to 1, we force the value.
         compensationFactorZ = 1;
 
         shifting = true;
@@ -72,11 +94,10 @@ public class TargetedController : MonoBehaviour
     {
         Vector3 rePosition = new Vector3();
         rePosition = realPosition;
-
-        MasterController masController = gameObject.GetComponent<MasterController>();
-        if (shifting && masController != null)
+        
+        if (shifting && masterController != null && levelController != null && levelController.currenStage != LevelController.STAGE.TUTORIAL)
         {
-            if (masController.currentStage == MasterController.EXP_STAGE.PROP_MATCHING_PLUS_RETARGETING || masController.currentStage == MasterController.EXP_STAGE.PROP_NOT_MATCHING_PLUS_RETARGETING)
+            if (masterController.condition == MasterController.CONDITION.NM_RT || masterController.condition == MasterController.CONDITION.SM_RT)
             {
                 float xAnchor = (realPosition.x - startPosition.x) * movementFactor;
                 float yAnchor = (realPosition.y - startPosition.y) * movementFactor;

@@ -6,5 +6,5 @@ public interface GenericHand
 {
     Vector3 giveRealPosition();
     void setDraw(bool canDraw);
-
+    bool canDraw();
 }

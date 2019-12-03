@@ -22,6 +22,7 @@ public class NetworkMannager : Photon.PunBehaviour, IPunObservable
 
     //TODO Managemente of an UI to know the network state.
     // Previous experiments used a small dahsboard insied the room. Maybe.
+    public UINetwork uINetwork;
 
     // Version. default parameter for us
     private string _gameVersion = "0.1";
@@ -59,6 +60,8 @@ public class NetworkMannager : Photon.PunBehaviour, IPunObservable
 
     void Start()
     {
+        GameObject uiNetworkObj = GameObject.Find("UINetwork");
+        uINetwork = uiNetworkObj.GetComponent<UINetwork>();
         roomOptions = new RoomOptions { IsVisible = true, MaxPlayers = maxPlayersPerRoom };
         DontDestroyOnLoad(this);
         Connect();
@@ -145,17 +148,10 @@ public class NetworkMannager : Photon.PunBehaviour, IPunObservable
             {
                 temp.NickName = "Player " + i;
                 photonView.RPC("ActivatePlayer", PhotonTargets.All, i, true);
-                char[] player = temp.NickName.ToCharArray();
-                //TODO some way to notify status of players.
-                //GameObject statusUI = GameObject.Find("/TutorialIslandP" + (i + 1) + "/Deco/Door/TutorialStatus/NetworkCanvas");
-                //statusUI.SetActive(true);
-                //netWorkStatusUI = statusUI.GetComponent<UINetworkStatus>();
-                //netWorkStatusUI.setPlayerName("Player: " + (Int32.Parse(player[player.Length - 1] + "")));
+                
             }
         }
         bool isHost = PhotonNetwork.isMasterClient;
-
-
         levelMannager.spawnConnectedPlayer();
         // Debug.Log("INFO IMPORTANTE : InstantiateOnNetwork is: " + PhotonNetwork.InstantiateInRoomOnly + " , inRoom: " + PhotonNetwork.inRoom);
     }
@@ -190,7 +186,6 @@ public class NetworkMannager : Photon.PunBehaviour, IPunObservable
                 photonView.RPC("ActivatePlayer", PhotonTargets.All, i, true);
             }
         }
-        //netWorkStatusUI.setPlayerName(PhotonNetwork.player.NickName);
     }
 
     public void OnDestroy()
@@ -217,6 +212,7 @@ public class NetworkMannager : Photon.PunBehaviour, IPunObservable
     public void ActivatePlayer(int playerPos, bool playerState)
     {
         activePlayers[playerPos] = playerState;
+        uINetwork.refreshStatus(activePlayers);
         //netWorkStatusUI.setPlayerStatusTexts(playerPos, activePlayers[playerPos] + "");
     }
 

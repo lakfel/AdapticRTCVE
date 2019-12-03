@@ -387,5 +387,20 @@ namespace Leap.Unity
         {
             this.canDraw = canDraw;
         }
+
+        Vector3 GenericHand.giveRealPosition()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        void GenericHand.setDraw(bool canDraw)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        bool GenericHand.canDraw()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

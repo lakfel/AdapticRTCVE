@@ -111,7 +111,7 @@ public class Logic : MonoBehaviour
 
     private IEnumerator pairTracker(int seconds, PropController controller)
     {
-        controller.dTracker.detach();
+       /* controller.dTracker.detach();
         controller.gameObject.SetActive(true);
         controller.activeChildren(false);
         controller.dTracker.PositionReference = controller;
@@ -132,8 +132,8 @@ public class Logic : MonoBehaviour
         controller.activeChildren(true);
         controller.movePropDock(true);
         controller.objectGreen(false);
-        controller.dockProp.SetActive(false);
-        //yield return null;
+        controller.dockProp.SetActive(false);*/
+        yield return null;
     }
 
     // It controls ALL the movements. The trigger is actionated by the Master for each pressed trigger done by the user
@@ -146,7 +146,7 @@ public class Logic : MonoBehaviour
     // When hand in initial position and trigger, movements ends. Stage = -1
     public void reGoal()
     {
-        if (conditionsToProceed(stage))
+        /*if (conditionsToProceed(stage))
         {
             if (stage == -1)
             {
@@ -167,14 +167,14 @@ public class Logic : MonoBehaviour
                 GameObject PositionReference = propContr.positionReference;
                 targetedController.starShifting(PositionReference.transform.position, hand.giveRealPosition()); //Capsulehand has a simplified methos for giving the hand. does not work here?
                
-                if (masterController.currentStage == MasterController.EXP_STAGE.PROP_MATCHING_PLUS_RETARGETING || masterController.currentStage == MasterController.EXP_STAGE.PROP_NOT_MATCHING_PLUS_RETARGETING)
+                /*if (masterController.currentStage == MasterController.EXP_STAGE.PROP_MATCHING_PLUS_RETARGETING || masterController.currentStage == MasterController.EXP_STAGE.PROP_NOT_MATCHING_PLUS_RETARGETING)
                 {
                     props[goal].transform.position = targetedController.retargetedPosition.transform.position;
                 }
                 else
                 {
                     props[goal].transform.position = PositionReference.transform.position;
-                }
+                }*//*
                 StartCoroutine(pairTracker(1, this.propContr));
 
                 persistanceManager.trackedObject = this.propContr;
@@ -221,7 +221,7 @@ public class Logic : MonoBehaviour
                     }
                 }
                 */
-
+                /*
                 hand.setDraw(true);
                 propContr.dTracker.detach();
                 propContr.gameObject.SetActive(false);
@@ -242,14 +242,14 @@ public class Logic : MonoBehaviour
             }
 
             notificationsMannager.lightStepNotification(stage + 2);
-        }
+        }*/
     }
 
 
     //Detach the tracker to the object. This should actually never be done here. It depends on the stage TODO BIG
     public void pickedDone()
     {
-        GameObject tracker1 = GameObject.Find("Tracker1");
+       /* GameObject tracker1 = GameObject.Find("Tracker1");
         if (tracker1 != null)
         {
             Tracker hTracker = tracker1.GetComponent<Tracker>();
@@ -258,7 +258,7 @@ public class Logic : MonoBehaviour
                 hTracker.detach();
             }
         }
-        showing = false;
+        showing = false;*/
     }
 
     void delay(int secs)

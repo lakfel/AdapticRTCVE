@@ -93,7 +93,7 @@ public class Tracker : MonoBehaviour
 
     public  void attach()
     {
-        bool att = false;
+       /*ool att = false;
         if (PositionReference != null)
         {
             PositionReference.dTracker = this;
@@ -112,7 +112,7 @@ public class Tracker : MonoBehaviour
             FirstTrackedRotation = objectTracked.transform.rotation;
             firstTrackedPosition = objectTracked.transform.position;
             atached = true;
-        }
+        }*/
     }
 
 
