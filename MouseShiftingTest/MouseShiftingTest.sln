@@ -21,9 +21,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oculus.VR.Editor", "Oculus.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamVR_Input_Editor", "SteamVR_Input_Editor.csproj", "{3196DE1A-F7DF-F04E-2E51-EF28112E2F05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamVR_Windows_EditorHelper", "SteamVR_Windows_EditorHelper.csproj", "{08B1C4AF-7C2E-6EA4-35AE-196378BA18DD}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor-firstpass", "Assembly-CSharp-Editor-firstpass.csproj", "{B7D51CD9-8E12-05B1-AE53-37652031C006}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamVR_Windows_EditorHelper", "SteamVR_Windows_EditorHelper.csproj", "{08B1C4AF-7C2E-6EA4-35AE-196378BA18DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,14 +71,14 @@ Global
 		{3196DE1A-F7DF-F04E-2E51-EF28112E2F05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3196DE1A-F7DF-F04E-2E51-EF28112E2F05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3196DE1A-F7DF-F04E-2E51-EF28112E2F05}.Release|Any CPU.Build.0 = Release|Any CPU
-		{08B1C4AF-7C2E-6EA4-35AE-196378BA18DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{08B1C4AF-7C2E-6EA4-35AE-196378BA18DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{08B1C4AF-7C2E-6EA4-35AE-196378BA18DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{08B1C4AF-7C2E-6EA4-35AE-196378BA18DD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B7D51CD9-8E12-05B1-AE53-37652031C006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B7D51CD9-8E12-05B1-AE53-37652031C006}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7D51CD9-8E12-05B1-AE53-37652031C006}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7D51CD9-8E12-05B1-AE53-37652031C006}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08B1C4AF-7C2E-6EA4-35AE-196378BA18DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08B1C4AF-7C2E-6EA4-35AE-196378BA18DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08B1C4AF-7C2E-6EA4-35AE-196378BA18DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08B1C4AF-7C2E-6EA4-35AE-196378BA18DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -20,8 +20,10 @@ public class PropMannager : MonoBehaviour
 
     private MasterController masterController;
 
-    public static string serialName = @"\\.\COM16";
+    public static string serialName = @"\\.\COM3";
+
     public SerialPort mySPort = new SerialPort(serialName, 115200);
+
     public void openPort()
     {
         mySPort.Open();
@@ -32,49 +34,40 @@ public class PropMannager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        masterController = GameObject.Find("Master").GetComponent<MasterController>();
-        try
+        if (!GetComponent<PhotonView>().isMine)
         {
-            openPort();
-        }
-        catch(Exception e)
-        {
-            mySPort = null;
-            Debug.Log("ERROR OPENNING PORT " + e.Message);
+            masterController = GetComponentInParent<MasterController>();
+            try
+            {
+                openPort();
+            }
+            catch(Exception e)
+            {
+                mySPort = null;
+                Debug.Log("ERROR OPENNING PORT " + e.Message);
+            }
         }
     }
 
     // Update is called once per frame
     void Update()
-    {/*
-        if (Input.GetKeyDown("1"))
+    {
+        if (!GetComponent<PhotonView>().isMine)
         {
-            Debug.Log("1 key was pressed");
-            mySPort.Write("<1>");
-        }
-        else if (Input.GetKeyDown("2"))
-        {
-            Debug.Log("2 key was pressed");
-            mySPort.Write("<2>");
-        }
-        else if (Input.GetKeyDown("3"))
-        {
-            Debug.Log("3 key was pressed");
-            mySPort.Write("<3>");
-        }*/
-        try
-        {
-         //   if (mySPort.CDHolding)
-          //  { }
-        }
-        catch (Exception e)
-        {
-            //Debug.Log("Port closed, re opening");
-            //mySPort = new SerialPort(serialName, 115200);
-           // openPort(); REMOVE THIS
-        }
+            if(masterController.condition == MasterController.CONDITION.SM_RT)
+                try
+                {
+                    if (mySPort.CDHolding)
+                    { }
+                }
+                catch (Exception e)
+                {
+                    Debug.Log("Port closed, re opening");
+                    mySPort = new SerialPort(serialName, 115200);
+                     openPort(); //REMOVE THIS
+                }  
 
-        /*if (string.Equals(readData(), "OK"))
+            /*if (string.Equals(readData(), "OK"))
             {
                 GameObject tracker1 = GameObject.Find("Tracker1");
                 if (tracker1 != null)
@@ -88,12 +81,15 @@ public class PropMannager : MonoBehaviour
                     }
                 }
             }*/
+        }
+       
+      
        
     }
 
     public void adapticCommand(PRESET_TYPE type)
     {
-        /*
+        
         //Debug.Log("PropManager ---- Adaptic  " + type.ToString());
         if (type == PRESET_TYPE.FLAT)
         {
@@ -107,7 +103,7 @@ public class PropMannager : MonoBehaviour
         {
             mySPort.Write("<1>");
         }
-        mySPort.DiscardOutBuffer();*/
+        mySPort.DiscardOutBuffer();
     }
 
     public string readData()

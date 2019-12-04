@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class TrackerSystemsMannager : MonoBehaviour
 {
-
-
     public Tracker rightTracker;
     public Tracker leftTracker;
 
@@ -20,7 +18,6 @@ public class TrackerSystemsMannager : MonoBehaviour
 
     public TYPE_TRACKER typeTracker;
 
-
     // It steores the selected set of trackes
     private TrackerSet selectedSetTrackers;
 
@@ -28,7 +25,6 @@ public class TrackerSystemsMannager : MonoBehaviour
     // By definition, each set must include 2 objects. The first one includes all the 
     // definitios for the LEFT tracker, the second about RIGHT
     public List<TrackerSet> setTrackers;
-
     private GameObject master;
     private TrackerMannager trackerMannager;
 
@@ -48,19 +44,13 @@ public class TrackerSystemsMannager : MonoBehaviour
                 ts.gameObject.SetActive(false);
             }
         }
-        
-            master = GameObject.Find("Master");
-            trackerMannager = master.GetComponent<TrackerMannager>();
-            leftTracker.trackerRep = selectedSetTrackers.gameObject.transform.GetChild(0)
+
+        leftTracker.trackerRep = selectedSetTrackers.gameObject.transform.GetChild(0)
+                                .transform.gameObject;
+
+        rightTracker.trackerRep = selectedSetTrackers.gameObject.transform.GetChild(1)
                                     .transform.gameObject;
-
-            rightTracker.trackerRep = selectedSetTrackers.gameObject.transform.GetChild(1)
-                                    .transform.gameObject;
-            trackerMannager.leftTracker = leftTracker;
-            trackerMannager.rightTracker = rightTracker;
-
-        
-
+           
     }
 
     // Update is called once per frame

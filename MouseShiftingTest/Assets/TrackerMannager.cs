@@ -13,35 +13,58 @@ public class TrackerMannager : MonoBehaviour
     public PropController rightProp;
 
     private MasterController masterController;
+
+    public TrackerSystemsMannager trackerSystemsMannager;
+
     // Start is called before the first frame update
     void Start()
     {
         masterController = gameObject.GetComponent<MasterController>();
+        if (!GetComponent<PhotonView>().isMine)
+        {
+            trackerSystemsMannager.gameObject.SetActive(false);
+        }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (GetComponent<PhotonView>().isMine)
+        {
+            if(leftTracker == null)
+            {
+                if (trackerSystemsMannager.leftTracker != null)
+                    leftTracker = trackerSystemsMannager.leftTracker;
+                else
+                    Debug.LogError("No tracker found");
+            }
+            if (rightTracker == null)
+            {
+                if (trackerSystemsMannager.rightTracker != null)
+                    leftTracker = trackerSystemsMannager.rightTracker;
+                else
+                    Debug.LogError("No tracker found");
+            }
+        }
     }
-
-
-
     // Pair tracker with propcontroller. If RT condition is applied, both cirutl objects will be attached to the same
     // tracker. Left one here.
     public void setTrackers()
-    {/*
-        masterController = gameObject.GetComponent<MasterController>();
-        if (masterController.currentCondition == MasterController.CONDITION.NM_RT ||
-                masterController.currentCondition == MasterController.CONDITION.SM_RT)
+    {
+        if (GetComponent<PhotonView>().isMine)
         {
-            leftProp.dTracker = leftTracker;
-            rightProp.dTracker = leftTracker;
+            if (masterController.condition == MasterController.CONDITION.NM_RT ||
+                masterController.condition == MasterController.CONDITION.SM_RT)
+            {
+                leftProp.dTracker = leftTracker;
+                rightProp.dTracker = leftTracker;
+            }
+            else
+            {
+                leftProp.dTracker = leftTracker;
+                rightProp.dTracker = rightTracker;
+            }
         }
-        else
-        {
-            leftProp.dTracker = leftTracker;
-            rightProp.dTracker = rightTracker;
-        }*/
     }
 }
