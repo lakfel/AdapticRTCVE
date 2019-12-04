@@ -27,6 +27,8 @@ public class LevelMannager : Photon.PunBehaviour, IPunObservable
     [Tooltip("Spawn location for participants")]
     public Transform[] spawnLocations;
 
+    public Transform currentSpawnPosition;
+
     public Platform currentPlatform;
 
     // Array of users
@@ -70,6 +72,7 @@ public class LevelMannager : Photon.PunBehaviour, IPunObservable
         char[] nickNamechars = playerNickname.ToCharArray();
         int playerId = Int32.Parse(nickNamechars[playerNickname.Length - 1] + "");
         Transform spawnPosition = spawnLocations[playerId];
+        currentSpawnPosition = spawnPosition;
         //GameObject.Find("/TutorialIslandP" + (playerId + 1) + "/Deco/Door/TutorialStatus/TutorialCanvas").transform.gameObject.SetActive(true);
         // TODO do whatever is needed it to assure correct orientation
         // Maybe locally

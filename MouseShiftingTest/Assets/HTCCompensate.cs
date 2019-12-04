@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.XR;
 using Leap;
-
+using System;
 // Position spawn is configured and assured by PUN. Orientation is not. This class tries to set this up.
 public class HTCCompensate : MonoBehaviour
 {
@@ -14,7 +14,9 @@ public class HTCCompensate : MonoBehaviour
     // Flag to selfconfigure the rotation
     public bool selfConfigured;
 
-  
+    public Transform desiredPosition;
+
+    public GameObject camera;
 
     void Start()
     {
@@ -27,13 +29,31 @@ public class HTCCompensate : MonoBehaviour
         if (!selfConfigured)
             if (GetComponent<PhotonView>().isMine)    
             {
-                GameObject camera = transform.Find("Camera").gameObject;
                 if (camera != null)
                 {
+                    LevelMannager levelMannager = GameObject.Find("LevelMannager").GetComponent<LevelMannager>();
+                    desiredPosition = levelMannager.currentSpawnPosition;
+
+                    transform.rotation = desiredPosition.rotation;
+
                     float cameraYDegree = camera.transform.eulerAngles.y;
                     float myYDegree = transform.eulerAngles.y;
                     float diff = cameraYDegree - myYDegree;
                     transform.Rotate(new Vector3(0f, -diff, 0f));
+
+                    
+                    Transform cam = camera.transform;
+                    Vector3 posDiff = new Vector3(cam.position.x - transform.position.x,
+                                        cam.position.y - transform.position.y,
+                                        cam.position.z - transform.position.z);
+
+                    transform.position = new Vector3(desiredPosition.position.x - posDiff.x,
+                                                    desiredPosition.position.y - posDiff.y,
+                                                    desiredPosition.position.z - posDiff.z);
+
+                    
+                
+                    
                     selfConfigured = true;
                 }
                 else
