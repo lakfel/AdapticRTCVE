@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrackerSystemsMannager : MonoBehaviour
+public class TrackerSystemsMannager : MonoBehaviour, IPunObservable
 {
     public Tracker rightTracker;
     public Tracker leftTracker;
@@ -65,5 +65,10 @@ public class TrackerSystemsMannager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+       // throw new System.NotImplementedException();
     }
 }

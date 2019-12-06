@@ -50,4 +50,5 @@ MonoBehaviour:
   - setDraw
   - setDrawRPC
   - objectGreenRPC
+  - objectGrabbedRPC
   DisableAutoOpenWizard: 1
