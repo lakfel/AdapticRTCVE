@@ -76,9 +76,16 @@ public class HandLogic : MonoBehaviour
         {
             if (allowToGrab)
             {
-                possibleObject = other.gameObject;
+
+                GameObject possibleObjectT = other.gameObject;
                 PropSpecs propSpecs = possibleObject.GetComponent<PropSpecs>();
-                propSpecs.objectGreen(true);
+                if(!propSpecs.grabbed)
+                { 
+                   propSpecs.objectGreen(true);
+                   propSpecs.objectGrabbed(true);
+                    possibleObject = possibleObjectT;
+                }
+               
             }
         }
     }

@@ -14,10 +14,26 @@ public class PropSpecs : MonoBehaviour, IPunObservable
 
     public GameObject ghost;
 
+    public bool grabbed;
+
     private void Start()
     {
         currentSide = SIDE.UNDEFINED;
+        grabbed = false;
     }
+
+    [PunRPC]
+    public void objectGrabbedRPC(bool isGrabbed)
+    {
+        grabbed = isGrabbed;
+    }
+
+
+    public void objectGrabbed(bool isGreen)
+    {
+        GetComponent<PhotonView>().RPC("objectGreenRPC", PhotonTargets.All, isGreen);
+    }
+
 
     [PunRPC]
     public void objectGreenRPC(bool isGreen)
