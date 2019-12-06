@@ -15,7 +15,7 @@ using Leap.Unity.Attributes;
 namespace Leap.Unity
 {
     /** A basic Leap hand model constructed dynamically vs. using pre-existing geometry*/
-    public class CapsuleHand : HandModelBase, GenericHand
+    public class CapsuleHand : HandModelBase, IGenericHand
     {
         private const int TOTAL_JOINT_COUNT = 4 * 5;
         private const float CYLINDER_MESH_RESOLUTION = 0.1f; //in centimeters, meshes within this resolution will be re-used
@@ -388,17 +388,17 @@ namespace Leap.Unity
             this.canDraw = canDraw;
         }
 
-        Vector3 GenericHand.giveRealPosition()
+        Vector3 IGenericHand.giveRealPosition()
         {
             throw new System.NotImplementedException();
         }
 
-        void GenericHand.setDraw(bool canDraw)
+        void IGenericHand.setDraw(bool canDraw)
         {
             throw new System.NotImplementedException();
         }
 
-        bool GenericHand.canDraw()
+        bool IGenericHand.canDraw()
         {
             throw new System.NotImplementedException();
         }

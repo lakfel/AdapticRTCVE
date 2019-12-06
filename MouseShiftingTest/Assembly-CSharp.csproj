@@ -65,6 +65,7 @@
     <Compile Include="Assets\DefaultCapsuleHand.cs" />
     <Compile Include="Assets\GenericHand.cs" />
     <Compile Include="Assets\HandHTCTrack.cs" />
+    <Compile Include="Assets\HandLogic.cs" />
     <Compile Include="Assets\HeadSync.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ColliderEvent\ColliderEventCaster.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ColliderEvent\ColliderEventData.cs" />
@@ -203,7 +204,6 @@
     <Compile Include="Assets\HTC.UnityPlugin\VRModule\VRModuleManager.cs" />
     <Compile Include="Assets\HTCCompensate.cs" />
     <Compile Include="Assets\HydraSettings.cs" />
-    <Compile Include="Assets\HydraTester.cs" />
     <Compile Include="Assets\HydraTracker.cs" />
     <Compile Include="Assets\ITracker.cs" />
     <Compile Include="Assets\LeapMotion\Core\Examples\Example Assets\InertiaPostProcessProvider.cs" />
@@ -566,7 +566,6 @@
     <Compile Include="Assets\PropController.cs" />
     <Compile Include="Assets\PropMannager.cs" />
     <Compile Include="Assets\PropSpecs.cs" />
-    <Compile Include="Assets\PropsTrackerManager.cs" />
     <Compile Include="Assets\prueba.cs" />
     <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseHand.cs" />
     <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseHandsController.cs" />

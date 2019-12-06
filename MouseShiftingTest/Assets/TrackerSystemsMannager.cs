@@ -31,26 +31,34 @@ public class TrackerSystemsMannager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        selectedSetTrackers = null;
-        foreach(TrackerSet ts in setTrackers)
+        if(GetComponent<PhotonView>().isMine)
+        { 
+            selectedSetTrackers = null;
+            foreach(TrackerSet ts in setTrackers)
+            {
+                if(ts.typeTracker == typeTracker)
+                {
+                    ts.gameObject.SetActive(true);
+                    selectedSetTrackers = ts;
+                }
+                else
+                {
+                    ts.gameObject.SetActive(false);
+                }
+            }
+
+            leftTracker.trackerRep = selectedSetTrackers.gameObject.transform.GetChild(0)
+                                    .transform.gameObject;
+
+            rightTracker.trackerRep = selectedSetTrackers.gameObject.transform.GetChild(1)
+                                        .transform.gameObject;
+        }
+        else
         {
-            if(ts.typeTracker == typeTracker)
-            {
-                ts.gameObject.SetActive(true);
-                selectedSetTrackers = ts;
-            }
-            else
-            {
-                ts.gameObject.SetActive(false);
-            }
+            leftTracker.gameObject.SetActive(false);
+            rightTracker.gameObject.SetActive(false);
         }
 
-        leftTracker.trackerRep = selectedSetTrackers.gameObject.transform.GetChild(0)
-                                .transform.gameObject;
-
-        rightTracker.trackerRep = selectedSetTrackers.gameObject.transform.GetChild(1)
-                                    .transform.gameObject;
-           
     }
 
     // Update is called once per frame

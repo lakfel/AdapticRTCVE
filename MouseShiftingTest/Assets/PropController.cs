@@ -6,19 +6,11 @@ using UnityEngine;
 public class PropController : MonoBehaviour
 {
 
-    public bool[] anglesUsed = new bool[] { false, false, false, false, false };
-    public int angleNumber;
+    public enum SIDE { LEFT, RIGHT };
+    public SIDE currentSide;
 
+    public GameObject voObject;
 
-    private GameObject master;
-    private TargetedController targetedController;
-    private Logic logic;
-    private PersistanceManager persistanceManager;
-    private TrackerMannager trackerMannager;
-    private MasterController masterController;
-
-    // Describes the range of possibly rotations
-    //TODO Check this. Last time error ocurred in one cylinder orientation.
     private readonly Quaternion[] flatRots = {
                                         new Quaternion(0f, 0.0f, 0.7f, 0.7f),
                                         new Quaternion(0.5f, 0.5f , 0.5f , 0.5f),
@@ -34,6 +26,24 @@ public class PropController : MonoBehaviour
                                         new Quaternion(0.0f, -0.9f, 0.0f, 0.4f),
                                         new Quaternion(0.0f, -1f, 0f, 0.3f)
                                     };
+
+
+    public bool[] anglesUsed = new bool[] { false, false, false, false, false };
+    public int angleNumber;
+
+    // This must be replaced.
+    private Logic logic;
+
+    private GameObject master;
+    private PersistanceManager persistanceManager;
+    private MasterController masterController;
+
+    // Describes the range of possibly rotations
+    //TODO Check this. Last time error ocurred in one cylinder orientation.
+
+
+    public Tracker dTracker;
+    
 
     private Quaternion[] rangeRotation;
     public Quaternion[] RangeRotation { get => rangeRotation; set => rangeRotation = value; }
@@ -60,52 +70,28 @@ public class PropController : MonoBehaviour
     public PropMannager propManager;
     public int trackerObject;
 
-    /**
-     *  Reference to the Hydra tracker, if it has it 
-     */
-    public Tracker dTracker;
 
-        /**
-     * Original position, no ret
-     */
-    Vector3 realPosition;
+    //public Collider handCollider;
 
-    Vector3 initialPosition;
-    Quaternion initialRotation;
-    Quaternion initialControllerRotation;
-    private Vector3 firstTrackedPosition;
-
-    public Vector3 InitialPosition { get => initialPosition; set => initialPosition = value; }
-    public Quaternion InitialRotation { get => initialRotation; set => initialRotation = value; }
-
-    public Quaternion InitialControllerRotation { get => initialControllerRotation; set => initialControllerRotation = value; }
-    public SixenseInput.Controller Controller { get => controller; set => controller = value; }
-    public Vector3 FirstTrackedPosition { get => firstTrackedPosition; set => firstTrackedPosition = value; }
-    public Vector3 RealPosition { get => realPosition; set => realPosition = value; }
-
-    public SixenseHands SideController;
-
-    private SixenseInput.Controller controller;
-    private SixenseHands sideController;
-
-    public Collider handCollider;
     private bool isOverlapped;
-
-
-    private Quaternion inicialRotation;
 
     // Start is called before the first frame update
     void Start()
     {
-        inicialRotation = dockProp.transform.rotation;
-        gameObject.transform.position = positionReference.transform.position;
-        isOverlapped = false;
-        deltaY = 0.5f;
-        //TODO there must be a central mannager. LevelMannager should be. Set everything up to change responsabilities
-        master = GameObject.Find("Master");
-        logic = master.GetComponent<Logic>();
-        angleNumber = 0;
+       
+            isOverlapped = false;
+            deltaY = 0.5f;
+            angleNumber = 0;
+        
+    }
 
+    public void objectGreen(bool isGreen)
+    {
+        if(voObject != null)
+        {
+            PropSpecs prop = voObject.GetComponent<PropSpecs>();
+            prop.objectGreen(isGreen);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -118,15 +104,6 @@ public class PropController : MonoBehaviour
   
 
 
-    public void objectGreen(bool isGreen)
-    {
-        Renderer rend = transform.GetChild(0).GetChild(0).gameObject.GetComponent<Renderer>();
-        if(isGreen)
-            rend.material.color = Color.green;
-        else
-            rend.material.color = Color.white;
-    }
-
     private void OnTriggerExit(Collider other)
     {
         isOverlapped = false;
@@ -136,103 +113,9 @@ public class PropController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {/*
-        bool nOverlapped = isOverlapped;
-        CapsuleHand capsuleHand = handCollider.gameObject.GetComponent<CapsuleHand>();
-        if (capsuleHand != null && handCollider.gameObject.activeSelf)
-        {
-            if (Physics.OverlapBox(handCollider.transform.position, new Vector3(0.1f, 0.1f, 0.1f)).Length == 1)
-            {
-                nOverlapped = false;
-            }
-            else
-            {
-                nOverlapped = true;
-            }
-        }
-
-
-        if (logic.stage == 1 || logic.stage == 3)
-        {
-            
-            if (logic.stage == 3)
-            {
-                capsuleHand.canDraw = false;
-                objectGreen(true);
-            }
-            else
-            {
-                objectGreen(nOverlapped);
-                capsuleHand.canDraw = true;
-            }
-            logic.handOnObject = nOverlapped;
-            if( logic.stage == 1)
-            {
-                if(Vector3.Distance(transform.position, positionReference.transform.position) > 0.05)
-                {
-                    logic.reGoal();
-                }
-            }
-
-        }
-        else
-        {
-            if (nOverlapped == false)
-            {
-
-            }
-
-            
-
-            objectGreen(true);
-            capsuleHand.canDraw = false;
-        }
-        isOverlapped = nOverlapped;
-
-        //Debug.Log("DOCK.... " + dockProp.transform.rotation);
-
-        /*
-                    if (handCollider.gameObject.activeSelf )
-                {
-                    if (logic.stage == 0 || logic.stage == 4)
-                    {
-                        if (!overlapped)
-                        {
-                            IsMoving = false;
-                            objectGreen(false);
-                            if (capsuleHand != null)
-                                capsuleHand.canDraw = true;
-                            masterController.handOnObject = false;
-                        }
-                        else
-                        {
-                            objectGreen(true);
-                            masterController.handOnObject = true;
-                        }
-                    }
-                    else
-                    {
-                        if (capsuleHand != null)
-                        {
-                            capsuleHand.canDraw = false;
-                        }
-
-                        objectGreen(true);
-                    }
-
-                }
-
-                //Debug.Log("PROP   POS///// x:" + gameObject.transform.position.x + "///  y:" + gameObject.transform.position.y + "///  z:" + gameObject.transform.position.z);
-                //Debug.Log("PROP   ROT///// W:" + gameObject.transform.rotation.w + "///// x:" + gameObject.transform.rotation.x + "///  y:" + gameObject.transform.rotation.y + "///  z:" + gameObject.transform.rotation.z);
-        /*
-                GameObject master = GameObject.Find("Master");
-                TargetedController positionController = master.GetComponent<TargetedController>();
-                if (positionController != null)
-                {
-                    transform.position = positionController.giveRetargetedPosition(transform.position);
-                }
-          */
+    {
        
+          //if (Physics.OverlapBox(handCollider.transform.position, new Vector3(0.1f, 0.1f, 0.1f)).Length == 1)
     }
 
     public string preSetShape()
@@ -252,7 +135,7 @@ public class PropController : MonoBehaviour
         }
         return presetResult;
     }
-
+    /*
     public void movePropDock(bool toPointZ)
     {
         if (toPointZ)
@@ -267,7 +150,7 @@ public class PropController : MonoBehaviour
         }
         else
         {
-            dockProp.transform.parent = positionReference.transform;
+            dockProp.transform.parent = virtualObject.transform;
             dockProp.transform.localPosition = Vector3.zero;
             randomizeRotation(true);
         }
@@ -277,8 +160,8 @@ public class PropController : MonoBehaviour
     {
         dockProp.transform.parent = transform.GetChild(0).transform;
         dockProp.transform.localPosition = Vector3.zero;
-    }
-
+    }*/
+    /*
     public void randomizeRotation (bool neutral)
     {
         
@@ -299,12 +182,12 @@ public class PropController : MonoBehaviour
 
         PropSpecs propSpecs = child.GetComponent<PropSpecs>();
         if(propSpecs.type == PropMannager.PRESET_TYPE.CYLINDER)
-            dockProp.transform.rotation = cyllRots[neutral ? 0: Random.Range(0, 5)];
+            dockProp.transform.rotation = cyllRots[neutral ? 0: newAnglePosition];
         else
-            dockProp.transform.rotation = flatRots[neutral ? 0 : Random.Range(0, 5)];
+            dockProp.transform.rotation = flatRots[neutral ? 0 : newAnglePosition];
 
-    }
-    
+    } */
+
     public void activeChildren(bool activate)
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(activate);
@@ -316,12 +199,13 @@ public class PropController : MonoBehaviour
         distance = Vector3.Distance(transform.position, dockProp.transform.position);
         return distance;
     }
-
+  
     public float distanceToInitialPoint()
     {
         float distance = 0f;
-        distance = Vector3.Distance(transform.position, positionReference.transform.position);
+        //distance = Vector3.Distance(transform.position, virtualObject.transform.position);
         return distance;
     }
+     
 
 }

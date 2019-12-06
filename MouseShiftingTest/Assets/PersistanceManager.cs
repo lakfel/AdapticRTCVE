@@ -12,7 +12,7 @@ public class PersistanceManager : MonoBehaviour
 
     // Right hand of leapmotion. need to know position to log
     // Maybe is better to ask for the tracker;
-    public GenericHand trackedHand;
+    public IGenericHand trackedHand;
     
     // Reference to the actual object to pick
     // TODO mannagement to switch between both users
@@ -279,7 +279,7 @@ public class PersistanceManager : MonoBehaviour
         }
         if(trackedObject != null)
         {
-            trackPos = trackedObject.RealPosition;
+           // trackPos = trackedObject.RealPosition;
             trackPosRet = trackedObject.transform.position;
             trackRot = trackedObject.transform.rotation;
         }

@@ -23,7 +23,7 @@ public class Logic : MonoBehaviour
 
     //It mas include a GenericHand
     public GameObject handObject;
-    public GenericHand hand;
+    public IGenericHand hand;
     // Initial point for the hand
     public GameObject initialPoint;
 
@@ -52,7 +52,7 @@ public class Logic : MonoBehaviour
         trackerMannager = gameObject.GetComponent<TrackerMannager>();
         notificationsMannager = gameObject.GetComponent<NotificationsMannager>();
         surveyMannager = gameObject.GetComponent<SurveyMannager>();
-        hand = handObject.gameObject.GetComponent<GenericHand>();
+        hand = handObject.gameObject.GetComponent<IGenericHand>();
         setNew();
 
     }
@@ -114,7 +114,7 @@ public class Logic : MonoBehaviour
        /* controller.dTracker.detach();
         controller.gameObject.SetActive(true);
         controller.activeChildren(false);
-        controller.dTracker.PositionReference = controller;
+        controller.dTracker.VirtualObject = controller;
         if (masterController.currentStage == MasterController.EXP_STAGE.PROP_MATCHING_PLUS_RETARGETING)
         {
             string result = controller.preSetShape(); // TODO The way to attach the object is still bad.     
@@ -164,8 +164,8 @@ public class Logic : MonoBehaviour
 
                 this.propContr = props[goal].GetComponent<PropController>();
                 
-                GameObject PositionReference = propContr.positionReference;
-                targetedController.starShifting(PositionReference.transform.position, hand.giveRealPosition()); //Capsulehand has a simplified methos for giving the hand. does not work here?
+                GameObject VirtualObject = propContr.virtualObject;
+                targetedController.starShifting(VirtualObject.transform.position, hand.giveRealPosition()); //Capsulehand has a simplified methos for giving the hand. does not work here?
                
                 /*if (masterController.currentStage == MasterController.EXP_STAGE.PROP_MATCHING_PLUS_RETARGETING || masterController.currentStage == MasterController.EXP_STAGE.PROP_NOT_MATCHING_PLUS_RETARGETING)
                 {
@@ -173,7 +173,7 @@ public class Logic : MonoBehaviour
                 }
                 else
                 {
-                    props[goal].transform.position = PositionReference.transform.position;
+                    props[goal].transform.position = VirtualObject.transform.position;
                 }*//*
                 StartCoroutine(pairTracker(1, this.propContr));
 
@@ -212,7 +212,7 @@ public class Logic : MonoBehaviour
                     if (hTracker != null)
                     {
                         //hTracker.attach(propContr);
-                        hTracker.PositionReference = this.propContr;
+                        hTracker.VirtualObject = this.propContr;
                         if (masterController.currentStage != MasterController.EXP_STAGE.PROP_MATCHING_PLUS_RETARGETING)
                         {
                             hTracker.detach();

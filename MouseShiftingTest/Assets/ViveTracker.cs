@@ -31,7 +31,7 @@ public class ViveTracker : ITracker
 
     public override void attach()
     {/*
-        if (PositionReference != null)
+        if (VirtualObject != null)
         {
             if (masterController.currentStage == MasterController.EXP_STAGE.PROP_MATCHING_PLUS_RETARGETING || masterController.currentStage == MasterController.EXP_STAGE.PROP_NOT_MATCHING_PLUS_RETARGETING)
             {
@@ -40,8 +40,8 @@ public class ViveTracker : ITracker
             }
             else
             {
-                InitialPosition = PositionReference.positionReference.transform.position; //+ trackerOffset;
-                InitialRotation = PositionReference.positionReference.transform.rotation;
+                InitialPosition = VirtualObject.virtualObject.transform.position; //+ trackerOffset;
+                InitialRotation = VirtualObject.virtualObject.transform.rotation;
             }
             
             FirstTrackedRotation = gameObject.transform.rotation;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface GenericHand
+public interface IGenericHand
 {
     Vector3 giveRealPosition();
     void setDraw(bool canDraw);

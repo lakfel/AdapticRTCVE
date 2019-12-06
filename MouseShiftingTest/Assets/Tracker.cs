@@ -18,15 +18,15 @@ public class Tracker : MonoBehaviour
     // This is the position reference of the object must be in VR.
     // When retargeting is not applied, this must match with the objetc in real world either in the left or in the right
     // When reatergetin is applied, this is left or right. In real world the object is placed in the RealWorldReference position
-    private PropController positionReference;
-    public PropController PositionReference { get => positionReference; set => positionReference = value; }
+    private GameObject virtualObject;
+    public GameObject VirtualObject { get => virtualObject; set => virtualObject = value; }
 
     //This is the reference of the retargeted goal point. It use to be the middle point betwen left and right prop
     // However, it can be used to retarget to any position
     public GameObject realWorldReference;
 
     // This represents the initial position that the object tracked has in real world
-    // This is either PositionReference (NOT RETARGETING) or realWorldReference (RETARGETING APPLIED)
+    // This is either VirtualObject (NOT RETARGETING) or realWorldReference (RETARGETING APPLIED)
     Vector3 initialPosition;
 
     // This represents the initial rotation of the object tracked in real world
@@ -46,7 +46,7 @@ public class Tracker : MonoBehaviour
     public Quaternion FirstTrackedRotation { get => firsTrackedRotation; set => firsTrackedRotation = value; }
     public Vector3 FirstTrackedPosition { get => firstTrackedPosition; set => firstTrackedPosition = value; }
 
-    private GameObject master;
+    public GameObject master;
     private MasterController masterController;
     private TargetedController targetedController;
     private Logic logic;
@@ -60,10 +60,11 @@ public class Tracker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         atached = false;
-        master = GameObject.Find("Master");
         targetedController = master.GetComponent<TargetedController>();
         masterController = master.GetComponent<MasterController>();
+        realWorldReference = GameObject.Find("MiddlePropPosition");
         reatach = false;
         objectTracked.transform.localPosition = trackedOffset;
     }
@@ -71,7 +72,7 @@ public class Tracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PositionReference != null && atached)
+        if (VirtualObject != null && atached)
         {
             
             Vector3 realPos = Vector3.zero;
@@ -80,9 +81,9 @@ public class Tracker : MonoBehaviour
             transform.position = targetedController.giveRetargetedPosition(realPos);
             transform.rotation = trackerRep.transform.rotation * InitialRotation * Quaternion.Inverse(FirstTrackedRotation);
             
-            PositionReference.RealPosition = realPos + trackedOffset;
-            PositionReference.transform.position = objectTracked.transform.position;
-            PositionReference.transform.rotation = objectTracked.transform.rotation;
+            
+            VirtualObject.transform.position = objectTracked.transform.position;
+            VirtualObject.transform.rotation = objectTracked.transform.rotation;
         }
         if (reatach)
         {
@@ -93,32 +94,31 @@ public class Tracker : MonoBehaviour
 
     public  void attach()
     {
-       /*ool att = false;
-        if (PositionReference != null)
+        bool att = false;
+        if (VirtualObject != null)
         {
-            PositionReference.dTracker = this;
-            if (masterController.currentStage == MasterController.EXP_STAGE.PROP_MATCHING_PLUS_RETARGETING || masterController.currentStage == MasterController.EXP_STAGE.PROP_NOT_MATCHING_PLUS_RETARGETING)
+            /*if (masterController.condition == MasterController.CONDITION.NM_RT || masterController.condition == MasterController.CONDITION.SM_RT)
             {
-                InitialPosition = realWorldReference.transform.position; 
-                InitialRotation = Quaternion.identity;
+                InitialPosition = realWorldReference.transform.position;
+                InitialRotation = VirtualObject.transform.rotation;
                 att = true;
             }
-            if (!att)
-            {
-                InitialPosition = PositionReference.positionReference.transform.position;
-                InitialRotation = PositionReference.positionReference.transform.rotation;
-            }
+            else
+            {*/
+                InitialPosition = VirtualObject.transform.position;
+                InitialRotation = VirtualObject.transform.rotation;
+            //}
             
-            FirstTrackedRotation = objectTracked.transform.rotation;
-            firstTrackedPosition = objectTracked.transform.position;
+            FirstTrackedRotation = trackerRep.transform.rotation;
+            firstTrackedPosition = trackerRep.transform.position;
             atached = true;
-        }*/
+        }
     }
 
 
     public void detach()
     {
-        PositionReference = null;
+        VirtualObject = null;
         InitialPosition = Vector3.zero;
         firstTrackedPosition = Vector3.zero;
         InitialRotation = Quaternion.identity;

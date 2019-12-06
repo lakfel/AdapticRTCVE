@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class TrackerMannager : MonoBehaviour
 {
-    public enum TRCKER_SIDE { LEFT, RIGHT};
-
+    /**
+     * These are the trackers
+     */
     public Tracker leftTracker;
     public Tracker rightTracker;
 
-    public PropController leftProp;
-    public PropController rightProp;
 
+    /**
+     * These are the trackers references.
+     * Basically to use them as references when RT or OO condition works
+     */
+    public Tracker fLeftTracker;
+    public Tracker fRightTracker;
+
+    
     private MasterController masterController;
 
     public TrackerSystemsMannager trackerSystemsMannager;
@@ -57,13 +64,13 @@ public class TrackerMannager : MonoBehaviour
             if (masterController.condition == MasterController.CONDITION.NM_RT ||
                 masterController.condition == MasterController.CONDITION.SM_RT)
             {
-                leftProp.dTracker = leftTracker;
-                rightProp.dTracker = leftTracker;
+                fLeftTracker = leftTracker;
+                fRightTracker = leftTracker;
             }
             else
             {
-                leftProp.dTracker = leftTracker;
-                rightProp.dTracker = rightTracker;
+                fLeftTracker = leftTracker;
+                fRightTracker = rightTracker;
             }
         }
     }

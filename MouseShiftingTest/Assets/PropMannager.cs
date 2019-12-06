@@ -6,7 +6,8 @@ using System.Collections;
 using System.IO.Ports;
 using System.Text;
 using System;
-
+//TODO Name and hierarchy is not good here.
+// This manages the comunication with the Adaptci.
 public class PropMannager : MonoBehaviour
 {
 
@@ -34,9 +35,11 @@ public class PropMannager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!GetComponent<PhotonView>().isMine)
+        if (GetComponent<PhotonView>().isMine)
         {
             masterController = GetComponentInParent<MasterController>();
+            if(masterController != null 
+                    && masterController.condition == MasterController.CONDITION.SM_RT)
             try
             {
                 openPort();
@@ -52,7 +55,7 @@ public class PropMannager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GetComponent<PhotonView>().isMine)
+        if (GetComponent<PhotonView>().isMine)
         {
             if(masterController.condition == MasterController.CONDITION.SM_RT)
                 try
@@ -77,7 +80,7 @@ public class PropMannager : MonoBehaviour
                     {//
                        // hTracker.attach();
                        // Debug.Log("ATTACHING PROP");
-                        // hTracker.PositionReference = propContr;
+                        // hTracker.VirtualObject = propContr;
                     }
                 }
             }*/

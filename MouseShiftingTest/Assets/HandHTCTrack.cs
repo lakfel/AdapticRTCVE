@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HandHTCTrack : MonoBehaviour, GenericHand 
+public class HandHTCTrack : MonoBehaviour, IGenericHand
 {
     // Object attached to the physical tracker. It's transform should chnge as the tracker does
     public GameObject tracker;
@@ -23,9 +23,16 @@ public class HandHTCTrack : MonoBehaviour, GenericHand
         return transform.position;
     }
 
-    public void setDraw(bool canDraw)
+    [PunRPC]
+    public void setDrawRPC(bool canDraw)
     {
         handRepresentation.SetActive(canDraw);
+    }
+
+    public void setDraw(bool canDraw)
+    {
+        GetComponent<PhotonView>().RPC("setDrawRPC", PhotonTargets.All, canDraw);
+       
     }
 
     public bool canDraw()

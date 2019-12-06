@@ -46,4 +46,8 @@ MonoBehaviour:
   - ActivatePlayer
   - pressNextsStage
   - setIdTrial
+  - objectGreen
+  - setDraw
+  - setDrawRPC
+  - objectGreenRPC
   DisableAutoOpenWizard: 1
