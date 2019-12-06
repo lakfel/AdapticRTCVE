@@ -31,7 +31,7 @@ public class PropSpecs : MonoBehaviour, IPunObservable
 
     public void objectGrabbed(bool isGreen)
     {
-        GetComponent<PhotonView>().RPC("objectGreenRPC", PhotonTargets.All, isGreen);
+        GetComponent<PhotonView>().RPC("objectGrabbedRPC", PhotonTargets.All, isGreen);
     }
 
 

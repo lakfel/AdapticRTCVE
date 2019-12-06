@@ -68,7 +68,7 @@ public class MasterController : MonoBehaviour, IPunObservable
         if (!GetComponent<PhotonView>().isMine)
         {
             trackerMannager.enabled = false;
-            logic.enabled = false;
+            //logic.enabled = false;
         }
             GameObject objLevelController = GameObject.Find("LevelMannager");
         if (objLevelController != null)

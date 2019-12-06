@@ -81,9 +81,11 @@ public class HandLogic : MonoBehaviour
                 PropSpecs propSpecs = possibleObjectT.GetComponent<PropSpecs>();
                 if(!propSpecs.grabbed)
                 { 
-                   propSpecs.objectGreen(true);
-                   propSpecs.objectGrabbed(true);
+                    propSpecs.objectGreen(true);
+                    propSpecs.objectGrabbed(true);
                     possibleObject = possibleObjectT;
+                    PhotonView photonView = propSpecs.gameObject.GetPhotonView();
+                    photonView.TransferOwnership(PhotonNetwork.player.ID);
                 }
                
             }
