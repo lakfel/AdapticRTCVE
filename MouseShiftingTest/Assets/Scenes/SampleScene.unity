@@ -10112,8 +10112,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSide: 0
   type: 3
-  objct: {fileID: 0}
-  ghost: {fileID: 0}
+  objct: {fileID: 798710325487041743}
+  ghost: {fileID: 1915070959}
   grabbed: 0
 --- !u!114 &1933322012
 MonoBehaviour:
@@ -16466,6 +16466,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Vive_VTVT
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789427902931423032, guid: be8ee795ecffc6c43b590929a73df3ce,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5789427902931423064, guid: be8ee795ecffc6c43b590929a73df3ce,
         type: 3}

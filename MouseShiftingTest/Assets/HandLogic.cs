@@ -78,7 +78,7 @@ public class HandLogic : MonoBehaviour
             {
 
                 GameObject possibleObjectT = other.gameObject;
-                PropSpecs propSpecs = possibleObject.GetComponent<PropSpecs>();
+                PropSpecs propSpecs = possibleObjectT.GetComponent<PropSpecs>();
                 if(!propSpecs.grabbed)
                 { 
                    propSpecs.objectGreen(true);

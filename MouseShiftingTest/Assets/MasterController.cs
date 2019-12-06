@@ -5,7 +5,7 @@ using UnityEngine;
 
 // In Adaptic + retargetin project this script manages the whole logic.
 // In second project this mannages only the user logic, locally and in network
-public class MasterController : MonoBehaviour
+public class MasterController : MonoBehaviour, IPunObservable
 {
     // Networking mannagement here//
     #region NetworkinMannagement
@@ -60,12 +60,17 @@ public class MasterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         trackerMannager = gameObject.GetComponent<TrackerMannager>();
         notificationsMannager = gameObject.GetComponent<NotificationsMannager>();
         surveyMannager = gameObject.GetComponent<SurveyMannager>();
         logic = gameObject.GetComponent<Logic>();
-
-        GameObject objLevelController = GameObject.Find("LevelMannager");
+        if (!GetComponent<PhotonView>().isMine)
+        {
+            trackerMannager.enabled = false;
+            logic.enabled = false;
+        }
+            GameObject objLevelController = GameObject.Find("LevelMannager");
         if (objLevelController != null)
             levelController = objLevelController.GetComponent<LevelController>();
         else
@@ -185,7 +190,8 @@ public class MasterController : MonoBehaviour
         }*/
     }
 
-    
-
-
+    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        //throw new System.NotImplementedException();
+    }
 }
