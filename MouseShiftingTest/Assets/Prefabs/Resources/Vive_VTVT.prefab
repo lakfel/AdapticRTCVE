@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1405424497596521552}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 0.008, y: 0.008, z: 0.008}
+  m_LocalScale: {x: 0.006, y: 0.006, z: 0.006}
   m_Children:
   - {fileID: 1391284802704771704}
   m_Father: {fileID: 5789427902931423064}
@@ -57,8 +57,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 5847741443525123237}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 2
+  instantiationId: 2
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &5847741443525123237
@@ -1207,8 +1207,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 5789427902931423075}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 5
+  instantiationId: 5
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &5789427902931423075
@@ -2023,8 +2023,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 5789427902931423076}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 8
+  instantiationId: 8
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &5789427902931423074
@@ -2345,6 +2345,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5789427902931423042}
   - component: {fileID: 5789427902931423114}
+  - component: {fileID: 1530365321}
   m_Layer: 0
   m_Name: TrackerSystemMannager
   m_TagString: Untagged
@@ -2390,6 +2391,33 @@ MonoBehaviour:
   - {fileID: 5789427902931423096}
   - {fileID: 5789427902931423118}
   - {fileID: 5789427902931423090}
+--- !u!114 &1530365321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5789427902931423037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 3
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 5789427902931423114}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 9
+  instantiationId: 9
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &5789427902931423038
 GameObject:
   m_ObjectHideFlags: 0
@@ -2691,8 +2719,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 5789427902931423073}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 7
+  instantiationId: 7
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!1 &6253142500145116061
