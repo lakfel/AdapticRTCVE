@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tracker : MonoBehaviour
+public class Tracker : MonoBehaviour, IPunObservable
 {
     // Trackers are palcer away to the center of the real object
     // This variable represent that offset and helps to compensate
@@ -72,24 +72,37 @@ public class Tracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (VirtualObject != null && atached)
-        {
+        if(GetComponent<PhotonView>().isMine)
+        { 
+            if (VirtualObject != null && atached)
+            {
             
-            Vector3 realPos = Vector3.zero;
-            realPos = trackerRep.transform.position - firstTrackedPosition + initialPosition;
+                Vector3 realPos = Vector3.zero;
+                realPos = trackerRep.transform.position - firstTrackedPosition + initialPosition;
 
-            transform.position = targetedController.giveRetargetedPosition(realPos);
-            transform.rotation = trackerRep.transform.rotation * InitialRotation * Quaternion.Inverse(FirstTrackedRotation);
-            
-            
-            VirtualObject.transform.position = objectTracked.transform.position;
-            VirtualObject.transform.rotation = objectTracked.transform.rotation;
+                transform.position = targetedController.giveRetargetedPosition(realPos);
+                transform.rotation = trackerRep.transform.rotation * InitialRotation * Quaternion.Inverse(FirstTrackedRotation);
+
+                //VirtualObject.transform.position = objectTracked.transform.position;
+                //VirtualObject.transform.rotation = objectTracked.transform.rotation;
+
+                GetComponent<PhotonView>().RPC("refreshPosition", PhotonTargets.All, objectTracked.transform.position, objectTracked.transform.rotation);
+            }
+            if (reatach)
+            {
+                reatach = false;
+                attach();
+            }
         }
-        if (reatach)
-        {
-            reatach = false;
-            attach();
-        }
+    }
+
+
+    [PunRPC]
+    public void refreshPosition(Vector3 pos, Quaternion rota)
+    {
+        VirtualObject.transform.position = objectTracked.transform.position;
+        VirtualObject.transform.rotation = objectTracked.transform.rotation;
+
     }
 
     public  void attach()
@@ -125,4 +138,8 @@ public class Tracker : MonoBehaviour
         atached = false;
     }
 
+    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        //throw new System.NotImplementedException();
+    }
 }

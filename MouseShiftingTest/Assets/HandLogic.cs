@@ -47,7 +47,7 @@ public class HandLogic : MonoBehaviour
                     voObject = possibleObject;
                     possibleObject = null;
                     hand.setDraw(false);
-                    PropSpecs propSpecs = voObject.GetComponent<PropSpecs>();
+                    /*PropSpecs propSpecs = voObject.GetComponent<PropSpecs>();
                     if (propSpecs.currentSide == PropSpecs.SIDE.LEFT)
                     {
                         trackerMannager.fLeftTracker.VirtualObject = voObject;
@@ -57,18 +57,47 @@ public class HandLogic : MonoBehaviour
                     {
                         trackerMannager.fRightTracker.VirtualObject = voObject;
                         trackerMannager.fRightTracker.attach();
-                    }
+                    }*/
+
+                    GetComponent<PhotonView>().RPC("pairController", PhotonTargets.All, voObject);
                 }
-                else if(voObject != null)
+                else if (voObject != null)
                 {
-                    trackerMannager.fLeftTracker.detach();
-                    trackerMannager.fRightTracker.detach();
-                    voObject = null;
-                    hand.setDraw(true);
+                    /* trackerMannager.fLeftTracker.detach();
+                     trackerMannager.fRightTracker.detach();
+                     voObject = null;
+                     hand.setDraw(true);*/
+                    GetComponent<PhotonView>().RPC("detachController", PhotonTargets.All);
                 }
             }
         }
     }
+    [PunRPC]
+    public void pairController( GameObject gameObject)
+    {
+        PropSpecs propSpecs = gameObject.GetComponent<PropSpecs>();
+        if (propSpecs.currentSide == PropSpecs.SIDE.LEFT)
+        {
+            trackerMannager.fLeftTracker.VirtualObject = voObject;
+            trackerMannager.fLeftTracker.attach();
+        }
+        else
+        {
+            trackerMannager.fRightTracker.VirtualObject = voObject;
+            trackerMannager.fRightTracker.attach();
+        }
+    }
+
+    [PunRPC]
+    public void detachController()
+    {
+        trackerMannager.fLeftTracker.detach();
+        trackerMannager.fRightTracker.detach();
+        voObject = null;
+        hand.setDraw(true);
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
 
@@ -84,8 +113,8 @@ public class HandLogic : MonoBehaviour
                     propSpecs.objectGreen(true);
                     propSpecs.objectGrabbed(true);
                     possibleObject = possibleObjectT;
-                    PhotonView photonView = propSpecs.gameObject.GetPhotonView();
-                    photonView.TransferOwnership(PhotonNetwork.player.ID);
+                   // PhotonView photonView = propSpecs.gameObject.GetPhotonView();
+                   // photonView.TransferOwnership(PhotonNetwork.player.ID);
                 }
                
             }

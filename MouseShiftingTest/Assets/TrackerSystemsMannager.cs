@@ -55,8 +55,8 @@ public class TrackerSystemsMannager : MonoBehaviour, IPunObservable
         }
         else
         {
-            leftTracker.gameObject.SetActive(false);
-            rightTracker.gameObject.SetActive(false);
+            //leftTracker.gameObject.SetActive(false);
+            //rightTracker.gameObject.SetActive(false);
         }
 
     }
