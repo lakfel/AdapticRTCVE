@@ -100,8 +100,8 @@ public class Tracker : MonoBehaviour, IPunObservable
     [PunRPC]
     public void refreshPosition(Vector3 pos, Quaternion rota)
     {
-        VirtualObject.transform.position = objectTracked.transform.position;
-        VirtualObject.transform.rotation = objectTracked.transform.rotation;
+        VirtualObject.transform.position = pos;
+        VirtualObject.transform.rotation = rota;
 
     }
 
