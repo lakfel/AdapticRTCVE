@@ -60,7 +60,8 @@ public class Tracker : MonoBehaviour, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
-
+        if (!GetComponent<PhotonView>().isMine)
+            this.enabled = false;
         atached = false;
         targetedController = master.GetComponent<TargetedController>();
         masterController = master.GetComponent<MasterController>();
@@ -86,7 +87,8 @@ public class Tracker : MonoBehaviour, IPunObservable
                 //VirtualObject.transform.position = objectTracked.transform.position;
                 //VirtualObject.transform.rotation = objectTracked.transform.rotation;
 
-                GetComponent<PhotonView>().RPC("refreshPosition", PhotonTargets.All, objectTracked.transform.position, objectTracked.transform.rotation);
+                //GetComponent<PhotonView>().RPC("refreshPosition", PhotonTargets.All, objectTracked.transform.position, objectTracked.transform.rotation);
+                refreshPosition(objectTracked.transform.position, objectTracked.transform.rotation);
             }
             if (reatach)
             {

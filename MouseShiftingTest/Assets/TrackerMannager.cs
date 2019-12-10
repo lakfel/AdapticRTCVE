@@ -31,7 +31,8 @@ public class TrackerMannager : MonoBehaviour
         {
             trackerSystemsMannager.gameObject.SetActive(false);
         }
-        
+        if (!GetComponent<PhotonView>().isMine)
+            this.enabled = false;
     }
 
     // Update is called once per frame
