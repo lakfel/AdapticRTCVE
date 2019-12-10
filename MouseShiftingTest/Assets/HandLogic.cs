@@ -24,6 +24,8 @@ public class HandLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!GetComponent<PhotonView>().isMine)
+            this.enabled = false;
         hand = gameObject.GetComponent<IGenericHand>();
         allowToGrab = false;
         objectInHand = true;
@@ -37,12 +39,13 @@ public class HandLogic : MonoBehaviour
     void Update()
     {
 
-        if (GetComponent<PhotonView>().isMine)
-        {
+        //if (GetComponent<PhotonView>().isMine)
+        //{
             if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger)
                 || ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger))
             {
-                GetComponent<PhotonView>().RPC("process", PhotonTargets.All);
+            // GetComponent<PhotonView>().RPC("process", PhotonTargets.All);
+            process();
                 /*if (possibleObject != null && allowToGrab)
                 {
                     voObject = possibleObject;
@@ -71,7 +74,7 @@ public class HandLogic : MonoBehaviour
                 /*   GetComponent<PhotonView>().RPC("detachController", PhotonTargets.All);
                }*/
             }
-        }
+       // }
     }
     [PunRPC]
     public void process()
@@ -92,7 +95,10 @@ public class HandLogic : MonoBehaviour
                 trackerMannager.fRightTracker.VirtualObject = voObject;
                 trackerMannager.fRightTracker.attach();
             }
-
+            if(voObject.GetComponent<PhotonView>().ownerId != PhotonNetwork.player.ID)
+            {
+                voObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
+            }
             
         }
         else if (voObject != null)
