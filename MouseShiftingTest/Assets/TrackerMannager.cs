@@ -59,8 +59,8 @@ public class TrackerMannager : MonoBehaviour
     // tracker. Left one here.
     public void setTrackers()
     {
-        if (GetComponent<PhotonView>().isMine)
-        {
+        //if (GetComponent<PhotonView>().isMine)
+        //{
             if (masterController.condition == MasterController.CONDITION.NM_RT ||
                 masterController.condition == MasterController.CONDITION.SM_RT)
             {
@@ -72,6 +72,6 @@ public class TrackerMannager : MonoBehaviour
                 fLeftTracker = leftTracker;
                 fRightTracker = rightTracker;
             }
-        }
+       // }
     }
 }

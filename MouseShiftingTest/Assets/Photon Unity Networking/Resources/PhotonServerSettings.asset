@@ -54,4 +54,5 @@ MonoBehaviour:
   - detachController
   - pairController
   - refreshPosition
+  - process
   DisableAutoOpenWizard: 1

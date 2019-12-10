@@ -42,7 +42,8 @@ public class HandLogic : MonoBehaviour
             if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger)
                 || ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger))
             {
-                if (possibleObject != null && allowToGrab)
+                GetComponent<PhotonView>().RPC("process", PhotonTargets.All);
+                /*if (possibleObject != null && allowToGrab)
                 {
                     voObject = possibleObject;
                     possibleObject = null;
@@ -59,23 +60,57 @@ public class HandLogic : MonoBehaviour
                         trackerMannager.fRightTracker.attach();
                     }*/
 
-                    GetComponent<PhotonView>().RPC("pairController", PhotonTargets.All, voObject);
-                }
-                else if (voObject != null)
-                {
-                    /* trackerMannager.fLeftTracker.detach();
-                     trackerMannager.fRightTracker.detach();
-                     voObject = null;
-                     hand.setDraw(true);*/
-                    GetComponent<PhotonView>().RPC("detachController", PhotonTargets.All);
-                }
+                /*     GetComponent<PhotonView>().RPC("pairController", PhotonTargets.All,);
+                 }
+                 else if (voObject != null)
+                 {
+                     /* trackerMannager.fLeftTracker.detach();
+                      trackerMannager.fRightTracker.detach();
+                      voObject = null;
+                      hand.setDraw(true);*/
+                /*   GetComponent<PhotonView>().RPC("detachController", PhotonTargets.All);
+               }*/
             }
         }
     }
     [PunRPC]
-    public void pairController( GameObject gameObject)
+    public void process()
     {
-        PropSpecs propSpecs = gameObject.GetComponent<PropSpecs>();
+        if (possibleObject != null && allowToGrab)
+        {
+            voObject = possibleObject;
+            possibleObject = null;
+            hand.setDraw(false);
+            PropSpecs propSpecs = voObject.GetComponent<PropSpecs>();
+            if (propSpecs.currentSide == PropSpecs.SIDE.LEFT)
+            {
+                trackerMannager.fLeftTracker.VirtualObject = voObject;
+                trackerMannager.fLeftTracker.attach();
+            }
+            else
+            {
+                trackerMannager.fRightTracker.VirtualObject = voObject;
+                trackerMannager.fRightTracker.attach();
+            }
+
+            
+        }
+        else if (voObject != null)
+        {
+             trackerMannager.fLeftTracker.detach();
+             trackerMannager.fRightTracker.detach();
+            possibleObject = voObject;
+             voObject = null;
+             hand.setDraw(true);
+           
+        }
+    }
+    
+
+    [PunRPC]
+    public void pairController( )
+    {
+        PropSpecs propSpecs = voObject.GetComponent<PropSpecs>();
         if (propSpecs.currentSide == PropSpecs.SIDE.LEFT)
         {
             trackerMannager.fLeftTracker.VirtualObject = voObject;
@@ -101,29 +136,30 @@ public class HandLogic : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (GetComponent<PhotonView>().isMine)
-        {
+        //if (GetComponent<PhotonView>().isMine)
+        //{
+        Debug.Log("Trigger entered");
             if (allowToGrab)
             {
-
+                
                 GameObject possibleObjectT = other.gameObject;
                 PropSpecs propSpecs = possibleObjectT.GetComponent<PropSpecs>();
                 if(!propSpecs.grabbed)
                 { 
-                    propSpecs.objectGreen(true);
-                    propSpecs.objectGrabbed(true);
+                    propSpecs.objectGrabbedRPC(true);
+                    propSpecs.objectGreenRPC(true);
                     possibleObject = possibleObjectT;
                    // PhotonView photonView = propSpecs.gameObject.GetPhotonView();
                    // photonView.TransferOwnership(PhotonNetwork.player.ID);
                 }
                
             }
-        }
+        //}
     }
     private void OnTriggerExit(Collider other)
     {
-        if (GetComponent<PhotonView>().isMine)
-        {
+        //if (GetComponent<PhotonView>().isMine)
+        //{
             if (allowToGrab)
             {
                 if (possibleObject != null)
@@ -131,19 +167,21 @@ public class HandLogic : MonoBehaviour
 
                     PropSpecs propSpecs = possibleObject.GetComponent<PropSpecs>();
                     propSpecs.objectGreen(false);
+                    propSpecs.objectGrabbed(false);
                     possibleObject = null;
                 }
-                if (voObject != null)
+               /* if (voObject != null)
                 {
 
                     PropSpecs propSpecs = voObject.GetComponent<PropSpecs>();
                     propSpecs.objectGreen(false);
+                    propSpecs.objectGrabbed(false);
 
                     //voObject = null;
-                }
+                }*/
 
             }
-        }
+        //}
     }
     
 
