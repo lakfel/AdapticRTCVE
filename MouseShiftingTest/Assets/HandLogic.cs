@@ -39,42 +39,11 @@ public class HandLogic : MonoBehaviour
     void Update()
     {
 
-        //if (GetComponent<PhotonView>().isMine)
-        //{
             if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger)
                 || ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger))
             {
-            // GetComponent<PhotonView>().RPC("process", PhotonTargets.All);
-            process();
-                /*if (possibleObject != null && allowToGrab)
-                {
-                    voObject = possibleObject;
-                    possibleObject = null;
-                    hand.setDraw(false);
-                    /*PropSpecs propSpecs = voObject.GetComponent<PropSpecs>();
-                    if (propSpecs.currentSide == PropSpecs.SIDE.LEFT)
-                    {
-                        trackerMannager.fLeftTracker.VirtualObject = voObject;
-                        trackerMannager.fLeftTracker.attach();
-                    }
-                    else
-                    {
-                        trackerMannager.fRightTracker.VirtualObject = voObject;
-                        trackerMannager.fRightTracker.attach();
-                    }*/
-
-                /*     GetComponent<PhotonView>().RPC("pairController", PhotonTargets.All,);
-                 }
-                 else if (voObject != null)
-                 {
-                     /* trackerMannager.fLeftTracker.detach();
-                      trackerMannager.fRightTracker.detach();
-                      voObject = null;
-                      hand.setDraw(true);*/
-                /*   GetComponent<PhotonView>().RPC("detachController", PhotonTargets.All);
-               }*/
+                process();
             }
-       // }
     }
     [PunRPC]
     public void process()
@@ -99,7 +68,7 @@ public class HandLogic : MonoBehaviour
             {
                 voObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
             }
-            
+            objectInHand = true;
         }
         else if (voObject != null)
         {
@@ -108,7 +77,7 @@ public class HandLogic : MonoBehaviour
             possibleObject = voObject;
              voObject = null;
              hand.setDraw(true);
-           
+            objectInHand = false;
         }
     }
     
@@ -142,52 +111,31 @@ public class HandLogic : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        //if (GetComponent<PhotonView>().isMine)
-        //{
-        Debug.Log("Trigger entered");
-            if (allowToGrab)
-            {
-                
-                GameObject possibleObjectT = other.gameObject;
-                PropSpecs propSpecs = possibleObjectT.GetComponent<PropSpecs>();
-                if(!propSpecs.grabbed)
-                { 
-                    propSpecs.objectGrabbedRPC(true);
-                    propSpecs.objectGreenRPC(true);
-                    possibleObject = possibleObjectT;
-                   // PhotonView photonView = propSpecs.gameObject.GetPhotonView();
-                   // photonView.TransferOwnership(PhotonNetwork.player.ID);
-                }
-               
-            }
-        //}
+        if (allowToGrab)
+        { 
+            GameObject possibleObjectT = other.gameObject;
+            PropSpecs propSpecs = possibleObjectT.GetComponent<PropSpecs>();
+            if(!propSpecs.grabbed)
+            { 
+                propSpecs.objectGrabbed(true);
+                propSpecs.objectGreen(true);
+                possibleObject = possibleObjectT;
+            }      
+        }
     }
     private void OnTriggerExit(Collider other)
     {
-        //if (GetComponent<PhotonView>().isMine)
-        //{
             if (allowToGrab)
             {
                 if (possibleObject != null)
                 {
-
                     PropSpecs propSpecs = possibleObject.GetComponent<PropSpecs>();
                     propSpecs.objectGreen(false);
                     propSpecs.objectGrabbed(false);
                     possibleObject = null;
                 }
-               /* if (voObject != null)
-                {
-
-                    PropSpecs propSpecs = voObject.GetComponent<PropSpecs>();
-                    propSpecs.objectGreen(false);
-                    propSpecs.objectGrabbed(false);
-
-                    //voObject = null;
-                }*/
-
+           
             }
-        //}
     }
     
 
