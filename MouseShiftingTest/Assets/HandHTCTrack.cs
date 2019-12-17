@@ -72,7 +72,7 @@ public class HandHTCTrack : MonoBehaviour, IGenericHand
                 initialStatus();
             }
             transform.position = targeted.giveRetargetedPosition(tracker.transform.position);
-            transform.rotation = initialRotation * tracker.transform.rotation * Quaternion.Inverse(firstTrackedRotation);
+            transform.rotation = tracker.transform.rotation * Quaternion.Inverse(firstTrackedRotation)* initialRotation;
         }
     }
 }

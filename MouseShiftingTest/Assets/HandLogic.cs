@@ -59,6 +59,9 @@ public class HandLogic : MonoBehaviour
             voObject = null;
             hand.setDraw(true);
             objectInHand = false;
+            PropSpecs propSpecs = possibleObject.GetComponent<PropSpecs>();
+            propSpecs.objectGrabbed(false);
+            propSpecs.objectGreen(false);
         }
     }
     

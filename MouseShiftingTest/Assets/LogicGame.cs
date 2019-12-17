@@ -74,7 +74,7 @@ public class LogicGame : MonoBehaviour, IPunObservable
         currentEndObject.transform.position = currentEndPosition.transform.position;
         currentPlayer = 0;
         playerMasters[0].setNewLogic();
-        //playerMasters[1].setNewLogic();
+        playerMasters[1].setNewLogic();
 
 
     }
@@ -96,8 +96,11 @@ public class LogicGame : MonoBehaviour, IPunObservable
     [PunRPC]
     public void refreshObjectAndPosition(int indexObj, int indexPos)
     {
+        objects[0].SetActive(false);
+        objects[1].SetActive(false);
         currentEndObject = objects[indexObj];
         currentEndPosition = positions[indexPos];
+        currentEndObject.SetActive(true);
     }
 
 

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 1
-  lastUpdatedAtString: 2019-12-17T12:30:54.642-05:00
-  initializedAtString: 2019-12-17T09:44:44.114-05:00
+  lastUpdatedAtString: 2019-12-17T13:31:33.217-05:00
+  initializedAtString: 2019-12-17T12:38:07.073-05:00
   currentGitRemote:
     name: origin
     url: https://github.com/lakfel/AdapticRTCVE.git

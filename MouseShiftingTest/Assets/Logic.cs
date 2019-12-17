@@ -386,7 +386,8 @@ public class Logic : MonoBehaviour
     {
         PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
         GameObject dockProp = propSpecs.ghost;
-
+        if (dockProp.GetComponent<PhotonView>().owner.ID != PhotonNetwork.player.ID)
+            dockProp.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
         if (toHomePoint)
         {
             dockProp.transform.parent = homePosition.transform.parent.transform;
