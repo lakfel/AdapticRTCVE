@@ -15,7 +15,7 @@ public class CubeTest : MonoBehaviour
         gameObject.SetActive(false);
         Debug.Log("Trigger CubeTest");
         Logic uss = other.gameObject.GetComponent<Logic>();
-        uss.pickedDone();
+       // uss.pickedDone();
     }
     private void OnCollisionEnter(Collision collision)
     {

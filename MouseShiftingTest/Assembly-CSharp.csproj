@@ -395,6 +395,7 @@
     <Compile Include="Assets\LevelController.cs" />
     <Compile Include="Assets\LevelMannager.cs" />
     <Compile Include="Assets\Logic.cs" />
+    <Compile Include="Assets\LogicGame.cs" />
     <Compile Include="Assets\MasterController.cs" />
     <Compile Include="Assets\NetworkMannager.cs" />
     <Compile Include="Assets\NewGoal.cs" />
@@ -573,6 +574,7 @@
     <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseObjectController.cs" />
     <Compile Include="Assets\SixenseInput\Scripts\SixenseInput.cs" />
     <Compile Include="Assets\SixenseInput\Scripts\SixensePlugin.cs" />
+    <Compile Include="Assets\SpotSide.cs" />
     <Compile Include="Assets\SurveyMannager.cs" />
     <Compile Include="Assets\TargetedController.cs" />
     <Compile Include="Assets\TastePlugin.cs" />

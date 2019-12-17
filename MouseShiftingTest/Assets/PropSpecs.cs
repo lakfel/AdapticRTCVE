@@ -10,12 +10,18 @@ public class PropSpecs : MonoBehaviour, IPunObservable
     
     public PropMannager.PRESET_TYPE type;
 
+    // This game object contains a children with the mesh of the object
     public GameObject objct;
 
+    //The ghost object contains a children ith a transparent mesh of the object
     public GameObject ghost;
 
     public bool grabbed;
 
+    private void Update()
+    {
+        //Debug.Log(transform.rotation);
+    }
     private void Start()
     {
         currentSide = SIDE.UNDEFINED;
@@ -45,7 +51,14 @@ public class PropSpecs : MonoBehaviour, IPunObservable
             rend.material.color = Color.white;
     }
 
-    
+
+    public void relocatePropDock()
+    {
+        ghost.transform.parent = transform;
+        ghost.transform.localPosition = Vector3.zero;
+    }
+
+
     public void objectGreen(bool isGreen)
     {
         GetComponent<PhotonView>().RPC("objectGreenRPC", PhotonTargets.All, isGreen);
@@ -55,4 +68,26 @@ public class PropSpecs : MonoBehaviour, IPunObservable
     {
         //throw new System.NotImplementedException();
     }
+
+    public void activeChildren(bool activate)
+    {
+        gameObject.transform.GetChild(0).gameObject.SetActive(activate);
+    }
+
+    public float distanceToDock()
+    {
+        float distance = 0f;
+        distance = Vector3.Distance(transform.position, ghost.transform.position);
+        return distance;
+    }
+
+    public float distanceToInitialPoint()
+    {
+        float distance = 0f;
+        //distance = Vector3.Distance(transform.position, virtualObject.transform.position);
+        return distance;
+    }
+
+
+
 }

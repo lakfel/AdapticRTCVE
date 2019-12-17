@@ -173,6 +173,11 @@ public class PersistanceManager : MonoBehaviour
 
     private void Start()
     {
+
+        if (GetComponent<PhotonView>().isMine)
+        {
+            this.enabled = false;
+        }
         recording = false;
         // TODO assign cameras objects
         camera1 = GameObject.Find("CenterEyeAnchor");

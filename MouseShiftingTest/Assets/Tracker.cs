@@ -18,7 +18,7 @@ public class Tracker : MonoBehaviour, IPunObservable
     // This is the position reference of the object must be in VR.
     // When retargeting is not applied, this must match with the objetc in real world either in the left or in the right
     // When reatergetin is applied, this is left or right. In real world the object is placed in the RealWorldReference position
-    private GameObject virtualObject;
+    public GameObject virtualObject;
     public GameObject VirtualObject { get => virtualObject; set => virtualObject = value; }
 
     //This is the reference of the retargeted goal point. It use to be the middle point betwen left and right prop
@@ -40,6 +40,9 @@ public class Tracker : MonoBehaviour, IPunObservable
 
     //First tracked rotation of the tracker object.
     Quaternion firsTrackedRotation;
+
+    //Where the tracker should start to track.
+    public GameObject initialReference;
 
     public Vector3 InitialPosition { get => initialPosition; set => initialPosition = value; }
     public Quaternion InitialRotation { get => initialRotation; set => initialRotation = value; }
@@ -82,7 +85,9 @@ public class Tracker : MonoBehaviour, IPunObservable
                 realPos = trackerRep.transform.position - firstTrackedPosition + initialPosition;
 
                 transform.position = targetedController.giveRetargetedPosition(realPos);
-                transform.rotation = trackerRep.transform.rotation * InitialRotation * Quaternion.Inverse(FirstTrackedRotation);
+
+               // Debug.Log("Tracking : In Rot = " + InitialRotation + " First tracked = " + firsTrackedRotation + " Trackrd = " + trackerRep.transform.rotation);
+                transform.rotation = trackerRep.transform.rotation* Quaternion.Inverse(FirstTrackedRotation) * InitialRotation  ;
 
                 //VirtualObject.transform.position = objectTracked.transform.position;
                 //VirtualObject.transform.rotation = objectTracked.transform.rotation;
@@ -93,7 +98,7 @@ public class Tracker : MonoBehaviour, IPunObservable
             if (reatach)
             {
                 reatach = false;
-                attach();
+                restartTrackerRef();
             }
         }
     }
@@ -105,6 +110,13 @@ public class Tracker : MonoBehaviour, IPunObservable
         VirtualObject.transform.position = pos;
         VirtualObject.transform.rotation = rota;
 
+    }
+
+    public void restartTrackerRef()
+    {
+
+        FirstTrackedRotation = trackerRep.transform.rotation;
+        firstTrackedPosition = trackerRep.transform.position;
     }
 
     public  void attach()
@@ -120,12 +132,11 @@ public class Tracker : MonoBehaviour, IPunObservable
             }
             else
             {*/
-                InitialPosition = VirtualObject.transform.position;
-                InitialRotation = VirtualObject.transform.rotation;
+            InitialPosition = VirtualObject.transform.position;
+            InitialRotation = VirtualObject.transform.rotation;
+            Debug.Log("Attaching -- Orientation " + InitialRotation);
             //}
-            
-            FirstTrackedRotation = trackerRep.transform.rotation;
-            firstTrackedPosition = trackerRep.transform.position;
+            restartTrackerRef();
             atached = true;
         }
     }
@@ -133,11 +144,8 @@ public class Tracker : MonoBehaviour, IPunObservable
 
     public void detach()
     {
-        VirtualObject = null;
-        InitialPosition = Vector3.zero;
-        firstTrackedPosition = Vector3.zero;
-        InitialRotation = Quaternion.identity;
         atached = false;
+        VirtualObject = null;
     }
 
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

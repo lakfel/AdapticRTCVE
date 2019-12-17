@@ -21,18 +21,22 @@ public class HTCCompensate : MonoBehaviour
     void Start()
     {
         selfConfigured = false;
+        if (!GetComponent<PhotonView>().isMine)
+        {
+            this.enabled = false;
+        }
     }
-
     // Update is called once per frame
     void Update()
     {
-        if (!selfConfigured)
-            if (GetComponent<PhotonView>().isMine)    
-            {
+        if (GetComponent<PhotonView>().isMine)
+        {
+            if (!selfConfigured)
                 if (camera != null)
                 {
-                    LevelMannager levelMannager = GameObject.Find("LevelMannager").GetComponent<LevelMannager>();
-                    desiredPosition = levelMannager.currentSpawnPosition;
+                     
+                    int idPlayer = 1 + Int32.Parse(gameObject.name.ToCharArray()[gameObject.name.Length - 1] + "");
+                    desiredPosition = GameObject.Find("Room/SpawnPositions/User"+idPlayer).transform;
 
                     transform.rotation = desiredPosition.rotation;
 
@@ -61,6 +65,6 @@ public class HTCCompensate : MonoBehaviour
                     selfConfigured = true;
                     Debug.Log("JFGA -- No camera found");
                 }
-            }
+        }
     }
 }

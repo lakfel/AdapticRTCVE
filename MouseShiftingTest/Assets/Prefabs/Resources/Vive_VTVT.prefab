@@ -50,12 +50,12 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 3
+  synchronization: 0
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 5847741443525123237}
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PositionModel:
-    SynchronizeEnabled: 1
+    SynchronizeEnabled: 0
     TeleportEnabled: 1
     TeleportIfDistanceGreaterThan: 3
     InterpolateOption: 2
@@ -130,7 +130,7 @@ MonoBehaviour:
     ExtrapolateNumberOfStoredPositions: 1
     DrawErrorGizmo: 1
   m_RotationModel:
-    SynchronizeEnabled: 1
+    SynchronizeEnabled: 0
     InterpolateOption: 1
     InterpolateRotateTowardsSpeed: 180
     InterpolateLerpSpeed: 5
@@ -200,6 +200,7 @@ MonoBehaviour:
   trackedOffset: {x: 0, y: 0, z: 0}
   reatach: 0
   atached: 0
+  virtualObject: {fileID: 0}
   realWorldReference: {fileID: 0}
   master: {fileID: 5789427902931423032}
   trackerRep: {fileID: 0}
@@ -220,12 +221,12 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 3
+  synchronization: 0
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 5789427902931423112}
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -364,7 +365,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5789427902931423010}
   m_LocalRotation: {x: -0, y: -0, z: 0.5735764, w: 0.8191521}
-  m_LocalPosition: {x: -0.0396, y: -0.0475, z: -0.03700003}
+  m_LocalPosition: {x: -0.0498, y: -0.0762, z: 0.007}
   m_LocalScale: {x: 0.005, y: 0.0050000045, z: 0.0050000045}
   m_Children: []
   m_Father: {fileID: 5789427902931423052}
@@ -459,7 +460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StreamingClient: {fileID: 0}
-  RigidBodyId: 1
+  RigidBodyId: 0
 --- !u!1 &5789427902931423012
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,12 +504,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d07624f0eb05e8940a3117f68abe4df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_sensitivity: 0.001
-  orientation: -1
-  m_sensitivityX: 0.0013
-  m_sensitivityY: 0.0013
-  m_sensitivityZ: 0.0013
-  SideController: 1
+  m_sensitivity: 0.00017
+  orientation: 0
+  m_sensitivityX: 0
+  m_sensitivityY: 0
+  m_sensitivityZ: 0
+  SideController: 0
 --- !u!1 &5789427902931423013
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,8 +616,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConnectionType: 0
-  LocalAddress: 157.253.192.165
-  ServerAddress: 157.253.192.165
+  LocalAddress: 127.0.0.1
+  ServerAddress: 127.0.0.1
   ServerCommandPort: 1510
   ServerDataPort: 1511
   DrawMarkers: 0
@@ -669,6 +670,7 @@ MonoBehaviour:
   trackedOffset: {x: 0, y: 0, z: 0}
   reatach: 0
   atached: 0
+  virtualObject: {fileID: 0}
   realWorldReference: {fileID: 0}
   master: {fileID: 5789427902931423032}
   trackerRep: {fileID: 0}
@@ -689,12 +691,12 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 3
+  synchronization: 0
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 5789427902931423116}
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -792,8 +794,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_viveRole:
     m_roleTypeFullName: HTC.UnityPlugin.Vive.TrackerRole
-    m_roleValueName: Tracker2
-    m_roleValueInt: 2
+    m_roleValueName: Tracker1
+    m_roleValueInt: 1
 --- !u!114 &5789427902931423102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -811,8 +813,8 @@ MonoBehaviour:
   origin: {fileID: 0}
   m_viveRole:
     m_roleTypeFullName: HTC.UnityPlugin.Vive.TrackerRole
-    m_roleValueName: Tracker2
-    m_roleValueInt: 1
+    m_roleValueName: Tracker1
+    m_roleValueInt: 0
   onIsValidChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -869,6 +871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c1f80d3723c63a46b61d2b942fd640b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableRT: 0
   compensation: 0
   newGoal: 0
   retargetedPosition: {fileID: 0}
@@ -891,8 +894,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   userId: 0
   condition: 0
-  started: 0
-  levelController: {fileID: 0}
   stageCounter: 0
   surveyActivated: 0
 --- !u!114 &5789427902931423089
@@ -917,7 +918,7 @@ MonoBehaviour:
   condition1: 
   condition2: 
   counterMovements: 0
-  PATH_LOCAL: C:\Users\johannavila\Dropbox\Uniandes\Results\
+  PATH_LOCAL: /Logout/
   recording: 0
 --- !u!114 &5789427902931423094
 MonoBehaviour:
@@ -931,13 +932,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccba309cfcade3641b6f456a5502f07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  props:
-  - {fileID: 0}
-  - {fileID: 0}
+  onTurn: 0
+  idPlayer: 0
+  logicGame: {fileID: 0}
+  homePosition: {fileID: 0}
+  positions: []
+  objects: []
+  currentEndPosition: {fileID: 0}
+  currentEndObject: {fileID: 0}
+  currentTracker: {fileID: 0}
+  stage: 0
+  repetionNumber: 0
+  props: []
   goal: 0
   showing: 0
-  stage: 0
   handObject: {fileID: 0}
+  handLogic: {fileID: 0}
   initialPoint: {fileID: 0}
   handOnObject: 0
   handOnInitialPosition: 0
@@ -970,13 +980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0078ced1513f9d429ca270565b6e393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  steps:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  steps: []
   personalNotificationBar: {fileID: 0}
   personalStageBar: {fileID: 0}
   counterGoals: 0
@@ -994,14 +998,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSurveyActive: 0
-  options:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  options: []
   normalMenu: {fileID: 0}
   surveyMenu: {fileID: 0}
   questionMesh: {fileID: 0}
@@ -1146,8 +1143,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_viveRole:
     m_roleTypeFullName: HTC.UnityPlugin.Vive.TrackerRole
-    m_roleValueName: Tracker2
-    m_roleValueInt: 2
+    m_roleValueName: Tracker1
+    m_roleValueInt: 1
 --- !u!114 &5789427902931423099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1165,8 +1162,8 @@ MonoBehaviour:
   origin: {fileID: 0}
   m_viveRole:
     m_roleTypeFullName: HTC.UnityPlugin.Vive.TrackerRole
-    m_roleValueName: Tracker2
-    m_roleValueInt: 2
+    m_roleValueName: Tracker1
+    m_roleValueInt: 0
   onIsValidChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1280,7 +1277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PositionModel:
-    SynchronizeEnabled: 1
+    SynchronizeEnabled: 0
     TeleportEnabled: 1
     TeleportIfDistanceGreaterThan: 3
     InterpolateOption: 2
@@ -1336,7 +1333,7 @@ MonoBehaviour:
     ExtrapolateNumberOfStoredPositions: 1
     DrawErrorGizmo: 1
   m_RotationModel:
-    SynchronizeEnabled: 1
+    SynchronizeEnabled: 0
     InterpolateOption: 1
     InterpolateRotateTowardsSpeed: 180
     InterpolateLerpSpeed: 5
@@ -1373,7 +1370,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.05
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.05, z: 0}
 --- !u!114 &5789427902931422990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1456,9 +1453,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_viveRole:
-    m_roleTypeFullName: HTC.UnityPlugin.Vive.TrackerRole
-    m_roleValueName: Tracker3
-    m_roleValueInt: 3
+    m_roleTypeFullName: HTC.UnityPlugin.Vive.HandRole
+    m_roleValueName: RightHand
+    m_roleValueInt: 0
 --- !u!114 &5789427902931423125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1475,8 +1472,8 @@ MonoBehaviour:
   rotOffset: {x: 0, y: 0, z: 0}
   origin: {fileID: 0}
   m_viveRole:
-    m_roleTypeFullName: HTC.UnityPlugin.Vive.TrackerRole
-    m_roleValueName: Tracker3
+    m_roleTypeFullName: HTC.UnityPlugin.Vive.HandRole
+    m_roleValueName: RightHand
     m_roleValueInt: 0
   onIsValidChanged:
     m_PersistentCalls:
@@ -1582,7 +1579,7 @@ MonoBehaviour:
   m_mode: 1
   m_viveRole:
     m_roleTypeFullName: HTC.UnityPlugin.Vive.HandRole
-    m_roleValueName: LeftHand
+    m_roleValueName: RightHand
     m_roleValueInt: 0
   m_origin: {fileID: 0}
   m_deviceIndex: 0
@@ -1707,8 +1704,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_mode: 1
   m_viveRole:
-    m_roleTypeFullName: HTC.UnityPlugin.Vive.TrackerRole
-    m_roleValueName: Tracker3
+    m_roleTypeFullName: HTC.UnityPlugin.Vive.HandRole
+    m_roleValueName: RightHand
     m_roleValueInt: 0
   m_origin: {fileID: 0}
   m_deviceIndex: 0
@@ -1761,7 +1758,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_viveRole:
     m_roleTypeFullName: HTC.UnityPlugin.Vive.HandRole
-    m_roleValueName: LeftHand
+    m_roleValueName: RightHand
     m_roleValueInt: 0
 --- !u!114 &5789427902931423106
 MonoBehaviour:
@@ -1780,7 +1777,7 @@ MonoBehaviour:
   origin: {fileID: 0}
   m_viveRole:
     m_roleTypeFullName: HTC.UnityPlugin.Vive.HandRole
-    m_roleValueName: LeftHand
+    m_roleValueName: RightHand
     m_roleValueInt: 0
   onIsValidChanged:
     m_PersistentCalls:
@@ -1833,8 +1830,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_mode: 1
   m_viveRole:
-    m_roleTypeFullName: HTC.UnityPlugin.Vive.TrackerRole
-    m_roleValueName: Tracker1
+    m_roleTypeFullName: HTC.UnityPlugin.Vive.HandRole
+    m_roleValueName: RightHand
     m_roleValueInt: 0
   m_origin: {fileID: 0}
   m_deviceIndex: 0
@@ -1886,9 +1883,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_viveRole:
-    m_roleTypeFullName: HTC.UnityPlugin.Vive.TrackerRole
-    m_roleValueName: Tracker1
-    m_roleValueInt: 1
+    m_roleTypeFullName: HTC.UnityPlugin.Vive.HandRole
+    m_roleValueName: RightHand
+    m_roleValueInt: 0
 --- !u!114 &5789427902931423107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1905,8 +1902,8 @@ MonoBehaviour:
   rotOffset: {x: 0, y: 0, z: 0}
   origin: {fileID: 0}
   m_viveRole:
-    m_roleTypeFullName: HTC.UnityPlugin.Vive.TrackerRole
-    m_roleValueName: Tracker1
+    m_roleTypeFullName: HTC.UnityPlugin.Vive.HandRole
+    m_roleValueName: RightHand
     m_roleValueInt: 0
   onIsValidChanged:
     m_PersistentCalls:
@@ -1930,6 +1927,7 @@ GameObject:
   - component: {fileID: 5789427902931423101}
   - component: {fileID: 5789427902931423100}
   - component: {fileID: 1368643139855958714}
+  - component: {fileID: 810094757}
   m_Layer: 0
   m_Name: Vive_VTVT
   m_TagString: Player
@@ -1991,7 +1989,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PositionModel:
-    SynchronizeEnabled: 1
+    SynchronizeEnabled: 0
     TeleportEnabled: 1
     TeleportIfDistanceGreaterThan: 3
     InterpolateOption: 2
@@ -2047,12 +2045,12 @@ MonoBehaviour:
     ExtrapolateNumberOfStoredPositions: 1
     DrawErrorGizmo: 1
   m_RotationModel:
-    SynchronizeEnabled: 1
+    SynchronizeEnabled: 0
     InterpolateOption: 1
     InterpolateRotateTowardsSpeed: 180
     InterpolateLerpSpeed: 5
   m_ScaleModel:
-    SynchronizeEnabled: 1
+    SynchronizeEnabled: 0
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
@@ -2078,6 +2076,8 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 5789427902931423076}
+  - {fileID: 5789427902931423100}
+  - {fileID: 810094757}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -2105,7 +2105,7 @@ MonoBehaviour:
   condition1: 
   condition2: 
   counterMovements: 0
-  PATH_LOCAL: C:\Users\johannavila\Dropbox\Uniandes\Results\
+  PATH_LOCAL: /Logout/
   recording: 0
 --- !u!114 &5789427902931423101
 MonoBehaviour:
@@ -2119,6 +2119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c1f80d3723c63a46b61d2b942fd640b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableRT: 0
   compensation: 0
   newGoal: 0
   retargetedPosition: {fileID: 0}
@@ -2141,8 +2142,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   userId: 0
   condition: 2
-  started: 0
-  levelController: {fileID: 0}
   stageCounter: 0
   surveyActivated: 0
 --- !u!114 &1368643139855958714
@@ -2157,11 +2156,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bd2595cdc4940d44882485d16c441dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftTracker: {fileID: 5789427902931423112}
-  rightTracker: {fileID: 5789427902931423116}
+  leftTracker: {fileID: 0}
+  rightTracker: {fileID: 0}
   fLeftTracker: {fileID: 0}
   fRightTracker: {fileID: 0}
   trackerSystemsMannager: {fileID: 5789427902931423114}
+--- !u!114 &810094757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5789427902931423032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccba309cfcade3641b6f456a5502f07e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTurn: 0
+  idPlayer: 0
+  logicGame: {fileID: 0}
+  homePosition: {fileID: 0}
+  positions: []
+  objects: []
+  currentEndPosition: {fileID: 0}
+  currentEndObject: {fileID: 0}
+  currentTracker: {fileID: 0}
+  stage: 0
+  repetionNumber: 0
+  props: []
+  goal: 0
+  showing: 0
+  handObject: {fileID: 5789427902931423023}
+  handLogic: {fileID: 5789427902931422990}
+  initialPoint: {fileID: 0}
+  handOnObject: 0
+  handOnInitialPosition: 0
 --- !u!1 &5789427902931423033
 GameObject:
   m_ObjectHideFlags: 0
@@ -2208,8 +2238,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_viveRole:
     m_roleTypeFullName: HTC.UnityPlugin.Vive.TrackerRole
-    m_roleValueName: Tracker1
-    m_roleValueInt: 1
+    m_roleValueName: Tracker2
+    m_roleValueInt: 2
 --- !u!114 &5789427902931423111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2222,13 +2252,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdc450c311d1e94291658aa5ec57b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  posOffset: {x: 0, y: 0, z: -0.06}
+  posOffset: {x: 0, y: 0, z: 0}
   rotOffset: {x: 0, y: 0, z: 0}
   origin: {fileID: 0}
   m_viveRole:
     m_roleTypeFullName: HTC.UnityPlugin.Vive.TrackerRole
-    m_roleValueName: Tracker1
-    m_roleValueInt: 1
+    m_roleValueName: Tracker2
+    m_roleValueInt: 0
   onIsValidChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2280,8 +2310,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_mode: 1
   m_viveRole:
-    m_roleTypeFullName: HTC.UnityPlugin.Vive.TrackerRole
-    m_roleValueName: Tracker2
+    m_roleTypeFullName: HTC.UnityPlugin.Vive.HandRole
+    m_roleValueName: RightHand
     m_roleValueInt: 0
   m_origin: {fileID: 0}
   m_deviceIndex: 0
@@ -2333,9 +2363,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_viveRole:
-    m_roleTypeFullName: HTC.UnityPlugin.Vive.TrackerRole
-    m_roleValueName: Tracker2
-    m_roleValueInt: 2
+    m_roleTypeFullName: HTC.UnityPlugin.Vive.HandRole
+    m_roleValueName: RightHand
+    m_roleValueInt: 0
 --- !u!114 &5789427902931423132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2352,8 +2382,8 @@ MonoBehaviour:
   rotOffset: {x: 0, y: 0, z: 0}
   origin: {fileID: 0}
   m_viveRole:
-    m_roleTypeFullName: HTC.UnityPlugin.Vive.TrackerRole
-    m_roleValueName: Tracker2
+    m_roleTypeFullName: HTC.UnityPlugin.Vive.HandRole
+    m_roleValueName: RightHand
     m_roleValueInt: 0
   onIsValidChanged:
     m_PersistentCalls:
@@ -2463,12 +2493,12 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 3
+  synchronization: 0
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 5789427902931423114}
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -2518,7 +2548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StreamingClient: {fileID: 0}
-  RigidBodyId: 2
+  RigidBodyId: 0
 --- !u!1 &5789427902931423039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2562,12 +2592,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d07624f0eb05e8940a3117f68abe4df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_sensitivity: 0.001
-  orientation: 1
-  m_sensitivityX: 0.0013
-  m_sensitivityY: 0.0013
-  m_sensitivityZ: 0.0013
-  SideController: 2
+  m_sensitivity: 0.00017
+  orientation: 0
+  m_sensitivityX: 0
+  m_sensitivityY: 0
+  m_sensitivityZ: 0
+  SideController: 0
 --- !u!1 &5789427902931423053
 GameObject:
   m_ObjectHideFlags: 0
@@ -2687,7 +2717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PositionModel:
-    SynchronizeEnabled: 1
+    SynchronizeEnabled: 0
     TeleportEnabled: 1
     TeleportIfDistanceGreaterThan: 3
     InterpolateOption: 2
@@ -2743,7 +2773,7 @@ MonoBehaviour:
     ExtrapolateNumberOfStoredPositions: 1
     DrawErrorGizmo: 1
   m_RotationModel:
-    SynchronizeEnabled: 1
+    SynchronizeEnabled: 0
     InterpolateOption: 1
     InterpolateRotateTowardsSpeed: 180
     InterpolateLerpSpeed: 5
@@ -2768,12 +2798,12 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 3
+  synchronization: 0
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 5789427902931423073}
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1

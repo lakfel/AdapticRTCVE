@@ -34,6 +34,8 @@ public class LevelMannager : Photon.PunBehaviour, IPunObservable
     // Array of users
     public MasterController[] users;
 
+    public int playerId;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,7 +72,7 @@ public class LevelMannager : Photon.PunBehaviour, IPunObservable
     public void spawnPlayer(string playerNickname, Platform destPlatform)
     {
         char[] nickNamechars = playerNickname.ToCharArray();
-        int playerId = Int32.Parse(nickNamechars[playerNickname.Length - 1] + "");
+        playerId = Int32.Parse(nickNamechars[playerNickname.Length - 1] + "");
         Transform spawnPosition = spawnLocations[playerId];
         currentSpawnPosition = spawnPosition;
         //GameObject.Find("/TutorialIslandP" + (playerId + 1) + "/Deco/Door/TutorialStatus/TutorialCanvas").transform.gameObject.SetActive(true);

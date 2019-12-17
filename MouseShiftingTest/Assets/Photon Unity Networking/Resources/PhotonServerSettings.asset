@@ -55,4 +55,11 @@ MonoBehaviour:
   - pairController
   - refreshPosition
   - process
+  - setPlayers
+  - boadcastError
+  - getStared
+  - initialObjectPosition
+  - fillPlayerInformation
+  - nextStep
+  - refreshObjectAndPosition
   DisableAutoOpenWizard: 1

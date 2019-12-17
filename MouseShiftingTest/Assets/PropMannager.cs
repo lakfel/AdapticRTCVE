@@ -35,11 +35,14 @@ public class PropMannager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (GetComponent<PhotonView>().isMine)
+
+        masterController = GetComponent<MasterController>();
+        if (!GetComponent<PhotonView>().isMine )
         {
-            masterController = GetComponentInParent<MasterController>();
-            if(masterController != null 
-                    && masterController.condition == MasterController.CONDITION.SM_RT)
+            this.enabled = false;
+        }
+        if(masterController != null 
+                && masterController.condition == MasterController.CONDITION.SM_RT)
             try
             {
                 openPort();
@@ -49,45 +52,26 @@ public class PropMannager : MonoBehaviour
                 mySPort = null;
                 Debug.Log("ERROR OPENNING PORT " + e.Message);
             }
-        }
+        
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GetComponent<PhotonView>().isMine)
-        {
-            if(masterController.condition == MasterController.CONDITION.SM_RT)
-                try
-                {
-                    if (mySPort.CDHolding)
-                    { }
-                }
-                catch (Exception e)
-                {
-                    Debug.Log("Port closed, re opening");
-                    mySPort = new SerialPort(serialName, 115200);
-                     openPort(); //REMOVE THIS
-                }  
 
-            /*if (string.Equals(readData(), "OK"))
+        if (masterController.condition == MasterController.CONDITION.SM_RT)
+            try
             {
-                GameObject tracker1 = GameObject.Find("Tracker1");
-                if (tracker1 != null)
-                {
-                    HydraTracker hTracker = tracker1.GetComponent<HydraTracker>();
-                    if (hTracker != null)
-                    {//
-                       // hTracker.attach();
-                       // Debug.Log("ATTACHING PROP");
-                        // hTracker.VirtualObject = propContr;
-                    }
-                }
-            }*/
-        }
-       
-      
-       
+                if (mySPort.CDHolding)
+                { }
+            }
+            catch (Exception e)
+            {
+                Debug.Log("Port closed, re opening");
+                mySPort = new SerialPort(serialName, 115200);
+                openPort(); //REMOVE THIS
+            }
     }
 
     public void adapticCommand(PRESET_TYPE type)

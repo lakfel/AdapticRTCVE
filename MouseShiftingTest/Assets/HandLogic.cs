@@ -28,7 +28,7 @@ public class HandLogic : MonoBehaviour
             this.enabled = false;
         hand = gameObject.GetComponent<IGenericHand>();
         allowToGrab = false;
-        objectInHand = true;
+        objectInHand = false;
         //TODO delete
         allowToGrab = true;
         trackerMannager.setTrackers();
@@ -39,83 +39,36 @@ public class HandLogic : MonoBehaviour
     void Update()
     {
 
-            if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger)
-                || ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger))
-            {
-                process();
-            }
+            
     }
     [PunRPC]
     public void process()
     {
-        if (possibleObject != null && allowToGrab)
+        if (possibleObject != null && allowToGrab && !objectInHand)
         {
             voObject = possibleObject;
             possibleObject = null;
             hand.setDraw(false);
-            PropSpecs propSpecs = voObject.GetComponent<PropSpecs>();
-            if (propSpecs.currentSide == PropSpecs.SIDE.LEFT)
-            {
-                trackerMannager.fLeftTracker.VirtualObject = voObject;
-                trackerMannager.fLeftTracker.attach();
-            }
-            else
-            {
-                trackerMannager.fRightTracker.VirtualObject = voObject;
-                trackerMannager.fRightTracker.attach();
-            }
-            if(voObject.GetComponent<PhotonView>().ownerId != PhotonNetwork.player.ID)
-            {
-                voObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
-            }
             objectInHand = true;
         }
         else if (voObject != null)
         {
-             trackerMannager.fLeftTracker.detach();
-             trackerMannager.fRightTracker.detach();
+            trackerMannager.fLeftTracker.detach();
+            trackerMannager.fRightTracker.detach();
             possibleObject = voObject;
-             voObject = null;
-             hand.setDraw(true);
+            voObject = null;
+            hand.setDraw(true);
             objectInHand = false;
         }
     }
     
-
-    [PunRPC]
-    public void pairController( )
-    {
-        PropSpecs propSpecs = voObject.GetComponent<PropSpecs>();
-        if (propSpecs.currentSide == PropSpecs.SIDE.LEFT)
-        {
-            trackerMannager.fLeftTracker.VirtualObject = voObject;
-            trackerMannager.fLeftTracker.attach();
-        }
-        else
-        {
-            trackerMannager.fRightTracker.VirtualObject = voObject;
-            trackerMannager.fRightTracker.attach();
-        }
-    }
-
-    [PunRPC]
-    public void detachController()
-    {
-        trackerMannager.fLeftTracker.detach();
-        trackerMannager.fRightTracker.detach();
-        voObject = null;
-        hand.setDraw(true);
-    }
-
-
     private void OnTriggerEnter(Collider other)
     {
-
-        if (allowToGrab)
+        if(allowToGrab && !objectInHand)
         { 
             GameObject possibleObjectT = other.gameObject;
             PropSpecs propSpecs = possibleObjectT.GetComponent<PropSpecs>();
-            if(!propSpecs.grabbed)
+            if(propSpecs != null && !propSpecs.grabbed)
             { 
                 propSpecs.objectGrabbed(true);
                 propSpecs.objectGreen(true);
@@ -125,17 +78,15 @@ public class HandLogic : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-            if (allowToGrab)
-            {
-                if (possibleObject != null)
-                {
-                    PropSpecs propSpecs = possibleObject.GetComponent<PropSpecs>();
-                    propSpecs.objectGreen(false);
-                    propSpecs.objectGrabbed(false);
-                    possibleObject = null;
-                }
-           
-            }
+        
+        if (possibleObject != null)
+        {
+            PropSpecs propSpecs = possibleObject.GetComponent<PropSpecs>();
+            propSpecs.objectGreen(false);
+            propSpecs.objectGrabbed(false);
+            possibleObject = null;
+        }
+       
     }
     
 

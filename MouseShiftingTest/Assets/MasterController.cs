@@ -26,7 +26,6 @@ public class MasterController : MonoBehaviour, IPunObservable
     }
 
     // Script for manage tracking. 
-    // TODO review if needed it. Now we will have only on condition.
     private TrackerMannager trackerMannager;
 
     // Information for the user. No sync here
@@ -35,18 +34,11 @@ public class MasterController : MonoBehaviour, IPunObservable
     // Survey to be performed in each case.
     private SurveyMannager surveyMannager;
 
-    //TODO Need to have stages. And mannage this in the data output.
     private Logic logic;
 
     // Base condition
     public CONDITION condition;
-
-    public bool started;
-
-    
-    public LevelController levelController; 
-   
-
+  
     public int stageCounter;
 
     public bool surveyActivated;
@@ -65,25 +57,12 @@ public class MasterController : MonoBehaviour, IPunObservable
         notificationsMannager = gameObject.GetComponent<NotificationsMannager>();
         surveyMannager = gameObject.GetComponent<SurveyMannager>();
         logic = gameObject.GetComponent<Logic>();
-        if (!GetComponent<PhotonView>().isMine)
-        {
-            trackerMannager.enabled = false;
-            notificationsMannager.enabled = false;
-            surveyMannager.enabled = false;
-            //logic.enabled = false;
-        }
-            GameObject objLevelController = GameObject.Find("LevelMannager");
-        if (objLevelController != null)
-            levelController = objLevelController.GetComponent<LevelController>();
-        else
-            Debug.Log("JFGA -- No Level controller FOUND!");
+     
 
         surveyActivated = false;
         
         // TODO the steps should be shared. Notification Mannager to be changes drasticly
         //notificationsMannager.lightStepNotification(1);
-
-        started = true;
 
          
          
@@ -91,30 +70,16 @@ public class MasterController : MonoBehaviour, IPunObservable
 
     public void setNew()
     {
-        /*
-        started = false;
+        
+       /*
         if (notificacionTextObject != null)
             notificacionTextObject.SetActive(true);
-
-        stageCounter = 0;
-        stagesDone = new bool[5];
-        for (int i = 0; i < 5; i++)
-        {
-            stagesDone[i] = false;
-        }
-
-        stages = new EXP_STAGE[]
-        {
-            EXP_STAGE.TUTORIAL,
-            EXP_STAGE.PROP_MATCHING_PLUS_RETARGETING,
-            EXP_STAGE.PROP_MATCHING_NO_RETARGETING,
-            EXP_STAGE.PROP_NOT_MATCHING_PLUS_RETARGETING,
-            EXP_STAGE.PROP_NOT_MATCHING_NO_RETARGETING
-        };
-        persistanceManager.recording = false;
-        persistanceManager.userId = System.DateTime.Now.ToString("yyMMddHHmmss");
-        TextMesh text = notificacionTextObject.GetComponent<TextMesh>();
-        text.text = "Welcome";*/
+            */
+        
+        //persistanceManager.recording = false;
+        //persistanceManager.userId = System.DateTime.Now.ToString("yyMMddHHmmss");
+        //TextMesh text = notificacionTextObject.GetComponent<TextMesh>();
+        //text.text = "Welcome";*/
     }
 
     // Update is called once per frame
@@ -166,6 +131,23 @@ public class MasterController : MonoBehaviour, IPunObservable
             if (rightProp != null)
                 rightProp.GetComponent<PropController>().angleNumber = 0;*/
 
+        }
+    }
+
+    public void setNewLogic()
+    {
+        if(GetComponent<PhotonView>().isMine)
+        { 
+            logic.setNew();
+        }
+    }
+
+    [PunRPC]
+    public void fillPlayerInformation()
+    {
+        if(GetComponent<PhotonView>().isMine)
+        {
+            logic.fillPlayerInformation();
         }
     }
 

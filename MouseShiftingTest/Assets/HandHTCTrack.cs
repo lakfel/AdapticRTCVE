@@ -8,10 +8,13 @@ public class HandHTCTrack : MonoBehaviour, IGenericHand
     public GameObject tracker;
 
     // First tracked rotation
+    public Quaternion firstTrackedRotation;
+
+
+    // First tracked rotation
     public Quaternion initialRotation;
 
     // Flag to configure initial rotation.
-    // TODO the flag is not working as soon as it appears. This is done 
     public bool configured;
 
     public TargetedController targeted;
@@ -22,6 +25,8 @@ public class HandHTCTrack : MonoBehaviour, IGenericHand
     {
         return transform.position;
     }
+
+    //public GameObject camera;
 
     [PunRPC]
     public void setDrawRPC(bool canDraw)
@@ -42,7 +47,7 @@ public class HandHTCTrack : MonoBehaviour, IGenericHand
 
     public void initialStatus()
     {
-        initialRotation = tracker.transform.rotation;
+        firstTrackedRotation = tracker.transform.rotation;
         configured = true;
     }
 
@@ -55,6 +60,7 @@ public class HandHTCTrack : MonoBehaviour, IGenericHand
         {
             tracker.SetActive(false);
         }
+        initialRotation = transform.rotation;
     }
     // Update is called once per frame
     void Update()
@@ -66,7 +72,7 @@ public class HandHTCTrack : MonoBehaviour, IGenericHand
                 initialStatus();
             }
             transform.position = targeted.giveRetargetedPosition(tracker.transform.position);
-            transform.rotation = tracker.transform.rotation * Quaternion.Inverse(initialRotation);
+            transform.rotation = initialRotation * tracker.transform.rotation * Quaternion.Inverse(firstTrackedRotation);
         }
     }
 }

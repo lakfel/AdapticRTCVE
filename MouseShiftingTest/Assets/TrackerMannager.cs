@@ -29,10 +29,11 @@ public class TrackerMannager : MonoBehaviour
         masterController = gameObject.GetComponent<MasterController>();
         if (!GetComponent<PhotonView>().isMine)
         {
+            this.enabled = false;
             trackerSystemsMannager.gameObject.SetActive(false);
         }
-        if (!GetComponent<PhotonView>().isMine)
-            this.enabled = false;
+       
+            
     }
 
     // Update is called once per frame

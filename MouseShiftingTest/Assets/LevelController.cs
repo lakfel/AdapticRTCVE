@@ -49,8 +49,8 @@ public class LevelController : MonoBehaviour, IPunObservable
             currenStage = STAGE.TUTORIAL;
             numStage = 0;
 
-            TextMesh text = notificacionTextObject.GetComponent<TextMesh>();
-            text.text = "TUTORIAL";
+            //TextMesh text = notificacionTextObject.GetComponent<TextMesh>();
+            //text.text = "TUTORIAL";
 
             persistanceManager.saveGeneral();
 

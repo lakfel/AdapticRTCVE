@@ -6,27 +6,8 @@ using UnityEngine;
 public class PropController : MonoBehaviour
 {
 
-    public enum SIDE { LEFT, RIGHT };
-    public SIDE currentSide;
-
+  
     public GameObject voObject;
-
-    private readonly Quaternion[] flatRots = {
-                                        new Quaternion(0f, 0.0f, 0.7f, 0.7f),
-                                        new Quaternion(0.5f, 0.5f , 0.5f , 0.5f),
-                                        new Quaternion(0.3f, 0.3f , 0.7f , 0.7f),
-                                        new Quaternion(-0.3f, -0.3f , 0.7f , 0.7f),
-                                        new Quaternion(-0.5f, -0.5f, 0.5f, 0.5f)
-                                    };
-
-    private readonly Quaternion[] cyllRots = {
-                                        new Quaternion(0.0f, -0.7f, 0f, 0.7f),
-                                        new Quaternion(0.0f, -0.4f, 0.0f, 0.9f),
-                                        new Quaternion(0.0f, 0.0f, 0.0f, 1.0f),
-                                        new Quaternion(0.0f, -0.9f, 0.0f, 0.4f),
-                                        new Quaternion(0.0f, -1f, 0f, 0.3f)
-                                    };
-
 
     public bool[] anglesUsed = new bool[] { false, false, false, false, false };
     public int angleNumber;
@@ -42,7 +23,7 @@ public class PropController : MonoBehaviour
     //TODO Check this. Last time error ocurred in one cylinder orientation.
 
 
-    public Tracker dTracker;
+
     
 
     private Quaternion[] rangeRotation;
@@ -110,6 +91,7 @@ public class PropController : MonoBehaviour
        
 
     }
+    
 
     // Update is called once per frame
     void Update()
@@ -135,32 +117,9 @@ public class PropController : MonoBehaviour
         }
         return presetResult;
     }
-    /*
-    public void movePropDock(bool toPointZ)
-    {
-        if (toPointZ)
-        {
-            GameObject pointZ = GameObject.Find("HandStartPoint");
-            if(pointZ != null)
-            {
-                dockProp.transform.parent = pointZ.transform;
-                dockProp.transform.localPosition = new Vector3(0.0f, 1.5f, 0.0f);
-                randomizeRotation(false);
-            }
-        }
-        else
-        {
-            dockProp.transform.parent = virtualObject.transform;
-            dockProp.transform.localPosition = Vector3.zero;
-            randomizeRotation(true);
-        }
-    }
+    
 
-    public void relocatePropDock()
-    {
-        dockProp.transform.parent = transform.GetChild(0).transform;
-        dockProp.transform.localPosition = Vector3.zero;
-    }*/
+    
     /*
     public void randomizeRotation (bool neutral)
     {
@@ -188,24 +147,5 @@ public class PropController : MonoBehaviour
 
     } */
 
-    public void activeChildren(bool activate)
-    {
-        gameObject.transform.GetChild(0).gameObject.SetActive(activate);
-    }
-
-    public float distanceToDock()
-    {
-        float distance = 0f;
-        distance = Vector3.Distance(transform.position, dockProp.transform.position);
-        return distance;
-    }
-  
-    public float distanceToInitialPoint()
-    {
-        float distance = 0f;
-        //distance = Vector3.Distance(transform.position, virtualObject.transform.position);
-        return distance;
-    }
-     
-
+ 
 }

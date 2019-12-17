@@ -1,12 +1,52 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Leap.Unity;
 using System.Threading;
 using HTC.UnityPlugin.Vive;
+using Random = UnityEngine.Random;
 
 public class Logic : MonoBehaviour
 {
+    // I am on my turn
+    public bool onTurn;
+
+    // My Id player
+    public int idPlayer;
+
+    // Main mannager controller. 
+    public LogicGame logicGame;
+
+    // Home point
+    public GameObject homePosition;
+
+    // Picking up positions
+    public GameObject[] positions;
+
+    // Objects
+    public GameObject[] objects;
+
+    //Current position
+    public GameObject currentEndPosition;
+
+    //Current end object
+    public GameObject currentEndObject;
+
+    public Tracker currentTracker;
+
+    //Same part definitions
+    // It is worth to think in something more collaborative
+    // 0 Pre Start //-> Maybe is important to sync this. The user A can not left the object
+    //                  Until user b does not place his hand on home position
+    // 1 Grabbing the object
+    // 2 Docking in home point
+    // 3 returning object -- Maybe part 4 is not necessary
+    public int stage;
+
+    // Maybe handle thi on LogicGame
+    public int repetionNumber;
+
     // Reference to goals. 3 props in front of the user.
     // 0. Left 1. Middle 2 Right
     public GameObject [] props;
@@ -17,34 +57,96 @@ public class Logic : MonoBehaviour
     // Tells if a goal prop is currently being showed
     public bool showing;
 
-    // Tells in wich stage we are
-    // 0 None object is showind, 1 Object is showing and going to point Z, 2 object is showing and going to normal position.
-    public int stage;
-
     //It mas include a GenericHand
     public GameObject handObject;
     public IGenericHand hand;
+    public HandLogic handLogic;
+
     // Initial point for the hand
     public GameObject initialPoint;
 
     //Conditions to proceed
-    public bool handOnObject;
+    public bool handOnObject; // This may change
     public bool handOnInitialPosition;
 
 
     // Comunication with the master object
     private TargetedController targetedController;
-    private Logic logic;
     private PersistanceManager persistanceManager;
     private TrackerMannager trackerMannager;
     private MasterController masterController;
     private NotificationsMannager notificationsMannager;
     private SurveyMannager surveyMannager;
-    // Current Propcontroller
-    private PropController propContr;
+    private PropMannager propMannager;
+
+
+    #region propEscnearioController
+    // Set of orientations. 
+    // 0, -90, -45, 45, 90
+    private readonly Quaternion[] orientations1 = {
+                                        new Quaternion(0f, 0.0f, 0.0f, 1f),//0
+                                        new Quaternion(0.0f, -0.7f , 0.0f , 0.7f),//-90
+                                        new Quaternion(0.0f, -0.4f , 0.0f , 0.9f),//-45
+                                        new Quaternion(0.0f, 0.4f , 0.0f , 0.9f),//45
+                                        new Quaternion(0.0f, 0.7f , 0.0f , 0.7f)};//90
+
+    // Set of orientations. 
+    // 0, -45, -22.5, 22.5, 45
+    private readonly Quaternion[] orientations2 = {
+                                        new Quaternion(0f, 0.0f, 0.0f, 1f),//0
+                                        new Quaternion(0.0f, -0.4f , 0.0f , 0.9f),//-45
+                                        new Quaternion(0.0f, -0.2f , 0.0f , 1f),//-22.5
+                                        new Quaternion(0.0f, 0.4f , 0.0f , 0.9f),//22.4
+                                        new Quaternion(0.0f, 0.2f , 0.0f , 1f) };//45
+
+
+    private Queue<Quaternion> orientationsPlayer;
+
+    private readonly int[,] scenarios = { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } };
+    private Queue<int[]> scenariosPlayer;
+    private int[] currentScenario;
+
+    public void fillPlayerInformation()
+    {
+        orientationsPlayer.Clear();
+        scenariosPlayer.Clear();
+
+        bool[] checksO0 = { false, false, false, false };
+        bool[] checksS0 = { false, false, false, false };
+
+        int posRnd;
+        Quaternion[] orientations = orientations1; // Change this if other set of orientations is wanted
+
+        // Orientations Player 0
+        for (int i = 0; i < 4; i++)
+        {
+            while (checksO0[posRnd = Random.Range(0, 4)]) ;
+            checksO0[posRnd] = true;
+            orientationsPlayer.Enqueue(orientations1[posRnd + 1]);
+        }
+        // Scenarios Player 0
+        for (int i = 0; i < 4; i++)
+        {
+            while (checksS0[posRnd = Random.Range(0, 4)]) ;
+            checksS0[posRnd] = true;
+            scenariosPlayer.Enqueue(new int[] { scenarios[posRnd, 0], scenarios[posRnd, 1] });
+        }
+
+    }
+
+
+    #endregion
 
     void Start()
     {
+
+        if(!GetComponent<PhotonView>().isMine)
+        {
+            this.enabled = false;
+        }
+
+        orientationsPlayer = new Queue<Quaternion>();
+        scenariosPlayer = new Queue<int[]>();
 
         masterController = gameObject.GetComponent<MasterController>();
         targetedController = gameObject.GetComponent<TargetedController>();
@@ -53,7 +155,9 @@ public class Logic : MonoBehaviour
         notificationsMannager = gameObject.GetComponent<NotificationsMannager>();
         surveyMannager = gameObject.GetComponent<SurveyMannager>();
         hand = handObject.gameObject.GetComponent<IGenericHand>();
-        setNew();
+        propMannager = gameObject.GetComponent<PropMannager>();
+
+
 
     }
 
@@ -61,255 +165,293 @@ public class Logic : MonoBehaviour
     {
         handOnObject = false;
         goal = 0;
-        for (int i = 0; i < 2; i++)
-            props[i].SetActive(false);
         showing = false;
         stage = -1;
+        
 
-        propContr = null;
-        triggerPressed = false;
+
+        if(logicGame != null)
+        {
+            idPlayer = Int32.Parse(gameObject.name.ToCharArray()[gameObject.name.Length - 1] + "");
+            homePosition = logicGame.homePositions[idPlayer];
+            positions = logicGame.positions;
+            objects = logicGame.objects;
+            onTurn = (idPlayer == logicGame.currentPlayer);
+        }
+        trackerMannager.setTrackers();
+        fillPlayerInformation();
     }
 
-    // Handle the press of the trigger.
-    private bool triggerPressed;
     // Update is called once per frame
     void Update()
     {
-        //if (propContr != null)
-        //  Debug.Log("PROP --- Distance to original point --->>  " + propContr.distanceToInitialPoint());
-
-        // TODO This is for Oculus, we have to addapt to let select 
-        /*if (!surveyMannager.isSurveyActive && !notificationsMannager.masterDecide)
-            if(!triggerPressed)
-            {
-                if(OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.LTouch) > 0.7f)
+        if(GetComponent<PhotonView>().isMine)
+            //if (!surveyMannager.isSurveyActive && !notificationsMannager.masterDecide)
+                if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger)
+                    || ViveInput.GetPressDown(HandRole.LeftHand, ControllerButton.Trigger)
+                    || Input.GetKeyDown(KeyCode.Q))
                 {
-                    triggerPressed = true;
-                    if(masterController.started)
+                    if(onTurn = (idPlayer == logicGame.currentPlayer))
+                    {
                         reGoal();
+                    }
                 }
-            }
-            else
-            {
-                if (OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.LTouch) < 0.7f)
-                {
-                    triggerPressed = false;
-                }
-            }*/
-        if (!surveyMannager.isSurveyActive && !notificationsMannager.masterDecide)
-            
-                if (ViveInput.GetPressDown(HandRole.LeftHand, ControllerButton.Trigger))
-                {
-                    triggerPressed = true;
-                    if (masterController.started)
-                        reGoal();
-                }
-            
-           
     }
 
 
-    private IEnumerator pairTracker(int seconds, PropController controller)
+    private IEnumerator pairTracker(bool restartTtracker)
     {
-       /* controller.dTracker.detach();
-        controller.gameObject.SetActive(true);
-        controller.activeChildren(false);
-        controller.dTracker.VirtualObject = controller;
-        if (masterController.currentStage == MasterController.EXP_STAGE.PROP_MATCHING_PLUS_RETARGETING)
-        {
-            string result = controller.preSetShape(); // TODO The way to attach the object is still bad.     
-            if(!masterController.isDemo)
-                yield return new WaitForSeconds(3);
-            if (masterController.isDemo)
-                yield return new WaitForSeconds(5);
+        if(restartTtracker)
+        { 
+            trackerMannager.fLeftTracker.detach();
+            trackerMannager.fRightTracker.detach();
+
+        
+            if (currentEndPosition.GetComponent<SpotSide>().currentSide == SpotSide.SIDE.LEFT)
+                currentTracker = trackerMannager.fLeftTracker;
+            else
+                currentTracker = trackerMannager.fRightTracker;
         }
-        else
+        currentTracker.detach();
+        currentTracker.VirtualObject = currentEndObject;
+        //currentTracker.initialReference = currentEndPosition;
+        
+        currentTracker.attach();
+        if (masterController.condition == MasterController.CONDITION.SM_RT)
         {
-            controller.preSetShape();
-            yield return new WaitForSeconds(0);
+            propMannager.adapticCommand(currentEndPosition.GetComponent<PropSpecs>().type);
         }
-        controller.dTracker.attach();
-        controller.activeChildren(true);
-        controller.movePropDock(true);
-        controller.objectGreen(false);
-        controller.dockProp.SetActive(false);*/
+        yield return new WaitForSeconds(1.5f);
+       
+        
+        currentEndObject.GetComponent<PropSpecs>().activeChildren(true);
+        currentEndObject.GetComponent<PropSpecs>().ghost.SetActive(false);
+        
         yield return null;
     }
 
-    // It controls ALL the movements. The trigger is actionated by the Master for each pressed trigger done by the user
-    // To every task completly, it has to start in point Z (InitialStatus Object). The process as follow
-    // Stage starts at 0.
-    // If hand in initialstatus and trigger. Initialstatus object dissapears, the object to pick shows up. Stage = 0
-    // When object picked, Second trigger shadow for next movement appears. Stage = 1
-    // when object realeased, then trigger, shadows dissapear for pioint zero and appears in starts position. Stage = 2
-    // When object in initial position and trigger objects dissapears and user move hand back to point zero. Stage = 3
-    // When hand in initial position and trigger, movements ends. Stage = -1
+    // All movements are isolated from the other user. TODO review this in order to male it more collaborative
+    // The movement starts with the hand on the home point. This could be sync with the realease movement of the othe user
+    // Once the hand is on the homepoint and trigger is pressed, the user can grabthe object. TODO // Some visual feedback to
+    //              make clear that the user can proceed to grab the object. Why? In this case the user wills e the object all the time
+    //              but the begining iof the movement must to be set to apply the retargetting correctly
+    // The user grab the object and press the trigger
+    // The ghost appears and the users must make it match and press the triggger. In this case the trigger must be placed on te table,not elevated.
+    // The user releases the object and place his hand on this right in a home point, in the mean while the object changes (or not ) its shape
+    // The user grab the object again 
+    // The user releases the the object and the other participant starts. (think if pressing the trigger is o r not neccesary)
     public void reGoal()
     {
-        /*if (conditionsToProceed(stage))
+        if (conditionsToProceed(stage))
         {
+            //Pre There is nothing // Maybe we can skup this part. Make it sync with the other user ending
+            //Post Homeposition sphere activated
             if (stage == -1)
             {
-                initialPoint.SetActive(true);
+                //fillPlayerInformation(); TODO fill player information at the begining of one set of trials
+                homePosition.SetActive(true);
+                currentEndObject = logicGame.currentEndObject;
+                currentEndPosition = logicGame.currentEndPosition;
                 stage = 0;
             }
-            else if (stage == 0) // Hand in point Zero. Pre. No object to pick. Pos Object showed up initial position.
+            //Pre Hand on home position.
+            //Post Home position desactivated. Object allowed to be grabbed in end position
+            else if (stage == 0)
             {
 
-                int nGoal;
-                while ((nGoal = Random.Range(0, 2)) == goal) ;
-
-                goal = nGoal;
-                //goal = 0;
-
-                this.propContr = props[goal].GetComponent<PropController>();
-                
-                GameObject VirtualObject = propContr.virtualObject;
-                targetedController.starShifting(VirtualObject.transform.position, hand.giveRealPosition()); //Capsulehand has a simplified methos for giving the hand. does not work here?
-               
-                /*if (masterController.currentStage == MasterController.EXP_STAGE.PROP_MATCHING_PLUS_RETARGETING || masterController.currentStage == MasterController.EXP_STAGE.PROP_NOT_MATCHING_PLUS_RETARGETING)
+                targetedController.starShifting(currentEndPosition.transform.position, hand.giveRealPosition()); 
+                if (currentEndObject.GetComponent<PhotonView>().ownerId != PhotonNetwork.player.ID)
                 {
-                    props[goal].transform.position = targetedController.retargetedPosition.transform.position;
+                    currentEndObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
+                }
+
+                //currentEndObject.GetComponent<PropSpecs>().activeChildren(false);
+                if (masterController.condition == MasterController.CONDITION.NM_RT ||
+                        masterController.condition == MasterController.CONDITION.SM_RT)
+                {
+                    currentEndObject.transform.position = targetedController.retargetedPosition.transform.position;
                 }
                 else
                 {
-                    props[goal].transform.position = VirtualObject.transform.position;
-                }*//*
-                StartCoroutine(pairTracker(1, this.propContr));
-
-                persistanceManager.trackedObject = this.propContr;
-                //props[goal].SetActive(true);
-                persistanceManager.startDocking(stage);
-                initialPoint.SetActive(false);
+                    currentEndObject.transform.position = currentEndPosition.transform.position;
+                }
+                movePropDock(true);
+                //targetedController.starShifting(currentEndPosition.transform.position, hand.giveRealPosition());
+                StartCoroutine(pairTracker(true));
+              
+                homePosition.SetActive(false);
+                 
                 stage = 1;
 
             }
+            // Pre the user´s hand on object
+            // Post hand hiden, object green and allowed to manipulate. Ghost on home position in radom orientation
             else if (stage == 1) // Hand in object Maybe should check the coliders are overlapped. Pre No shadow in scene. Pos shadow in point Z
             {
-                persistanceManager.saveDocking();
-                propContr.dockProp.SetActive(true);
-                persistanceManager.startDocking(stage);
+                handLogic.process();
+                movePropDock(true);// TODO maybe add some animation to make the "transformation between objects"
+                currentEndObject.GetComponent<PropSpecs>().ghost.SetActive(true);
+                // persistanceManager.saveDocking();
+                // persistanceManager.startDocking(stage);
                 stage = 2;
             }
-            else if (stage == 2) // Object moved in desired position i point Z. Pre Shadow in point Z. Pos shadow in initial position
+            // Pre object on ghost in a correct orientation and position
+            // Pos Hand appears, Objet released, HP appears on the rigth side.
+            else if (stage == 2) 
             {
-                persistanceManager.saveDocking();
-                propContr.movePropDock(false);
-                persistanceManager.startDocking(stage);
+                targetedController.disableRT = true;
+                PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
+                propSpecs.ghost.SetActive(false);
+                propSpecs.relocatePropDock();
+                handLogic.process();
+                handLogic.allowToGrab = false;
+                Vector3 po = homePosition.transform.position;
+                homePosition.transform.position = new Vector3(po.x + 0.35f, po.y, po.z);
+                homePosition.SetActive(true);
+                //persistanceManager.saveDocking();
+                //propContr.movePropDock(false);
+                //persistanceManager.startDocking(stage);
                 stage = 3;
             }
+            // Pre hand on HP2
+            // Pos Object transformed, HP2 Hidden
             else if (stage == 3) // Object moved to initial position in desired orientation. Pre. Shadow on, initial status off. Pos Shadow off, initial position on
             {
-                persistanceManager.saveDocking();
-                propContr.dockProp.SetActive(false);
-                initialPoint.SetActive(true);
-                persistanceManager.startDocking(stage);
-                /*
-                GameObject tracker1 = GameObject.Find("Tracker1");
-                if (tracker1 != null)
+                Quaternion lastOrientation = currentEndObject.transform.rotation;
+                Debug.Log("Last end orientation " + lastOrientation);
+                homePosition.SetActive(false);
+                //TODO Animation for transform the object
+                currentEndObject.SetActive(false);
+                currentScenario = scenariosPlayer.Dequeue();
+                currentEndObject = objects[currentScenario[0]];
+                currentEndPosition = positions[currentScenario[1]];
+                logicGame.GetComponent<PhotonView>().RPC("refreshObjectAndPosition", PhotonTargets.All, currentScenario[0], currentScenario[1]);
+                if (currentEndObject.GetComponent<PhotonView>().ownerId != PhotonNetwork.player.ID)
                 {
-                    HydraTracker hTracker = tracker1.GetComponent<HydraTracker>();
-                    if (hTracker != null)
-                    {
-                        //hTracker.attach(propContr);
-                        hTracker.VirtualObject = this.propContr;
-                        if (masterController.currentStage != MasterController.EXP_STAGE.PROP_MATCHING_PLUS_RETARGETING)
-                        {
-                            hTracker.detach();
-                        }
-
-                    }
+                    currentEndObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
                 }
-                */
-                /*
-                hand.setDraw(true);
-                propContr.dTracker.detach();
-                propContr.gameObject.SetActive(false);
+                Vector3 po = homePosition.transform.position;
+                homePosition.transform.position = new Vector3(po.x - 0.35f, po.y, po.z);
+                currentEndObject.transform.rotation = lastOrientation;
+                currentEndObject.transform.position = homePosition.transform.position;
 
+                Debug.Log("Orientation before pairing " + currentEndObject.transform.rotation);
+                StartCoroutine(pairTracker(false));
+                currentEndObject.SetActive(true);
+                handLogic.allowToGrab = true;
+
+
+                // persistanceManager.startDocking(stage);
                 stage = 4;
             }
-            else if (stage == 4) // Hand moves to point z
+            // Pre, hand on object
+            // Pos hand dissapears and object in moving mood.
+            else if (stage == 4)
             {
-                persistanceManager.saveDocking();
-                persistanceManager.startDocking(stage);
-                initialPoint.SetActive(false);
-                hand.setDraw(true);
-                stage = -1;
-                propContr.dTracker.detach();
-                if(!masterController.isDemo)
-                    if (propContr.angleNumber == 2) 
-                        notificationsMannager.registerGoal();
+                movePropDock(false);
+
+
+                targetedController.disableRT = false;
+                targetedController.starShifting(currentEndPosition.transform.position, currentEndObject.transform.position);
+                handLogic.process();
+                PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
+                propSpecs.ghost.SetActive(true);
+                //currentTracker.objectTracked = currentEndObject;
+                //currentEndObject.SetActive(true);
+                //homePosition.SetActive(false);
+                //Vector3 po = homePosition.transform.position;
+                //homePosition.transform.position = new Vector3(po.x - 0.15f, po.y, po.z);
+                //persistanceManager.startDocking(stage);
+                stage = 5;
             }
-
-            notificationsMannager.lightStepNotification(stage + 2);
-        }*/
-    }
-
-
-    //Detach the tracker to the object. This should actually never be done here. It depends on the stage TODO BIG
-    public void pickedDone()
-    {
-       /* GameObject tracker1 = GameObject.Find("Tracker1");
-        if (tracker1 != null)
-        {
-            Tracker hTracker = tracker1.GetComponent<Tracker>();
-            if (hTracker != null)
+            // Pre object on end position
+            // Pos end. hand appears
+            else if (stage == 5)
             {
-                hTracker.detach();
+                PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
+                propSpecs.ghost.SetActive(false);
+                propSpecs.relocatePropDock();
+                handLogic.process();
+                onTurn = false;
+                logicGame.GetComponent<PhotonView>().RPC("nextStep", PhotonTargets.All);
+                stage = -1;
             }
         }
-        showing = false;*/
+               
     }
 
-    void delay(int secs)
+
+
+    public void movePropDock(bool toHomePoint)
     {
-        Thread.Sleep(2000);
+        PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
+        GameObject dockProp = propSpecs.ghost;
+
+        if (toHomePoint)
+        {
+            dockProp.transform.parent = homePosition.transform.parent.transform;
+            dockProp.transform.localPosition = new Vector3(0.0f, 0f, 0.0f);
+            dockProp.transform.rotation = orientationsPlayer.Dequeue();
+        }
+        else
+        {
+            dockProp.transform.rotation = orientations1[0];
+            dockProp.transform.parent = currentEndPosition.transform;
+            dockProp.transform.localPosition = Vector3.zero;
+        }
     }
+
+
 
     public bool conditionsToProceed(int stage)
     {
         bool answer = true;
         if (stage == 0) // The hand must be touchin point zero;
         {
-            answer = handOnInitialPosition;
+            NewGoal newGoal = homePosition.GetComponent<NewGoal>();
+            answer = newGoal.handOnInitialPosition;
             if(!answer)
             {
-                notificationsMannager.messageToUser("Be sure your hand is on the sphere");
+                //notificationsMannager.messageToUser("Be sure your hand is on the sphere");
             }
         }
         else if (stage == 1)
         {
-            answer =  (propContr.distanceToInitialPoint() < 0.09f);
-
+            answer =  (handLogic.possibleObject != null);// Implicit threshold lies in the size of both hand and objects
             if (!answer)
             {
-                notificationsMannager.messageToUser("Be sure your hands is on the object. \n Do not move it");
+                //notificationsMannager.messageToUser("Be sure your hands is on the object. \n Do not move it");
             }
         }
         else if (stage == 2)
         {
-            answer = propContr.distanceToDock() < 0.08f;
+            float threshold = 0.02f;
+            PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
+            answer = propSpecs.distanceToDock() < threshold;
             if (!answer)
             {
-                notificationsMannager.messageToUser(@"It seems you are not in the final position");
+                //notificationsMannager.messageToUser(@"It seems you are not in the final position");
             }
         }
         else if (stage == 3)
         {
-            answer = propContr.distanceToDock() < 0.08f;
+
+            NewGoal newGoal = homePosition.GetComponent<NewGoal>();
+            answer = newGoal.handOnInitialPosition;
             if (!answer)
             {
-                notificationsMannager.messageToUser(@"It seems you are not in the final position");
+                //notificationsMannager.messageToUser(@"It seems you are not in the final position");
             }
         }
         else if (stage == 4)
         {
-            answer = handOnInitialPosition;
+            answer = (handLogic.possibleObject != null);
             if (!answer)
             {
-                notificationsMannager.messageToUser("Be sure your hand is on the sphere");
+                //notificationsMannager.messageToUser("Be sure your hand is on the sphere");
             }
         }
+        
 
         return answer;
     }
