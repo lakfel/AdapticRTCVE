@@ -20,6 +20,7 @@ public class Logic : MonoBehaviour
 
     // Home point
     public GameObject homePosition;
+    public GameObject homePosition2;
 
     // Picking up positions
     public GameObject[] positions;
@@ -174,6 +175,7 @@ public class Logic : MonoBehaviour
         {
             idPlayer = Int32.Parse(gameObject.name.ToCharArray()[gameObject.name.Length - 1] + "");
             homePosition = logicGame.homePositions[idPlayer];
+            homePosition = logicGame.homePositions2[idPlayer];
             positions = logicGame.positions;
             objects = logicGame.objects;
             onTurn = (idPlayer == logicGame.currentPlayer);
@@ -249,7 +251,9 @@ public class Logic : MonoBehaviour
             if (stage == -1)
             {
                 //fillPlayerInformation(); TODO fill player information at the begining of one set of trials
-                homePosition.SetActive(true);
+
+                logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, true);
+                //homePosition.SetActive(true);
                 currentEndObject = logicGame.currentEndObject;
                 currentEndPosition = logicGame.currentEndPosition;
                 stage = 0;
@@ -275,12 +279,11 @@ public class Logic : MonoBehaviour
                 {
                     currentEndObject.transform.position = currentEndPosition.transform.position;
                 }
-                movePropDock(true);
                 //targetedController.starShifting(currentEndPosition.transform.position, hand.giveRealPosition());
                 StartCoroutine(pairTracker(true));
-              
-                homePosition.SetActive(false);
-                 
+
+                logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, false);
+
                 stage = 1;
 
             }
@@ -289,8 +292,11 @@ public class Logic : MonoBehaviour
             else if (stage == 1) // Hand in object Maybe should check the coliders are overlapped. Pre No shadow in scene. Pos shadow in point Z
             {
                 handLogic.process();
-                movePropDock(true);// TODO maybe add some animation to make the "transformation between objects"
                 currentEndObject.GetComponent<PropSpecs>().ghost.SetActive(true);
+
+                logicGame.GetComponent<PhotonView>().RPC("movePropDock", PhotonTargets.All, false, orientationsPlayer.Dequeue());
+                //movePropDock(true);// TODO maybe add some animation to make the "transformation between objects"
+
                 // persistanceManager.saveDocking();
                 // persistanceManager.startDocking(stage);
                 stage = 2;
@@ -305,9 +311,7 @@ public class Logic : MonoBehaviour
                 propSpecs.relocatePropDock();
                 handLogic.process();
                 handLogic.allowToGrab = false;
-                Vector3 po = homePosition.transform.position;
-                homePosition.transform.position = new Vector3(po.x + 0.35f, po.y, po.z);
-                homePosition.SetActive(true);
+                logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, true,true);
                 //persistanceManager.saveDocking();
                 //propContr.movePropDock(false);
                 //persistanceManager.startDocking(stage);
@@ -319,7 +323,7 @@ public class Logic : MonoBehaviour
             {
                 Quaternion lastOrientation = currentEndObject.transform.rotation;
                 Debug.Log("Last end orientation " + lastOrientation);
-                homePosition.SetActive(false);
+                logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, false,true);
                 //TODO Animation for transform the object
                 currentEndObject.SetActive(false);
                 currentScenario = scenariosPlayer.Dequeue();
@@ -330,8 +334,7 @@ public class Logic : MonoBehaviour
                 {
                     currentEndObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
                 }
-                Vector3 po = homePosition.transform.position;
-                homePosition.transform.position = new Vector3(po.x - 0.35f, po.y, po.z);
+               
                 currentEndObject.transform.rotation = lastOrientation;
                 currentEndObject.transform.position = homePosition.transform.position;
 
@@ -348,7 +351,7 @@ public class Logic : MonoBehaviour
             // Pos hand dissapears and object in moving mood.
             else if (stage == 4)
             {
-                movePropDock(false);
+                
 
 
                 targetedController.disableRT = false;
@@ -356,6 +359,7 @@ public class Logic : MonoBehaviour
                 handLogic.process();
                 PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
                 propSpecs.ghost.SetActive(true);
+                logicGame.GetComponent<PhotonView>().RPC("movePropDock", PhotonTargets.All, false, new Quaternion(0f, 0f, 0f, 1f));
                 //currentTracker.objectTracked = currentEndObject;
                 //currentEndObject.SetActive(true);
                 //homePosition.SetActive(false);
@@ -382,25 +386,7 @@ public class Logic : MonoBehaviour
 
 
 
-    public void movePropDock(bool toHomePoint)
-    {
-        PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
-        GameObject dockProp = propSpecs.ghost;
-        if (dockProp.GetComponent<PhotonView>().owner.ID != PhotonNetwork.player.ID)
-            dockProp.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
-        if (toHomePoint)
-        {
-            dockProp.transform.parent = homePosition.transform.parent.transform;
-            dockProp.transform.localPosition = new Vector3(0.0f, 0f, 0.0f);
-            dockProp.transform.rotation = orientationsPlayer.Dequeue();
-        }
-        else
-        {
-            dockProp.transform.rotation = orientations1[0];
-            dockProp.transform.parent = currentEndPosition.transform;
-            dockProp.transform.localPosition = Vector3.zero;
-        }
-    }
+
 
 
 
@@ -437,7 +423,7 @@ public class Logic : MonoBehaviour
         else if (stage == 3)
         {
 
-            NewGoal newGoal = homePosition.GetComponent<NewGoal>();
+            NewGoal newGoal = homePosition2.GetComponent<NewGoal>();
             answer = newGoal.handOnInitialPosition;
             if (!answer)
             {

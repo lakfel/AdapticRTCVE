@@ -18,6 +18,8 @@ public class LogicGame : MonoBehaviour, IPunObservable
     // Both home positions
     public GameObject[] homePositions;
 
+    public GameObject[] homePositions2;
+
 
     public GameObject currentEndObject;
     public GameObject currentEndPosition;
@@ -78,6 +80,38 @@ public class LogicGame : MonoBehaviour, IPunObservable
 
 
     }
+
+
+    [PunRPC]
+    public void enableHomePoint(int indexHomePoint, bool nState, bool isSecond = false)
+    {
+        if(!isSecond)
+            homePositions[indexHomePoint].SetActive(nState);
+        else
+            homePositions2[indexHomePoint].SetActive(nState);
+    }
+
+    [PunRPC]
+    public void movePropDock(bool toHomePoint, Quaternion nOrientation)
+    {
+        PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
+        GameObject dockProp = propSpecs.ghost;
+        //if (dockProp.GetComponent<PhotonView>().owner.ID != PhotonNetwork.player.ID)
+        //dockProp.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
+        if (toHomePoint)
+        {
+            dockProp.transform.parent = homePositions[currentPlayer].transform.parent.transform;
+            dockProp.transform.localPosition = new Vector3(0.0f, 0f, 0.0f);
+            dockProp.transform.rotation = nOrientation;
+        }
+        else
+        {
+            dockProp.transform.rotation = new Quaternion(0f,0f,0f,1f);
+            dockProp.transform.parent = currentEndPosition.transform;
+            dockProp.transform.localPosition = Vector3.zero;
+        }
+    }
+
     [PunRPC]
     public void nextStep()
     {

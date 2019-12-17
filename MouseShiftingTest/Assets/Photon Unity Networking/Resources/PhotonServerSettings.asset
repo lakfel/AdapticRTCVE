@@ -62,4 +62,7 @@ MonoBehaviour:
   - fillPlayerInformation
   - nextStep
   - refreshObjectAndPosition
+  - enableHomePoint
+  - movePropDock
+  - spehereColor
   DisableAutoOpenWizard: 1

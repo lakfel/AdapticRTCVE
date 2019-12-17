@@ -43,18 +43,27 @@ public class NewGoal : MonoBehaviour
         rend.material.color = Color.white;
         masterController.handOnInitialPosition = false;
     }*/
-    void Update()
+
+   [PunRPC]
+   public void spehereColor(Color color)
     {
         Renderer rend = gameObject.GetComponent<Renderer>();
+        rend.material.color = color;
+    }
+
+    void Update()
+    {
         Collider spehre = gameObject.GetComponent<SphereCollider>();
         if (Physics.OverlapBox(spehre.transform.position, new Vector3(0.05f, 0.05f, 0.05f)).Length == 1)
         {
-            rend.material.color = Color.white;
+            GetComponent<PhotonView>().RPC("spehereColor", PhotonTargets.All, Color.white);
+            //rend.material.color = Color.white;
             handOnInitialPosition = false;
         }
         else
         {
-            rend.material.color = Color.green   ;
+            GetComponent<PhotonView>().RPC("spehereColor", PhotonTargets.All, Color.green);
+            //rend.material.color = Color.green   ;
             handOnInitialPosition = true;
         }
     }
