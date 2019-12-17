@@ -3313,6 +3313,7 @@ GameObject:
   - component: {fileID: 597574403}
   - component: {fileID: 597574402}
   - component: {fileID: 597574401}
+  - component: {fileID: 597574406}
   m_Layer: 12
   m_Name: InitialStatus2
   m_TagString: Untagged
@@ -3421,6 +3422,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 597574399}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &597574406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597574399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 3
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 597574401}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 18
+  instantiationId: 18
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &631268185
 GameObject:
   m_ObjectHideFlags: 0
@@ -4125,6 +4153,7 @@ GameObject:
   - component: {fileID: 794759422}
   - component: {fileID: 794759421}
   - component: {fileID: 794759420}
+  - component: {fileID: 794759425}
   m_Layer: 12
   m_Name: InitialStatus2
   m_TagString: Untagged
@@ -4233,6 +4262,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 794759418}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &794759425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794759418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 3
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 794759420}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 16
+  instantiationId: 16
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &800853403
 GameObject:
   m_ObjectHideFlags: 0
@@ -5476,6 +5532,7 @@ MonoBehaviour:
   idPlayer: 0
   logicGame: {fileID: 0}
   homePosition: {fileID: 0}
+  homePosition2: {fileID: 0}
   positions: []
   objects: []
   currentEndPosition: {fileID: 0}
@@ -5713,6 +5770,7 @@ MonoBehaviour:
   idPlayer: 0
   logicGame: {fileID: 0}
   homePosition: {fileID: 0}
+  homePosition2: {fileID: 0}
   positions: []
   objects: []
   currentEndPosition: {fileID: 0}
@@ -5945,6 +6003,7 @@ MonoBehaviour:
   idPlayer: 0
   logicGame: {fileID: 0}
   homePosition: {fileID: 0}
+  homePosition2: {fileID: 0}
   positions: []
   objects: []
   currentEndPosition: {fileID: 0}
@@ -9330,6 +9389,7 @@ GameObject:
   - component: {fileID: 1593526144}
   - component: {fileID: 1593526148}
   - component: {fileID: 1593526143}
+  - component: {fileID: 1593526149}
   m_Layer: 12
   m_Name: InitialStatus1
   m_TagString: Untagged
@@ -9438,6 +9498,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1593526149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593526142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 3
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 1593526143}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 15
+  instantiationId: 15
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &1602052546
 GameObject:
   m_ObjectHideFlags: 0
@@ -10069,6 +10156,7 @@ MonoBehaviour:
   idPlayer: 0
   logicGame: {fileID: 0}
   homePosition: {fileID: 0}
+  homePosition2: {fileID: 0}
   positions: []
   objects: []
   currentEndPosition: {fileID: 0}
@@ -10246,6 +10334,7 @@ GameObject:
   - component: {fileID: 1770596168}
   - component: {fileID: 1770596167}
   - component: {fileID: 1770596166}
+  - component: {fileID: 1770596171}
   m_Layer: 12
   m_Name: InitialStatus1
   m_TagString: Untagged
@@ -10354,6 +10443,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1770596164}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1770596171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770596164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 3
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 1770596166}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 17
+  instantiationId: 17
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &1777915470
 GameObject:
   m_ObjectHideFlags: 0
