@@ -83,7 +83,7 @@ public class LogicGame : MonoBehaviour, IPunObservable
 
 
     [PunRPC]
-    public void enableHomePoint(int indexHomePoint, bool nState, bool isSecond = false)
+    public void enableHomePoint(int indexHomePoint, bool nState, bool isSecond )
     {
         if(!isSecond)
             homePositions[indexHomePoint].SetActive(nState);
@@ -106,7 +106,8 @@ public class LogicGame : MonoBehaviour, IPunObservable
         }
         else
         {
-            dockProp.transform.rotation = new Quaternion(0f,0f,0f,1f);
+            dockProp.transform.rotation = nOrientation;
+            dockProp.transform.Rotate(new Vector3(0f, 180f, 0));
             dockProp.transform.parent = currentEndPosition.transform;
             dockProp.transform.localPosition = Vector3.zero;
         }

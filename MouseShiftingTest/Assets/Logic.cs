@@ -252,7 +252,7 @@ public class Logic : MonoBehaviour
             {
                 //fillPlayerInformation(); TODO fill player information at the begining of one set of trials
 
-                logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, true);
+                logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, true,false);
                 //homePosition.SetActive(true);
                 currentEndObject = logicGame.currentEndObject;
                 currentEndPosition = logicGame.currentEndPosition;
@@ -282,7 +282,7 @@ public class Logic : MonoBehaviour
                 //targetedController.starShifting(currentEndPosition.transform.position, hand.giveRealPosition());
                 StartCoroutine(pairTracker(true));
 
-                logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, false);
+                logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, false,false);
 
                 stage = 1;
 
@@ -294,7 +294,7 @@ public class Logic : MonoBehaviour
                 handLogic.process();
                 currentEndObject.GetComponent<PropSpecs>().ghost.SetActive(true);
 
-                logicGame.GetComponent<PhotonView>().RPC("movePropDock", PhotonTargets.All, false, orientationsPlayer.Dequeue());
+                logicGame.GetComponent<PhotonView>().RPC("movePropDock", PhotonTargets.All, false, homePosition.transform.rotation * orientationsPlayer.Dequeue());
                 //movePropDock(true);// TODO maybe add some animation to make the "transformation between objects"
 
                 // persistanceManager.saveDocking();
@@ -336,6 +336,7 @@ public class Logic : MonoBehaviour
                 }
                
                 currentEndObject.transform.rotation = lastOrientation;
+                currentEndObject.transform.Rotate(new Vector3(0f, 180f, 0f));
                 currentEndObject.transform.position = homePosition.transform.position;
 
                 Debug.Log("Orientation before pairing " + currentEndObject.transform.rotation);
@@ -359,7 +360,9 @@ public class Logic : MonoBehaviour
                 handLogic.process();
                 PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
                 propSpecs.ghost.SetActive(true);
-                logicGame.GetComponent<PhotonView>().RPC("movePropDock", PhotonTargets.All, false, new Quaternion(0f, 0f, 0f, 1f));
+                Quaternion neutral = homePosition.transform.rotation;
+         
+                logicGame.GetComponent<PhotonView>().RPC("movePropDock", PhotonTargets.All, false,  homePosition.transform.rotation);
                 //currentTracker.objectTracked = currentEndObject;
                 //currentEndObject.SetActive(true);
                 //homePosition.SetActive(false);
