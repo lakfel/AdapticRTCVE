@@ -88,7 +88,7 @@ public class LogicGame : MonoBehaviour, IPunObservable
         playerMasters[1].setNewLogic();
         playerMasters[0].nextStage();// DELETE this and the methind on mastercontroller
         playerMasters[1].nextStage();
-
+        refreshPlayerProp();
 
     }
 

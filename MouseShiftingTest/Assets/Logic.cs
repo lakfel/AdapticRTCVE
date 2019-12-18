@@ -220,7 +220,7 @@ public class Logic : MonoBehaviour
     {
         if (masterController.condition == MasterController.CONDITION.SM_RT)
         {
-            propMannager.adapticCommand(currentEndPosition.GetComponent<PropSpecs>().type);
+            propMannager.adapticCommand(currentEndObject.GetComponent<PropSpecs>().type);
         }
         yield return new WaitForSeconds(1.5f);
         yield return null;
@@ -282,7 +282,7 @@ public class Logic : MonoBehaviour
             //Post Home position desactivated. Object allowed to be grabbed in end position
             else if (stage == 0)
             {
-
+                targetedController.disableRT = false;
                 targetedController.starShifting(currentEndPosition.transform.position, hand.giveRealPosition()); 
                 if (currentEndObject.GetComponent<PhotonView>().ownerId != PhotonNetwork.player.ID)
                 {
@@ -400,6 +400,7 @@ public class Logic : MonoBehaviour
                 onTurn = false;
                 logicGame.GetComponent<PhotonView>().RPC("nextStep", PhotonTargets.All);
                 stage = -1;
+                targetedController.disableRT = true;
             }
             if(stage != -1)
                 notificationsMannager.lightStepNotification(stage + 1);
