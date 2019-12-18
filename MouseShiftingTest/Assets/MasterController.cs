@@ -34,6 +34,9 @@ public class MasterController : MonoBehaviour, IPunObservable
     // Survey to be performed in each case.
     private SurveyMannager surveyMannager;
 
+    // prop mannager
+    private PropMannager propMannager;
+
     private Logic logic;
 
     // Base condition
@@ -57,7 +60,8 @@ public class MasterController : MonoBehaviour, IPunObservable
         notificationsMannager = gameObject.GetComponent<NotificationsMannager>();
         surveyMannager = gameObject.GetComponent<SurveyMannager>();
         logic = gameObject.GetComponent<Logic>();
-     
+        propMannager = gameObject.GetComponent<PropMannager>();
+
 
         surveyActivated = false;
         
@@ -66,6 +70,14 @@ public class MasterController : MonoBehaviour, IPunObservable
 
          
          
+    }
+
+    public void presetPtop(PropMannager.PRESET_TYPE presetType)
+    {
+        if(GetComponent<PhotonView>().isMine && this.condition == CONDITION.SM_RT)
+        {
+            propMannager.adapticCommand(presetType);
+        }
     }
 
     public void setNew()

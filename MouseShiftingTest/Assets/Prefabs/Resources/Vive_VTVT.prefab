@@ -2230,6 +2230,7 @@ GameObject:
   - component: {fileID: 5737237659527991615}
   - component: {fileID: 6728561384675738400}
   - component: {fileID: 952661882236132490}
+  - component: {fileID: 281641215084654150}
   m_Layer: 0
   m_Name: Vive_VTVT
   m_TagString: Player
@@ -2508,6 +2509,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   userText: {fileID: 952661883215930537}
   notificationsObject: {fileID: 952661881742791229}
+--- !u!114 &281641215084654150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952661882236132541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c9cc30d81e2ddf4aac445588af232df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portName: 
 --- !u!1 &952661882236132542
 GameObject:
   m_ObjectHideFlags: 0

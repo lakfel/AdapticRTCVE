@@ -350,6 +350,7 @@ public class Logic : MonoBehaviour
                 currentEndObject = objects[currentScenario[0]];
                 currentEndPosition = positions[currentScenario[1]];
                 logicGame.GetComponent<PhotonView>().RPC("refreshObjectAndPosition", PhotonTargets.All, currentScenario[0], currentScenario[1]);
+                //logicGame.GetComponent<PhotonView>().RPC("refreshOtherPlayerProp", PhotonTargets.All, currentScenario[0], currentScenario[1]);
                 if (currentEndObject.GetComponent<PhotonView>().ownerId != PhotonNetwork.player.ID)
                 {
                     currentEndObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);

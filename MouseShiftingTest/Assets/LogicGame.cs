@@ -69,6 +69,13 @@ public class LogicGame : MonoBehaviour, IPunObservable
     }
 
 
+    [PunRPC]
+    public void refreshPlayerProp()
+    {
+        PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
+        playerMasters[(currentPlayer + 1) % 2].presetPtop(propSpecs.type);
+    }
+
     public void initialObjectPosition(int indexObj, int indexPos)
     {
 
@@ -161,6 +168,7 @@ public class LogicGame : MonoBehaviour, IPunObservable
         currentEndObject = objects[indexObj];
         currentEndPosition = positions[indexPos];
         currentEndObject.SetActive(true);
+        refreshPlayerProp();
     }
 
 

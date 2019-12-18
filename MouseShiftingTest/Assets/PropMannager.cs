@@ -22,8 +22,9 @@ public class PropMannager : MonoBehaviour
     private MasterController masterController;
 
     public static string serialName = @"\\.\COM3";
+    public string portName;
 
-    public SerialPort mySPort = new SerialPort(serialName, 115200);
+    public SerialPort mySPort;// = new SerialPort(serialName, 115200);
 
     public void openPort()
     {
@@ -41,17 +42,21 @@ public class PropMannager : MonoBehaviour
         {
             this.enabled = false;
         }
-        if(masterController != null 
+        if (masterController != null
                 && masterController.condition == MasterController.CONDITION.SM_RT)
+        {
             try
             {
                 openPort();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 mySPort = null;
                 Debug.Log("ERROR OPENNING PORT " + e.Message);
             }
+        }
+        else
+            this.enabled = false;
         
         
     }

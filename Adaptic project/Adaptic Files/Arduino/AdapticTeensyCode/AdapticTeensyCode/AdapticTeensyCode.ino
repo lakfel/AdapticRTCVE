@@ -51,7 +51,7 @@ bool detach06 = false;
  * Read the actual action. -99 is the command for change mode
  */
 float action;
-
+float delayT;
 const byte numChars = 64;
 char receivedChars[numChars];
 char tempChars[numChars];        // temporary array for use when parsing
@@ -82,7 +82,7 @@ float jointNumber;
 void setup(void)
 {
   //bno.begin(bno.OPERATION_MODE_IMUPLUS);
-
+ delayT = 1000;
   Serial.begin(115200);
   //  while(!Serial || millis()<10000);
   //Serial.println("Orientation Sensor Test"); Serial.println("");
@@ -131,12 +131,12 @@ void loop() {
   //system = gyro = accel = mag = 0;
   //bno.getCalibration(&system, &gyro, &accel, &mag);
 
-  Aread00 = analogRead(A9);
-  Aread01 = analogRead(A8);
-  Aread02 = analogRead(A7);
-  Aread03 = analogRead(A6);
-  Aread04 = analogRead(A5);
-  Aread05 = analogRead(A3);
+  //Aread00 = analogRead(A9);
+  //Aread01 = analogRead(A8);
+  //Aread02 = analogRead(A7);
+  //Aread03 = analogRead(A6);
+  //Aread04 = analogRead(A5);
+  //Aread05 = analogRead(A3);
 
   recvWithStartEndMarkers();
   if (newData == true) {
@@ -159,8 +159,11 @@ void loop() {
     //Serial.println("DON");
     //input = String(action);
     //Serial.println(input);
-    
-    if(action == -99)
+    if(action == -98)
+    {
+      delayT = pos00;
+    }
+    else if(action == -99)
     {
       mode = pos00;
     }
@@ -286,18 +289,18 @@ void loop() {
 */
 input += "&";
 
-  input += String(Aread00);
-  input += ",";
-  input += String(Aread01);
-  input += ",";
-  input += String(Aread02);
-  input += ",";
-  input += String(Aread03);
-  input += ",";
-  input += String(Aread04);
-  input += ",";
-  input += String(Aread05);
-  input += ",";
+  //input += String(Aread00);
+  //input += ",";
+  //input += String(Aread01);
+  //input += ",";
+  //input += String(Aread02);
+  //input += ",";
+  //input += String(Aread03);
+  //input += ",";
+  //input += String(Aread04);
+  //input += ",";
+  //input += String(Aread05);
+  //input += ",";
 
   /* Display the quat data */
 /*  input += String(quat.w(), 4);
@@ -334,8 +337,8 @@ input += "&";
 */
   input += "$";
 
-  Serial.println(input);
-  delay(1000);
+ // Serial.println(input);
+  //delay(1000);
   Serial.flush();
 
 }
@@ -365,19 +368,20 @@ void presetFlat ()
   detachJoint(5);
   detachJoint(6);
 
-  moveJoint(1,90);
-  moveJoint(2,90);
+  moveJoint(1,100);
+  moveJoint(2,100);
  moveJoint(3,110);
+  delay(delayT/2);
+  detachJoint(1);
+  detachJoint(2);
+ detachJoint(3);
   moveJoint(4,90);
   moveJoint(5,90);
   moveJoint(6,90);
   
+  delay(delayT/2);
 
-  delay(700);
-   detachHalf();
-  detachJoint(1);
-  detachJoint(2);
- detachJoint(3);
+   
   detachJoint(4);
   detachJoint(5);
   detachJoint(6);
@@ -433,20 +437,26 @@ void presetCylinder ()
   detachJoint(5);
   detachJoint(6);
 
-  moveJoint(1,40);
-  moveJoint(2,40);
+  moveJoint(1,35);
+  moveJoint(2,35);
   moveJoint(3,40);
-  moveJoint(4,40);
-  moveJoint(5,40);
-  moveJoint(6,40);
-  
-  delay(1000);
+ 
+  delay(delayT/2);
 
-  //detachHalf();
-  
+
   detachJoint(1);
   detachJoint(2);
   detachJoint(3);
+  
+  moveJoint(4,40);
+  moveJoint(5,35);
+  moveJoint(6,35);
+  //detachHalf();
+
+
+  delay(delayT/2);
+
+  
   detachJoint(4);
   detachJoint(5);
   detachJoint(6);
@@ -481,7 +491,7 @@ void presetCylinderSlow ()
   
   moveJoint(5,40);
   moveJoint(6,450);
-  delay(700);
+  delay(delayT);;
 
   //detachHalf();
   

@@ -67,4 +67,5 @@ MonoBehaviour:
   - spehereColor
   - relocatePropDock
   - setActiveGhost
+  - refreshPlayerProp
   DisableAutoOpenWizard: 1
