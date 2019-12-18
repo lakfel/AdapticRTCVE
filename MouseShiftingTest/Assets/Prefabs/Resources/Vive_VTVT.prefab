@@ -1003,7 +1003,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8259496879810682005
 Transform:
   m_ObjectHideFlags: 0
@@ -1999,7 +1999,7 @@ MonoBehaviour:
   initialReference: {fileID: 0}
   master: {fileID: 8259496880429912596}
   trackerRep: {fileID: 0}
-  objectTracked: {fileID: 0}
+  objectTracked: {fileID: 8259496880429912578}
 --- !u!114 &68557212500162789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2080,7 +2080,7 @@ MonoBehaviour:
   initialReference: {fileID: 0}
   master: {fileID: 8259496880429912596}
   trackerRep: {fileID: 0}
-  objectTracked: {fileID: 0}
+  objectTracked: {fileID: 8259496880429912592}
 --- !u!114 &8010925617941489803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2416,8 +2416,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d55c0b414a3c972408e1dfb3de7feb2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightTracker: {fileID: 0}
-  leftTracker: {fileID: 0}
+  rightTracker: {fileID: 8259496880429912736}
+  leftTracker: {fileID: 8259496880429912740}
   typeTracker: 0
   setTrackers:
   - {fileID: 8259496880429912660}
@@ -2609,7 +2609,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selfConfigured: 0
   desiredPosition: {fileID: 0}
-  camera: {fileID: 0}
+  camera: {fileID: 8259496880429912673}
 --- !u!114 &8259496880429912648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3747,7 +3747,8 @@ MonoBehaviour:
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
