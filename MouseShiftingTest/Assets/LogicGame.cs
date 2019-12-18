@@ -142,7 +142,8 @@ public class LogicGame : MonoBehaviour, IPunObservable
 
         }
         currentPlayer = (currentPlayer + 1) % 2;
-        playerMasters[currentPlayer].nextStage();
+        playerMasters[0].nextStage();
+        playerMasters[1].nextStage();
         
     }
 

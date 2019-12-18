@@ -26,6 +26,8 @@ public class PersonalNotifications : MonoBehaviour
         userText.text = message;
         userText.gameObject.SetActive(true);
         yield return new WaitForSeconds(1);
+        notificationsObject.SetActive(false);
+        userText.gameObject.SetActive(false);
 
         yield return null;
     }

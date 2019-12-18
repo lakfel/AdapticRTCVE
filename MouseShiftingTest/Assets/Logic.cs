@@ -189,7 +189,14 @@ public class Logic : MonoBehaviour
 
     public void onTurnStep()
     {
-        notificationsMannager.lightStepNotification(0);
+        if (onTurn = (idPlayer == logicGame.currentPlayer))
+        {
+            notificationsMannager.lightStepNotification(0);
+        }
+        else
+        {
+            notificationsMannager.lightStepNotification(7);
+        }
     }
     // Update is called once per frame
     void Update()
@@ -281,18 +288,10 @@ public class Logic : MonoBehaviour
                 }
 
                 //currentEndObject.GetComponent<PropSpecs>().activeChildren(false);
-                if (masterController.condition == MasterController.CONDITION.NM_RT ||
-                        masterController.condition == MasterController.CONDITION.SM_RT)
-                {
-                    currentEndObject.transform.position = targetedController.retargetedPosition.transform.position;
-                }
-                else
-                {
-                    currentEndObject.transform.position = currentEndPosition.transform.position;
-                }
-                //targetedController.starShifting(currentEndPosition.transform.position, hand.giveRealPosition());
-                
 
+                //targetedController.starShifting(currentEndPosition.transform.position, hand.giveRealPosition());
+
+                currentEndObject.transform.position = currentEndPosition.transform.position;
                 StartCoroutine(transformProp());
                 logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, false,false);
 
@@ -303,6 +302,15 @@ public class Logic : MonoBehaviour
             // Post hand hiden, object green and allowed to manipulate. Ghost on home position in radom orientation
             else if (stage == 1) // Hand in object Maybe should check the coliders are overlapped. Pre No shadow in scene. Pos shadow in point Z
             {
+                if (masterController.condition == MasterController.CONDITION.NM_RT ||
+                        masterController.condition == MasterController.CONDITION.SM_RT)
+                {
+                    currentEndObject.transform.position = targetedController.retargetedPosition.transform.position;
+                }
+                else
+                {
+                    currentEndObject.transform.position = currentEndPosition.transform.position;
+                }
                 pairTracker(true);
                 handLogic.process(); logicGame.GetComponent<PhotonView>().RPC("setActiveGhost", PhotonTargets.All, true);
                 logicGame.GetComponent<PhotonView>().RPC("movePropDock", PhotonTargets.All, true, homePosition.transform.rotation * orientationsPlayer.Dequeue());
