@@ -189,12 +189,14 @@ public class Logic : MonoBehaviour
 
     public void onTurnStep()
     {
-        if (onTurn = (idPlayer == logicGame.currentPlayer))
+        if ( idPlayer == logicGame.currentPlayer)
         {
             notificationsMannager.lightStepNotification(0);
+            handLogic.allowToGrab = true;
         }
         else
         {
+            handLogic.allowToGrab = false;
             notificationsMannager.lightStepNotification(7);
         }
     }
@@ -326,7 +328,7 @@ public class Logic : MonoBehaviour
             {
                 targetedController.disableRT = true;
                 logicGame.GetComponent<PhotonView>().RPC("setActiveGhost", PhotonTargets.All, false);
-                logicGame.GetComponent<PhotonView>().RPC("relocatePropDock", PhotonTargets.All, false);
+                logicGame.GetComponent<PhotonView>().RPC("relocatePropDock", PhotonTargets.All);
                 handLogic.process();
                 handLogic.allowToGrab = false;
                 logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, true,true);
