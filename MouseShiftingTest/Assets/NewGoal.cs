@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewGoal : MonoBehaviour
+public class NewGoal : MonoBehaviour, IPunObservable
 {
     public bool handOnInitialPosition;
  
@@ -45,10 +45,11 @@ public class NewGoal : MonoBehaviour
     }*/
 
    [PunRPC]
-   public void spehereColor(Color color)
+   public void spehereColor(bool green)
     {
+        Color temp = green ? Color.green : Color.white;
         Renderer rend = gameObject.GetComponent<Renderer>();
-        rend.material.color = color;
+        rend.material.color = temp;
     }
 
     void Update()
@@ -56,17 +57,20 @@ public class NewGoal : MonoBehaviour
         Collider spehre = gameObject.GetComponent<SphereCollider>();
         if (Physics.OverlapBox(spehre.transform.position, new Vector3(0.05f, 0.05f, 0.05f)).Length == 1)
         {
-            GetComponent<PhotonView>().RPC("spehereColor", PhotonTargets.All, Color.white);
+            GetComponent<PhotonView>().RPC("spehereColor", PhotonTargets.All, false);
             //rend.material.color = Color.white;
             handOnInitialPosition = false;
         }
         else
         {
-            GetComponent<PhotonView>().RPC("spehereColor", PhotonTargets.All, Color.green);
+            GetComponent<PhotonView>().RPC("spehereColor", PhotonTargets.All, true);
             //rend.material.color = Color.green   ;
             handOnInitialPosition = true;
         }
     }
 
-   
+    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        //throw new System.NotImplementedException();
+    }
 }

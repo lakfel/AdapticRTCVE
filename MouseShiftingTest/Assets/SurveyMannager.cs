@@ -28,7 +28,7 @@ public class SurveyMannager : MonoBehaviour
         isSurveyActive = false;
         lineRenderer = gameObject.GetComponent<LineRenderer>();
         notificationsMannager = gameObject.GetComponent<NotificationsMannager>();
-        persistanceManager  = gameObject.GetComponent<PersistanceManager>();
+        //persistanceManager  = gameObject.GetComponent<PersistanceManager>();
         lineRenderer.startWidth = 0;
         lineRenderer.endWidth = 0.05f;
         lineRenderer.startColor = Color.green;
@@ -82,8 +82,8 @@ public class SurveyMannager : MonoBehaviour
                     triggerPressed = true;
                     if (answer != "")
                         nextQuestion();
-                    else
-                        notificationsMannager.messageToUser("Select one of the options in the wall");
+                    //else
+                       // notificationsMannager.messageToUser("Select one of the options in the wall");
                 }
             }
             else

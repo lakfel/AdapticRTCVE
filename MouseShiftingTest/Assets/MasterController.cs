@@ -153,25 +153,10 @@ public class MasterController : MonoBehaviour, IPunObservable
 
     public void nextStage()
     {
-      /*  persistanceManager.recording = true;
-        if(stageCounter < 4)
+        if (GetComponent<PhotonView>().isMine)
         {
-            logic.stage = -1;
-            stageCounter++;
-            int newStage = ordersStages[subjectOrder, stageCounter-1];
-            stagesDone[newStage] = true; 
-            currentStage = stages[newStage];
-            if (notificacionTextObject != null)
-            { 
-                TextMesh text = notificacionTextObject.GetComponent<TextMesh>();
-                text.text = "Stage number : " + stageCounter;  
-            }
-
+            logic.onTurnStep();
         }
-        if (stageCounter >= 2 && stageCounter <= 5)
-        {
-            surveyMannager.startSurvey(stageCounter, currentStage.ToString("G"));
-        }*/
     }
 
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

@@ -52,11 +52,7 @@ public class PropSpecs : MonoBehaviour, IPunObservable
     }
 
 
-    public void relocatePropDock()
-    {
-        ghost.transform.parent = transform;
-        ghost.transform.localPosition = Vector3.zero;
-    }
+    
 
 
     public void objectGreen(bool isGreen)

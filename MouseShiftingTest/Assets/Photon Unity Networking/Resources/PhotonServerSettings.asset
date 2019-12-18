@@ -65,4 +65,6 @@ MonoBehaviour:
   - enableHomePoint
   - movePropDock
   - spehereColor
+  - relocatePropDock
+  - setActiveGhost
   DisableAutoOpenWizard: 1

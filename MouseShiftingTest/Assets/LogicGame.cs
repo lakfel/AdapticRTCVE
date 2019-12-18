@@ -111,7 +111,24 @@ public class LogicGame : MonoBehaviour, IPunObservable
             dockProp.transform.parent = currentEndPosition.transform;
             dockProp.transform.localPosition = Vector3.zero;
         }
+
     }
+    [PunRPC]
+    public void setActiveGhost(bool active)
+    {
+
+        PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
+        propSpecs.ghost.SetActive(active);
+    }
+
+    [PunRPC]
+    public void relocatePropDock()
+    {
+        PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
+        propSpecs.ghost.transform.parent = transform;
+        propSpecs.ghost.transform.localPosition = Vector3.zero;
+    }
+
 
     [PunRPC]
     public void nextStep()
@@ -125,6 +142,7 @@ public class LogicGame : MonoBehaviour, IPunObservable
 
         }
         currentPlayer = (currentPlayer + 1) % 2;
+        playerMasters[currentPlayer].nextStage();
         
     }
 

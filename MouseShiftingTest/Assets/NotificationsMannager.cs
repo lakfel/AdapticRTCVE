@@ -6,8 +6,6 @@ public class NotificationsMannager : MonoBehaviour
 {
 
     public TextMesh[] steps;
-
-    public TextMesh personalNotificationBar;
     public TextMesh personalStageBar;
 
     public int counterGoals;
@@ -35,51 +33,31 @@ public class NotificationsMannager : MonoBehaviour
     }
     void showGoalDone(bool show)
     {
-        personalStageBar.gameObject.SetActive(show);
+       
     }
     // Update is called once per frame
     void Update()
-    {/*
-        if (!triggerPressed)
-        {
-            if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch) > 0.7f)
-            {
-                triggerPressed = true;
-
-            }
-        } 
-        else
-        {
-            if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch) < 0.4f)
-            {
-                showGoalDone(false);
-                masterDecide = false;
-                triggerPressed = false;
-            }
-        }*/
-        if (Input.GetKeyDown(KeyCode.N))
-        { 
-            showGoalDone(false);
-            masterDecide = false;
-        }
+    {
+    }
+    public void changeTitle(string ntitle)
+    {
+        personalStageBar.text = ntitle;
     }
 
     public void lightStepNotification(int step)
     {
-        for(int i = 0; i < steps.Length; i++)
+        for (int i = 0; i < steps.Length; i++)
         {
-            steps[i].color = Color.white;
-            steps[i].fontSize = 4;
+            steps[i].gameObject.SetActive(false);
         }
-        steps[step-1].color = Color.green;
-        steps[step - 1].fontSize = 45;
+        steps[step].gameObject.SetActive(true);
     }
-
+    /*
     public void messageToUser(string message)
     {
         StartCoroutine(showMessage(message));
     }
-
+    /*
     IEnumerator showMessage(string message)
     {
         personalNotificationBar.gameObject.SetActive(true);
@@ -87,7 +65,8 @@ public class NotificationsMannager : MonoBehaviour
         yield return new WaitForSeconds(2);
         personalNotificationBar.gameObject.SetActive(false);
     }
-
+    */
+    /*
     public void normalSettings()
     {
         counterGoals = 0;
@@ -97,5 +76,5 @@ public class NotificationsMannager : MonoBehaviour
             steps[i].color = Color.white;
             steps[i].fontSize = 35;
         }
-    }
+    }*/
 }

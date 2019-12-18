@@ -79,6 +79,7 @@ public class Logic : MonoBehaviour
     private NotificationsMannager notificationsMannager;
     private SurveyMannager surveyMannager;
     private PropMannager propMannager;
+    private PersonalNotifications personalNotifications;
 
 
     #region propEscnearioController
@@ -153,10 +154,10 @@ public class Logic : MonoBehaviour
         targetedController = gameObject.GetComponent<TargetedController>();
         persistanceManager = gameObject.GetComponent<PersistanceManager>();
         trackerMannager = gameObject.GetComponent<TrackerMannager>();
-        notificationsMannager = gameObject.GetComponent<NotificationsMannager>();
         surveyMannager = gameObject.GetComponent<SurveyMannager>();
         hand = handObject.gameObject.GetComponent<IGenericHand>();
         propMannager = gameObject.GetComponent<PropMannager>();
+        personalNotifications = gameObject.GetComponent<PersonalNotifications>();
 
 
 
@@ -175,15 +176,21 @@ public class Logic : MonoBehaviour
         {
             idPlayer = Int32.Parse(gameObject.name.ToCharArray()[gameObject.name.Length - 1] + "");
             homePosition = logicGame.homePositions[idPlayer];
-            homePosition = logicGame.homePositions2[idPlayer];
+            homePosition2 = logicGame.homePositions2[idPlayer];
             positions = logicGame.positions;
             objects = logicGame.objects;
             onTurn = (idPlayer == logicGame.currentPlayer);
+            notificationsMannager = GameObject.Find("Instructions Player " + idPlayer).GetComponent<NotificationsMannager>();
+            notificationsMannager.lightStepNotification(7);
         }
         trackerMannager.setTrackers();
         fillPlayerInformation();
     }
 
+    public void onTurnStep()
+    {
+        notificationsMannager.lightStepNotification(0);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -200,8 +207,16 @@ public class Logic : MonoBehaviour
                 }
     }
 
-
-    private IEnumerator pairTracker(bool restartTtracker)
+    private IEnumerator transformProp()
+    {
+        if (masterController.condition == MasterController.CONDITION.SM_RT)
+        {
+            propMannager.adapticCommand(currentEndPosition.GetComponent<PropSpecs>().type);
+        }
+        yield return new WaitForSeconds(1.5f);
+        yield return null;
+    }
+    private void pairTracker(bool restartTtracker)
     {
         if(restartTtracker)
         { 
@@ -219,17 +234,13 @@ public class Logic : MonoBehaviour
         //currentTracker.initialReference = currentEndPosition;
         
         currentTracker.attach();
-        if (masterController.condition == MasterController.CONDITION.SM_RT)
-        {
-            propMannager.adapticCommand(currentEndPosition.GetComponent<PropSpecs>().type);
-        }
-        yield return new WaitForSeconds(1.5f);
+        
        
         
         currentEndObject.GetComponent<PropSpecs>().activeChildren(true);
         currentEndObject.GetComponent<PropSpecs>().ghost.SetActive(false);
         
-        yield return null;
+        
     }
 
     // All movements are isolated from the other user. TODO review this in order to male it more collaborative
@@ -280,8 +291,9 @@ public class Logic : MonoBehaviour
                     currentEndObject.transform.position = currentEndPosition.transform.position;
                 }
                 //targetedController.starShifting(currentEndPosition.transform.position, hand.giveRealPosition());
-                StartCoroutine(pairTracker(true));
+                
 
+                StartCoroutine(transformProp());
                 logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, false,false);
 
                 stage = 1;
@@ -291,10 +303,9 @@ public class Logic : MonoBehaviour
             // Post hand hiden, object green and allowed to manipulate. Ghost on home position in radom orientation
             else if (stage == 1) // Hand in object Maybe should check the coliders are overlapped. Pre No shadow in scene. Pos shadow in point Z
             {
-                handLogic.process();
-                currentEndObject.GetComponent<PropSpecs>().ghost.SetActive(true);
-
-                logicGame.GetComponent<PhotonView>().RPC("movePropDock", PhotonTargets.All, false, homePosition.transform.rotation * orientationsPlayer.Dequeue());
+                pairTracker(true);
+                handLogic.process(); logicGame.GetComponent<PhotonView>().RPC("setActiveGhost", PhotonTargets.All, true);
+                logicGame.GetComponent<PhotonView>().RPC("movePropDock", PhotonTargets.All, true, homePosition.transform.rotation * orientationsPlayer.Dequeue());
                 //movePropDock(true);// TODO maybe add some animation to make the "transformation between objects"
 
                 // persistanceManager.saveDocking();
@@ -306,9 +317,8 @@ public class Logic : MonoBehaviour
             else if (stage == 2) 
             {
                 targetedController.disableRT = true;
-                PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
-                propSpecs.ghost.SetActive(false);
-                propSpecs.relocatePropDock();
+                logicGame.GetComponent<PhotonView>().RPC("setActiveGhost", PhotonTargets.All, false);
+                logicGame.GetComponent<PhotonView>().RPC("relocatePropDock", PhotonTargets.All, false);
                 handLogic.process();
                 handLogic.allowToGrab = false;
                 logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, true,true);
@@ -334,13 +344,13 @@ public class Logic : MonoBehaviour
                 {
                     currentEndObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
                 }
-               
+
+                StartCoroutine(transformProp());
                 currentEndObject.transform.rotation = lastOrientation;
                 currentEndObject.transform.Rotate(new Vector3(0f, 180f, 0f));
                 currentEndObject.transform.position = homePosition.transform.position;
 
                 Debug.Log("Orientation before pairing " + currentEndObject.transform.rotation);
-                StartCoroutine(pairTracker(false));
                 currentEndObject.SetActive(true);
                 handLogic.allowToGrab = true;
 
@@ -353,13 +363,10 @@ public class Logic : MonoBehaviour
             else if (stage == 4)
             {
                 
-
-
+                pairTracker(false);
                 targetedController.disableRT = false;
                 targetedController.starShifting(currentEndPosition.transform.position, currentEndObject.transform.position);
-                handLogic.process();
-                PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
-                propSpecs.ghost.SetActive(true);
+                handLogic.process();logicGame.GetComponent<PhotonView>().RPC("setActiveGhost", PhotonTargets.All, true);
                 Quaternion neutral = homePosition.transform.rotation;
          
                 logicGame.GetComponent<PhotonView>().RPC("movePropDock", PhotonTargets.All, false,  homePosition.transform.rotation);
@@ -377,12 +384,13 @@ public class Logic : MonoBehaviour
             {
                 PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
                 propSpecs.ghost.SetActive(false);
-                propSpecs.relocatePropDock();
+                logicGame.GetComponent<PhotonView>().RPC("relocatePropDock", PhotonTargets.All);
                 handLogic.process();
                 onTurn = false;
                 logicGame.GetComponent<PhotonView>().RPC("nextStep", PhotonTargets.All);
                 stage = -1;
             }
+            notificationsMannager.lightStepNotification(stage + 1);
         }
                
     }
@@ -402,7 +410,8 @@ public class Logic : MonoBehaviour
             answer = newGoal.handOnInitialPosition;
             if(!answer)
             {
-                //notificationsMannager.messageToUser("Be sure your hand is on the sphere");
+                //personalNotifications.messageToUser("Be sure your hand is on the sphere");
+                personalNotifications.messageToUser("La mano en la esfera");
             }
         }
         else if (stage == 1)
@@ -410,7 +419,8 @@ public class Logic : MonoBehaviour
             answer =  (handLogic.possibleObject != null);// Implicit threshold lies in the size of both hand and objects
             if (!answer)
             {
-                //notificationsMannager.messageToUser("Be sure your hands is on the object. \n Do not move it");
+                //personalNotifications.messageToUser("Be sure your hands is on the object. \n Do not move it");
+                personalNotifications.messageToUser("La mano sobre el objeto");
             }
         }
         else if (stage == 2)
@@ -421,6 +431,7 @@ public class Logic : MonoBehaviour
             if (!answer)
             {
                 //notificationsMannager.messageToUser(@"It seems you are not in the final position");
+                personalNotifications.messageToUser("Que coincida el objeto y el fantasma");
             }
         }
         else if (stage == 3)
@@ -431,6 +442,7 @@ public class Logic : MonoBehaviour
             if (!answer)
             {
                 //notificationsMannager.messageToUser(@"It seems you are not in the final position");
+                personalNotifications.messageToUser("La mano sobre la esfera");
             }
         }
         else if (stage == 4)
@@ -439,9 +451,21 @@ public class Logic : MonoBehaviour
             if (!answer)
             {
                 //notificationsMannager.messageToUser("Be sure your hand is on the sphere");
+                personalNotifications.messageToUser("La mano sobre el objeto");
             }
         }
-        
+        else if (stage == 5)
+        {
+            float threshold = 0.02f;
+            PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
+            answer = propSpecs.distanceToDock() < threshold;
+            if (!answer)
+            {
+                //notificationsMannager.messageToUser("Be sure your hand is on the sphere");
+                personalNotifications.messageToUser("Que coincida el objeto y el fantasma");
+            }
+        }
+
 
         return answer;
     }
