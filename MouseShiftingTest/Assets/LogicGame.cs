@@ -6,6 +6,8 @@ public class LogicGame : MonoBehaviour, IPunObservable
 {
     public bool started;
 
+    public NotificationsMannager[] playersNotifications;
+
     public MasterController[] playerMasters;
     // public Logic[] playerLogics;
 
@@ -77,6 +79,8 @@ public class LogicGame : MonoBehaviour, IPunObservable
         currentPlayer = 0;
         playerMasters[0].setNewLogic();
         playerMasters[1].setNewLogic();
+        playerMasters[0].nextStage();// DELETE this and the methind on mastercontroller
+        playerMasters[1].nextStage();
 
 
     }
@@ -141,10 +145,12 @@ public class LogicGame : MonoBehaviour, IPunObservable
             repetition = 0;
 
         }
+       // playersNotifications[currentPlayer].lightStepNotification(7);
         currentPlayer = (currentPlayer + 1) % 2;
-        playerMasters[0].nextStage();
+        playerMasters[0].nextStage();// DELETE this and the methind on mastercontroller
         playerMasters[1].nextStage();
         
+
     }
 
     [PunRPC]

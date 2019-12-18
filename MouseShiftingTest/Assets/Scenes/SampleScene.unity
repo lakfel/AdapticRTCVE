@@ -3452,6 +3452,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   started: 0
+  playersNotifications:
+  - {fileID: 138429488}
+  - {fileID: 1302852943}
   playerMasters:
   - {fileID: 0}
   - {fileID: 0}

@@ -400,7 +400,8 @@ public class Logic : MonoBehaviour
                 logicGame.GetComponent<PhotonView>().RPC("nextStep", PhotonTargets.All);
                 stage = -1;
             }
-            notificationsMannager.lightStepNotification(stage + 1);
+            if(stage != -1)
+                notificationsMannager.lightStepNotification(stage + 1);
         }
                
     }
