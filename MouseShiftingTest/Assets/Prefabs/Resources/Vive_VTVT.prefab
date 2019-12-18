@@ -893,7 +893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ababa0340fd88f345aa6c64b456a80e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
+  camera: {fileID: 8259496880429912673}
 --- !u!1 &8259496879145249282
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,7 +1311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e50d309c8c5544bb358e2624b2851c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tracker: {fileID: 0}
+  tracker: {fileID: 8259496880429912597}
   firstTrackedRotation: {x: 0, y: 0, z: 0, w: 0}
   initialRotation: {x: 0, y: 0, z: 0, w: 0}
   configured: 0
@@ -1362,7 +1362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96300539660374041b04137329d9fbe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeTracker: 0
+  typeTracker: 2
 --- !u!1 &8259496880429912581
 GameObject:
   m_ObjectHideFlags: 0
@@ -1926,7 +1926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96300539660374041b04137329d9fbe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeTracker: 0
+  typeTracker: 1
 --- !u!114 &8259496880429912739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1997,7 +1997,7 @@ MonoBehaviour:
   virtualObject: {fileID: 0}
   realWorldReference: {fileID: 0}
   initialReference: {fileID: 0}
-  master: {fileID: 0}
+  master: {fileID: 8259496880429912596}
   trackerRep: {fileID: 0}
   objectTracked: {fileID: 0}
 --- !u!114 &68557212500162789
@@ -2020,7 +2020,8 @@ MonoBehaviour:
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -2077,7 +2078,7 @@ MonoBehaviour:
   virtualObject: {fileID: 0}
   realWorldReference: {fileID: 0}
   initialReference: {fileID: 0}
-  master: {fileID: 0}
+  master: {fileID: 8259496880429912596}
   trackerRep: {fileID: 0}
   objectTracked: {fileID: 0}
 --- !u!114 &8010925617941489803
@@ -2100,7 +2101,8 @@ MonoBehaviour:
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -2417,7 +2419,10 @@ MonoBehaviour:
   rightTracker: {fileID: 0}
   leftTracker: {fileID: 0}
   typeTracker: 0
-  setTrackers: []
+  setTrackers:
+  - {fileID: 8259496880429912660}
+  - {fileID: 8259496880429912738}
+  - {fileID: 8259496880429912670}
 --- !u!114 &2506128568530573477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2438,7 +2443,8 @@ MonoBehaviour:
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
