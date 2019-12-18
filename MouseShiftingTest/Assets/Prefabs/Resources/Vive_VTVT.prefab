@@ -792,11 +792,12 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 0
+  synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 8349910636119687561}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -815,7 +816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PositionModel:
-    SynchronizeEnabled: 0
+    SynchronizeEnabled: 1
     TeleportEnabled: 1
     TeleportIfDistanceGreaterThan: 3
     InterpolateOption: 2
@@ -871,12 +872,12 @@ MonoBehaviour:
     ExtrapolateNumberOfStoredPositions: 1
     DrawErrorGizmo: 1
   m_RotationModel:
-    SynchronizeEnabled: 0
+    SynchronizeEnabled: 1
     InterpolateOption: 1
     InterpolateRotateTowardsSpeed: 180
     InterpolateLerpSpeed: 5
   m_ScaleModel:
-    SynchronizeEnabled: 0
+    SynchronizeEnabled: 1
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
@@ -1161,11 +1162,12 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 0
+  synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 8259496880429912655}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -1295,8 +1297,8 @@ MonoBehaviour:
   possibleObject: {fileID: 0}
   voObject: {fileID: 0}
   parentVOObjects: {fileID: 0}
-  trackerMannager: {fileID: 0}
-  masterController: {fileID: 0}
+  trackerMannager: {fileID: 3475067010389204886}
+  masterController: {fileID: 8259496880429912656}
 --- !u!114 &8259496880429912659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1313,8 +1315,8 @@ MonoBehaviour:
   firstTrackedRotation: {x: 0, y: 0, z: 0, w: 0}
   initialRotation: {x: 0, y: 0, z: 0, w: 0}
   configured: 0
-  targeted: {fileID: 0}
-  handRepresentation: {fileID: 0}
+  targeted: {fileID: 8259496880429912657}
+  handRepresentation: {fileID: 1544277948259418500}
 --- !u!1 &8259496880429912580
 GameObject:
   m_ObjectHideFlags: 0
@@ -2696,11 +2698,12 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 0
+  synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 8259496880429912656}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -2746,7 +2749,7 @@ MonoBehaviour:
   compensation: 0
   newGoal: 0
   retargetedPosition: {fileID: 0}
-  masterController: {fileID: 0}
+  masterController: {fileID: 8259496880429912656}
   levelController: {fileID: 0}
   compensationFactorX: 0
   compensationFactorZ: 0
@@ -2764,7 +2767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userId: 0
-  condition: 0
+  condition: 2
   stageCounter: 0
   surveyActivated: 0
 --- !u!114 &3475067010389204886
@@ -2783,7 +2786,7 @@ MonoBehaviour:
   rightTracker: {fileID: 0}
   fLeftTracker: {fileID: 0}
   fRightTracker: {fileID: 0}
-  trackerSystemsMannager: {fileID: 0}
+  trackerSystemsMannager: {fileID: 8259496880429912742}
 --- !u!114 &2506128569252941193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2811,8 +2814,8 @@ MonoBehaviour:
   props: []
   goal: 0
   showing: 0
-  handObject: {fileID: 0}
-  handLogic: {fileID: 0}
+  handObject: {fileID: 8259496880429912579}
+  handLogic: {fileID: 8259496880429912610}
   initialPoint: {fileID: 0}
   handOnObject: 0
   handOnInitialPosition: 0
@@ -3647,7 +3650,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8259496880429912673}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
   m_Name: 
