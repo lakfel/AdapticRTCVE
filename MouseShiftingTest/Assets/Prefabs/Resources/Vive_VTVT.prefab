@@ -104,7 +104,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 952661881742791229}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.157, y: 0.1, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0.5}
   m_LocalScale: {x: 0.035, y: 0.01, z: 0.005}
   m_Children:
   - {fileID: 952661883215930538}
@@ -929,7 +929,7 @@ MonoBehaviour:
   initialRotation: {x: 0, y: 0, z: 0, w: 0}
   configured: 0
   targeted: {fileID: 952661882236132600}
-  handRepresentation: {fileID: 0}
+  handRepresentation: {fileID: 952661882236132519}
 --- !u!1 &952661882236132523
 GameObject:
   m_ObjectHideFlags: 0
@@ -2872,7 +2872,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 952661883215930539}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -4.66, y: 0.4, z: 3.4}
+  m_LocalPosition: {x: -4.84, y: 0.4, z: 2.8}
   m_LocalScale: {x: 0.85714287, y: 4.5, z: 1.3}
   m_Children: []
   m_Father: {fileID: 952661881742791228}
@@ -2930,7 +2930,7 @@ TextMesh:
   m_Anchor: 0
   m_Alignment: 0
   m_TabSize: 4
-  m_FontSize: 58
+  m_FontSize: 45
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
