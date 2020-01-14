@@ -31,7 +31,7 @@ public class HandLogic : MonoBehaviour
         objectInHand = false;
         //TODO delete
         allowToGrab = true;
-        trackerMannager.setTrackers();
+        //trackerMannager.setTrackers();
 
     }
 

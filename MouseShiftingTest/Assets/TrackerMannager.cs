@@ -51,7 +51,7 @@ public class TrackerMannager : MonoBehaviour
             if (rightTracker == null)
             {
                 if (trackerSystemsMannager.rightTracker != null)
-                    leftTracker = trackerSystemsMannager.rightTracker;
+                    rightTracker = trackerSystemsMannager.rightTracker;
                 else
                     Debug.LogError("No tracker found");
             }

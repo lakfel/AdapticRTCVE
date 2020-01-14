@@ -232,11 +232,18 @@ public class Logic : MonoBehaviour
             trackerMannager.fLeftTracker.detach();
             trackerMannager.fRightTracker.detach();
 
-        
-            if (currentEndPosition.GetComponent<SpotSide>().currentSide == SpotSide.SIDE.LEFT)
-                currentTracker = trackerMannager.fLeftTracker;
+
+
+            if (idPlayer == 0)
+                if (currentEndPosition.GetComponent<SpotSide>().currentSide == SpotSide.SIDE.LEFT)
+                    currentTracker = trackerMannager.fLeftTracker;
+                else
+                    currentTracker = trackerMannager.fRightTracker;
             else
+                if (currentEndPosition.GetComponent<SpotSide>().currentSide == SpotSide.SIDE.LEFT)
                 currentTracker = trackerMannager.fRightTracker;
+            else
+                currentTracker = trackerMannager.fLeftTracker;
         }
         currentTracker.detach();
         currentTracker.VirtualObject = currentEndObject;

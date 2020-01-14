@@ -82,7 +82,7 @@ float jointNumber;
 void setup(void)
 {
   //bno.begin(bno.OPERATION_MODE_IMUPLUS);
- delayT = 1000;
+ delayT = 1100;
   Serial.begin(115200);
   //  while(!Serial || millis()<10000);
   //Serial.println("Orientation Sensor Test"); Serial.println("");
@@ -377,7 +377,7 @@ void presetFlat ()
  detachJoint(3);
   moveJoint(4,90);
   moveJoint(5,90);
-  moveJoint(6,90);
+  moveJoint(6,120);
   
   delay(delayT/2);
 
