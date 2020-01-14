@@ -72,6 +72,11 @@ public class MasterController : MonoBehaviour, IPunObservable
          
     }
 
+    public void setCondition(CONDITION nCondition)
+    {
+        condition = nCondition;
+    }
+
     public void presetPtop(PropMannager.PRESET_TYPE presetType)
     {
         if(GetComponent<PhotonView>().isMine && this.condition == CONDITION.SM_RT)
