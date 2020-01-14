@@ -81,6 +81,8 @@ public class Logic : MonoBehaviour
     private PropMannager propMannager;
     private PersonalNotifications personalNotifications;
 
+    
+
 
     #region propEscnearioController
     // Set of orientations. 

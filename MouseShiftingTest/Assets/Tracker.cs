@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using HTC.UnityPlugin.Vive;
 using UnityEngine;
 
 public class Tracker : MonoBehaviour, IPunObservable
@@ -53,12 +54,19 @@ public class Tracker : MonoBehaviour, IPunObservable
     private MasterController masterController;
     private TargetedController targetedController;
     private Logic logic;
-
+    public float yOffset;
     // This object changes the position and orientation in function of the tracker movements in real world
     public GameObject trackerRep;
 
-    // 
+     
     public GameObject objectTracked;
+
+    // Swipe recognition
+    private Vector2 swipeStart, swipeEnd, swipe;
+    private float startTime;
+    public bool swiping;
+    public float minSwipeDist = 0.2f;
+    public float minVelocity = 4.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -80,19 +88,22 @@ public class Tracker : MonoBehaviour, IPunObservable
         { 
             if (VirtualObject != null && atached)
             {
-            
-                Vector3 realPos = Vector3.zero;
-                realPos = trackerRep.transform.position - firstTrackedPosition + initialPosition;
+
+                Vector2 padDelta = ViveInput.GetPadTouchDeltaEx(HandRole.RightHand) + ViveInput.GetPadTouchDeltaEx(HandRole.LeftHand);
+                if (padDelta.y > minSwipeDist)
+                    yOffset += 0.02f;
+                if (padDelta.y < -minSwipeDist)
+                    yOffset -= 0.02f;
+
+                Vector3 realPos = Vector3.zero; 
+                realPos = trackerRep.transform.position - firstTrackedPosition + initialPosition + new Vector3(0f,yOffset,0f);
 
                 transform.position = targetedController.giveRetargetedPosition(realPos);
 
-               // Debug.Log("Tracking : In Rot = " + InitialRotation + " First tracked = " + firsTrackedRotation + " Trackrd = " + trackerRep.transform.rotation);
+               
+
+
                 transform.rotation = trackerRep.transform.rotation* Quaternion.Inverse(FirstTrackedRotation) * InitialRotation  ;
-
-                //VirtualObject.transform.position = objectTracked.transform.position;
-                //VirtualObject.transform.rotation = objectTracked.transform.rotation;
-
-                //GetComponent<PhotonView>().RPC("refreshPosition", PhotonTargets.All, objectTracked.transform.position, objectTracked.transform.rotation);
                 refreshPosition(objectTracked.transform.position, objectTracked.transform.rotation);
             }
             if (reatach)
@@ -136,6 +147,7 @@ public class Tracker : MonoBehaviour, IPunObservable
             InitialRotation = VirtualObject.transform.rotation;
             Debug.Log("Attaching -- Orientation " + InitialRotation);
             //}
+            yOffset = 0f;
             restartTrackerRef();
             atached = true;
         }
