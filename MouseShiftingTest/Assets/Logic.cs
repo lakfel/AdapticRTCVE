@@ -251,7 +251,7 @@ public class Logic : MonoBehaviour
         currentTracker.VirtualObject = currentEndObject;
         //currentTracker.initialReference = currentEndPosition;
         
-        currentTracker.attach();
+        currentTracker.attach(!restartTtracker);
         
        
         

@@ -68,6 +68,8 @@ public class Tracker : MonoBehaviour, IPunObservable
     public float minSwipeDist = 0.2f;
     public float minVelocity = 4.0f;
 
+    public bool preessing;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -78,23 +80,37 @@ public class Tracker : MonoBehaviour, IPunObservable
         masterController = master.GetComponent<MasterController>();
         realWorldReference = GameObject.Find("MiddlePropPosition");
         reatach = false;
-        objectTracked.transform.localPosition = trackedOffset;
+        objectTracked.transform.localPosition += new Vector3(-0.13f , 0f, 0f);
     }
 
     // Update is called once per frame
     void Update()
     {
         if(GetComponent<PhotonView>().isMine)
-        { 
+        {
             if (VirtualObject != null && atached)
             {
-                if ((ViveInput.GetPressEx(HandRole.RightHand, ControllerButton.PadTouch) && ViveInput.GetPadTouchDeltaEx(HandRole.RightHand).y > 0.2f) ||
-                    (ViveInput.GetPressEx(HandRole.LeftHand, ControllerButton.PadTouch) && ViveInput.GetPadTouchDeltaEx(HandRole.LeftHand).y > 0.2f))
-                    yOffset += 0.02f;
-
-                if ((ViveInput.GetPressEx(HandRole.RightHand, ControllerButton.PadTouch) && ViveInput.GetPadTouchDeltaEx(HandRole.RightHand).y < -0.2f) ||
-                    (ViveInput.GetPressEx(HandRole.LeftHand, ControllerButton.PadTouch) && ViveInput.GetPadTouchDeltaEx(HandRole.LeftHand).y < -0.2f))
-                    yOffset -= 0.02f;
+                if (!preessing)
+                {
+                    if ((ViveInput.GetPadPressAxisEx(HandRole.RightHand).y > 0.2f) ||
+                        (ViveInput.GetPadPressAxis(HandRole.LeftHand).y > 0.2f))
+                    { 
+                        yOffset += 0.02f;
+                        preessing = true;
+                    }
+                    else if ((ViveInput.GetPadPressAxis(HandRole.RightHand).y < -0.2f) ||
+                        (ViveInput.GetPadPressAxis(HandRole.LeftHand).y < -0.2f))
+                    { 
+                        yOffset -= 0.02f;
+                        preessing = true;
+                    }
+                }
+                else if ((ViveInput.GetPadPressAxis(HandRole.RightHand).y == 0f) &&
+                        (ViveInput.GetPadPressAxis(HandRole.LeftHand).y == 0f))
+                {
+                    preessing = false;
+                }
+                
 
                 Vector3 realPos = Vector3.zero; 
                 realPos = trackerRep.transform.position - firstTrackedPosition + initialPosition + new Vector3(0f,yOffset,0f);
@@ -131,23 +147,24 @@ public class Tracker : MonoBehaviour, IPunObservable
         firstTrackedPosition = trackerRep.transform.position;
     }
 
-    public  void attach()
+    public  void attach(bool fromHomePoint)
     {
         bool att = false;
         if (VirtualObject != null)
         {
-            /*if (masterController.condition == MasterController.CONDITION.NM_RT || masterController.condition == MasterController.CONDITION.SM_RT)
+            if ((masterController.condition == MasterController.CONDITION.NM_RT || masterController.condition == MasterController.CONDITION.SM_RT) 
+                && !fromHomePoint)
             {
-                InitialPosition = realWorldReference.transform.position;
+                InitialPosition = realWorldReference.transform.position - trackedOffset;
                 InitialRotation = VirtualObject.transform.rotation;
                 att = true;
             }
             else
-            {*/
-            InitialPosition = VirtualObject.transform.position;
-            InitialRotation = VirtualObject.transform.rotation;
+            {
+                InitialPosition = VirtualObject.transform.position - trackedOffset;
+                InitialRotation = VirtualObject.transform.rotation;
+            }
             Debug.Log("Attaching -- Orientation " + InitialRotation);
-            //}
             yOffset = 0f;
             restartTrackerRef();
             atached = true;
