@@ -80,7 +80,7 @@ public class Tracker : MonoBehaviour, IPunObservable
         masterController = master.GetComponent<MasterController>();
         realWorldReference = GameObject.Find("MiddlePropPosition");
         reatach = false;
-        objectTracked.transform.localPosition += new Vector3(-0.13f , 0f, 0f);
+        objectTracked.transform.localPosition = new Vector3(0f , 0f, 0f);
     }
 
     // Update is called once per frame
@@ -155,13 +155,13 @@ public class Tracker : MonoBehaviour, IPunObservable
             if ((masterController.condition == MasterController.CONDITION.NM_RT || masterController.condition == MasterController.CONDITION.SM_RT) 
                 && !fromHomePoint)
             {
-                InitialPosition = realWorldReference.transform.position - trackedOffset;
+                InitialPosition = realWorldReference.transform.position ;
                 InitialRotation = VirtualObject.transform.rotation;
                 att = true;
             }
             else
             {
-                InitialPosition = VirtualObject.transform.position - trackedOffset;
+                InitialPosition = VirtualObject.transform.position;
                 InitialRotation = VirtualObject.transform.rotation;
             }
             Debug.Log("Attaching -- Orientation " + InitialRotation);

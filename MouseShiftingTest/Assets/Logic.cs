@@ -36,6 +36,10 @@ public class Logic : MonoBehaviour
 
     public Tracker currentTracker;
 
+
+    public GameObject testRedicting1;
+    public GameObject testRedicting2;
+
     //Same part definitions
     // It is worth to think in something more collaborative
     // 0 Pre Start //-> Maybe is important to sync this. The user A can not left the object
@@ -216,6 +220,10 @@ public class Logic : MonoBehaviour
                         reGoal();
                     }
                 }
+                else if ( Input.GetKeyDown(KeyCode.T))
+                {
+                  test();
+                }
     }
 
     private IEnumerator transformProp()
@@ -292,7 +300,7 @@ public class Logic : MonoBehaviour
             else if (stage == 0)
             {
                 targetedController.disableRT = false;
-                targetedController.starShifting(currentEndPosition.transform.position, hand.giveRealPosition()); 
+                targetedController.starShifting(hand.giveRealPosition(), currentEndPosition.transform.position ); 
                 if (currentEndObject.GetComponent<PhotonView>().ownerId != PhotonNetwork.player.ID)
                 {
                     currentEndObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
@@ -385,7 +393,8 @@ public class Logic : MonoBehaviour
                 
                 pairTracker(false);
                 targetedController.disableRT = false;
-                targetedController.starShifting(currentEndPosition.transform.position, currentEndObject.transform.position);
+                //targetedController.starShifting(currentEndPosition.transform.position, currentEndObject.transform.position);
+                targetedController.starShifting(currentEndObject.transform.position, currentEndPosition.transform.position);
                 handLogic.process();logicGame.GetComponent<PhotonView>().RPC("setActiveGhost", PhotonTargets.All, true);
                 Quaternion neutral = homePosition.transform.rotation;
          
@@ -420,7 +429,10 @@ public class Logic : MonoBehaviour
 
 
 
-
+    public void test()
+    {
+        targetedController.starShifting(testRedicting1.transform.position, testRedicting2.transform.position);
+    }
 
 
     public bool conditionsToProceed(int stage)

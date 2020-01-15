@@ -23,7 +23,7 @@ public class HandHTCTrack : MonoBehaviour, IGenericHand
 
     public Vector3 giveRealPosition()
     {
-        return transform.position;
+        return handRepresentation.transform.position;
     }
 
     //public GameObject camera;
