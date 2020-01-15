@@ -13,10 +13,11 @@ public class HTCCompensate : MonoBehaviour
 
     // Flag to selfconfigure the rotation
     public bool selfConfigured;
-
+    public bool handConfigured;
     public Transform desiredPosition;
 
     public GameObject camera;
+    public GameObject hand;
 
     void Start()
     {
@@ -34,9 +35,9 @@ public class HTCCompensate : MonoBehaviour
             if (!selfConfigured)
                 if (camera != null)
                 {
-                     
+
                     int idPlayer = 1 + Int32.Parse(gameObject.name.ToCharArray()[gameObject.name.Length - 1] + "");
-                    desiredPosition = GameObject.Find("Room/SpawnPositions/User"+idPlayer).transform;
+                    desiredPosition = GameObject.Find("Room/SpawnPositions/User" + idPlayer).transform;
 
                     transform.rotation = desiredPosition.rotation;
 
@@ -45,7 +46,7 @@ public class HTCCompensate : MonoBehaviour
                     float diff = cameraYDegree - myYDegree;
                     transform.Rotate(new Vector3(0f, -diff, 0f));
 
-                    
+
                     Transform cam = camera.transform;
                     Vector3 posDiff = new Vector3(cam.position.x - transform.position.x,
                                         cam.position.y - transform.position.y,
@@ -55,15 +56,37 @@ public class HTCCompensate : MonoBehaviour
                                                     desiredPosition.position.y - posDiff.y,
                                                     desiredPosition.position.z - posDiff.z);
 
-                    
-                
-                    
+
+
+
                     selfConfigured = true;
                 }
                 else
                 {
                     selfConfigured = true;
                     Debug.Log("JFGA -- No camera found");
+                }
+            if (!handConfigured)
+                if (hand != null)
+                {
+                    Transform cam = hand.transform;
+                    Vector3 posDiff = new Vector3(cam.position.x - transform.position.x,
+                                        cam.position.y - transform.position.y,
+                                        cam.position.z - transform.position.z);
+
+                    transform.position = new Vector3(desiredPosition.position.x - posDiff.x,
+                                                    desiredPosition.position.y - posDiff.y,
+                                                    desiredPosition.position.z - posDiff.z);
+
+
+
+
+                    handConfigured = true;
+                }
+                else
+                {
+                    selfConfigured = true;
+                    Debug.Log("JFGA -- No hand found");
                 }
         }
     }

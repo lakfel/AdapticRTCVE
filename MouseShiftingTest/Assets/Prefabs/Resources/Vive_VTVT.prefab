@@ -317,8 +317,12 @@ MonoBehaviour:
   realWorldReference: {fileID: 0}
   initialReference: {fileID: 0}
   master: {fileID: 952661882236132541}
+  yOffset: 0
   trackerRep: {fileID: 0}
   objectTracked: {fileID: 952661882236132523}
+  swiping: 0
+  minSwipeDist: 0.2
+  minVelocity: 4
 --- !u!114 &9175160798054020684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -571,8 +575,12 @@ MonoBehaviour:
   realWorldReference: {fileID: 0}
   initialReference: {fileID: 0}
   master: {fileID: 952661882236132541}
+  yOffset: 0
   trackerRep: {fileID: 0}
   objectTracked: {fileID: 952661882236132537}
+  swiping: 0
+  minSwipeDist: 0.2
+  minVelocity: 4
 --- !u!114 &1192238039896630818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2277,8 +2285,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selfConfigured: 0
+  handConfigured: 0
   desiredPosition: {fileID: 0}
   camera: {fileID: 952661882236132552}
+  hand: {fileID: 952661882236132519}
 --- !u!114 &952661882236132577
 MonoBehaviour:
   m_ObjectHideFlags: 0

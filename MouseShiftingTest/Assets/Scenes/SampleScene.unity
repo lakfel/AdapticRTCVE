@@ -1028,8 +1028,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selfConfigured: 0
+  handConfigured: 0
   desiredPosition: {fileID: 0}
   camera: {fileID: 0}
+  hand: {fileID: 0}
 --- !u!1 &62202181
 GameObject:
   m_ObjectHideFlags: 0
@@ -14902,8 +14904,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selfConfigured: 0
+  handConfigured: 0
   desiredPosition: {fileID: 0}
   camera: {fileID: 0}
+  hand: {fileID: 0}
 --- !u!1 &1379290472
 GameObject:
   m_ObjectHideFlags: 0
@@ -16222,8 +16226,12 @@ MonoBehaviour:
   realWorldReference: {fileID: 2144958833}
   initialReference: {fileID: 0}
   master: {fileID: 0}
+  yOffset: 0
   trackerRep: {fileID: 0}
   objectTracked: {fileID: 1792256331}
+  swiping: 0
+  minSwipeDist: 0.2
+  minVelocity: 4
 --- !u!4 &1603528839
 Transform:
   m_ObjectHideFlags: 0
@@ -16707,8 +16715,12 @@ MonoBehaviour:
   realWorldReference: {fileID: 2144958833}
   initialReference: {fileID: 0}
   master: {fileID: 0}
+  yOffset: 0
   trackerRep: {fileID: 0}
   objectTracked: {fileID: 816516653}
+  swiping: 0
+  minSwipeDist: 0.2
+  minVelocity: 4
 --- !u!4 &1679954004
 Transform:
   m_ObjectHideFlags: 0
@@ -20738,7 +20750,7 @@ PrefabInstance:
     - target: {fileID: 952661882236132541, guid: 36f525abccd4389469e4babc12c53ff5,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 952661882236132573, guid: 36f525abccd4389469e4babc12c53ff5,
         type: 3}

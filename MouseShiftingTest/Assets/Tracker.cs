@@ -88,11 +88,12 @@ public class Tracker : MonoBehaviour, IPunObservable
         { 
             if (VirtualObject != null && atached)
             {
-
-                Vector2 padDelta = ViveInput.GetPadTouchDeltaEx(HandRole.RightHand) + ViveInput.GetPadTouchDeltaEx(HandRole.LeftHand);
-                if (padDelta.y > minSwipeDist)
+                if ((ViveInput.GetPressEx(HandRole.RightHand, ControllerButton.PadTouch) && ViveInput.GetPadTouchDeltaEx(HandRole.RightHand).y > 0.2f) ||
+                    (ViveInput.GetPressEx(HandRole.LeftHand, ControllerButton.PadTouch) && ViveInput.GetPadTouchDeltaEx(HandRole.LeftHand).y > 0.2f))
                     yOffset += 0.02f;
-                if (padDelta.y < -minSwipeDist)
+
+                if ((ViveInput.GetPressEx(HandRole.RightHand, ControllerButton.PadTouch) && ViveInput.GetPadTouchDeltaEx(HandRole.RightHand).y < -0.2f) ||
+                    (ViveInput.GetPressEx(HandRole.LeftHand, ControllerButton.PadTouch) && ViveInput.GetPadTouchDeltaEx(HandRole.LeftHand).y < -0.2f))
                     yOffset -= 0.02f;
 
                 Vector3 realPos = Vector3.zero; 
