@@ -19,12 +19,12 @@ public class TargetedController : MonoBehaviour
     /**
      *  Initial position of the hand at the moment to star the retargettin
      */
-    private Vector3 startPosition;
+    public Vector3 startPosition;
 
     /**
      *  Goal position. 
      */
-    private Vector3 endPosition;
+    public Vector3 endPosition;
 
     /**
      * Retargetered position in real world

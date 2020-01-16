@@ -300,7 +300,7 @@ public class Logic : MonoBehaviour
             else if (stage == 0)
             {
                 targetedController.disableRT = false;
-                targetedController.starShifting(hand.giveRealPosition(), currentEndPosition.transform.position ); 
+                targetedController.starShifting( currentEndPosition.transform.position, hand.giveRealPosition()); 
                 if (currentEndObject.GetComponent<PhotonView>().ownerId != PhotonNetwork.player.ID)
                 {
                     currentEndObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
@@ -394,7 +394,7 @@ public class Logic : MonoBehaviour
                 pairTracker(false);
                 targetedController.disableRT = false;
                 //targetedController.starShifting(currentEndPosition.transform.position, currentEndObject.transform.position);
-                targetedController.starShifting(currentEndObject.transform.position, currentEndPosition.transform.position);
+                targetedController.starShifting( currentEndPosition.transform.position, currentEndObject.transform.position);
                 handLogic.process();logicGame.GetComponent<PhotonView>().RPC("setActiveGhost", PhotonTargets.All, true);
                 Quaternion neutral = homePosition.transform.rotation;
          

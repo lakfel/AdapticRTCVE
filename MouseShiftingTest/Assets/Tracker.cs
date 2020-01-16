@@ -113,7 +113,7 @@ public class Tracker : MonoBehaviour, IPunObservable
                 
 
                 Vector3 realPos = Vector3.zero; 
-                realPos = trackerRep.transform.position - firstTrackedPosition + initialPosition + new Vector3(0f,yOffset,0f);
+                realPos = trackerRep.transform.position - firstTrackedPosition + initialPosition + objectTracked.transform.localPosition;
 
                 transform.position = targetedController.giveRetargetedPosition(realPos);
 

@@ -28,6 +28,8 @@ public class LogicGame : MonoBehaviour, IPunObservable
 
     public int currentPlayer;
 
+    public string experimentId;
+
     //Same part definitions
     // 0 Pre Start
     // 1 Grabbing the object
@@ -35,6 +37,8 @@ public class LogicGame : MonoBehaviour, IPunObservable
     // 3 returning object -- Maybe part 4 is not necessary
     public int repetition;
     public const int REPETITIONS = 4;
+
+    
 
 
     public void setPlayers()
@@ -189,8 +193,9 @@ public class LogicGame : MonoBehaviour, IPunObservable
         repetition = 0;
     }
     [PunRPC]
-    public void getStared(int indexObj, int indexPos)
+    public void getStared(int indexObj, int indexPos, string nId)
     {
+        experimentId = nId;
         started = true;
         setPlayers();
         initialObjectPosition(indexObj, indexPos);
@@ -203,7 +208,8 @@ public class LogicGame : MonoBehaviour, IPunObservable
         {
             if(!started)
             {
-                GetComponent<PhotonView>().RPC("getStared", PhotonTargets.All, Random.Range(0, 2), Random.Range(0, 2));
+                string nId = System.DateTime.Now.ToString("yyMMddHHmmss");
+                GetComponent<PhotonView>().RPC("getStared", PhotonTargets.All, Random.Range(0, 2), Random.Range(0, 2),nId);
             }
         }
     }
