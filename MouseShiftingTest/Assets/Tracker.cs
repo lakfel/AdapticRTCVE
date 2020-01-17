@@ -154,8 +154,10 @@ public class Tracker : MonoBehaviour, IPunObservable
     [PunRPC]
     public void refreshPosition(Vector3 pos, Quaternion rota)
     {
-        VirtualObject.transform.position = pos;
-        VirtualObject.transform.rotation = rota;
+
+        GameObject realOb = VirtualObject.GetComponent<PropSpecs>().voCap;
+        realOb.transform.position = pos;
+        realOb.transform.rotation = rota;
 
     }
 

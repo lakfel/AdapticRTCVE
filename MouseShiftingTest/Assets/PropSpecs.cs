@@ -14,6 +14,7 @@ public class PropSpecs : MonoBehaviour, IPunObservable
     public PropMannager.PRESET_TYPE type;
 
     // This game object contains a children with the mesh of the object
+    public GameObject objctPar;
     public GameObject objct;
 
     //The ghost object contains a children ith a transparent mesh of the object
@@ -29,9 +30,7 @@ public class PropSpecs : MonoBehaviour, IPunObservable
     {
         currentSide = SIDE.UNDEFINED;
         grabbed = false;
-
-        objct.transform.localPosition = trackerOffset;
-
+        resetProp(false);
     }
 
     [PunRPC]
@@ -50,7 +49,7 @@ public class PropSpecs : MonoBehaviour, IPunObservable
     [PunRPC]
     public void objectGreenRPC(bool isGreen)
     {
-        Renderer rend = gameObject.transform.GetChild(0).GetComponent<Renderer>();
+        Renderer rend =objct.GetComponent<Renderer>();
         if (isGreen)
             rend.material.color = Color.green;
         else
@@ -73,7 +72,7 @@ public class PropSpecs : MonoBehaviour, IPunObservable
 
     public void activeChildren(bool activate)
     {
-        gameObject.transform.GetChild(0).gameObject.SetActive(activate);
+        objct.SetActive(activate);
     }
 
     public float distanceToDock()
@@ -90,7 +89,11 @@ public class PropSpecs : MonoBehaviour, IPunObservable
         //distance = Vector3.Distance(transform.position, virtualObject.transform.position);
         return distance;
     }
-
+    public void resetProp(bool isHome)
+    {
+        voCap.transform.localPosition = isHome? trackerOffset: -trackerOffset;
+        objctPar.transform.localPosition = isHome ? -trackerOffset : trackerOffset;
+    }
 
 
 }

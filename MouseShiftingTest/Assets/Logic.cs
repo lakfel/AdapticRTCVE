@@ -321,6 +321,8 @@ public class Logic : MonoBehaviour
             // Post hand hiden, object green and allowed to manipulate. Ghost on home position in radom orientation
             else if (stage == 1) // Hand in object Maybe should check the coliders are overlapped. Pre No shadow in scene. Pos shadow in point Z
             {
+                
+
                 if (masterController.condition == MasterController.CONDITION.NM_RT ||
                         masterController.condition == MasterController.CONDITION.SM_RT)
                 {
@@ -330,6 +332,7 @@ public class Logic : MonoBehaviour
                 {
                     currentEndObject.transform.position = currentEndPosition.transform.position;
                 }
+                currentEndObject.GetComponent<PropSpecs>().resetProp(false);
                 pairTracker(true);
                 handLogic.process(); logicGame.GetComponent<PhotonView>().RPC("setActiveGhost", PhotonTargets.All, true);
                 logicGame.GetComponent<PhotonView>().RPC("movePropDock", PhotonTargets.All, true, homePosition.transform.rotation * orientationsPlayer.Dequeue());
@@ -346,6 +349,7 @@ public class Logic : MonoBehaviour
                 targetedController.disableRT = true;
 
                 currentEndObject.transform.rotation = currentEndObject.GetComponent<PropSpecs>().ghost.transform.rotation;
+                currentEndObject.transform.position = currentEndObject.GetComponent<PropSpecs>().ghost.transform.position;
                 logicGame.GetComponent<PhotonView>().RPC("setActiveGhost", PhotonTargets.All, false);
                 logicGame.GetComponent<PhotonView>().RPC("relocatePropDock", PhotonTargets.All);
                 handLogic.process();
@@ -379,6 +383,8 @@ public class Logic : MonoBehaviour
                 currentEndObject.transform.rotation = lastOrientation;
                 currentEndObject.transform.Rotate(new Vector3(0f, 180f, 0f));
                 currentEndObject.transform.position = homePosition.transform.position;
+                currentEndObject.GetComponent<PropSpecs>().resetProp(true);
+
 
                 Debug.Log("Orientation before pairing " + currentEndObject.transform.rotation);
                 currentEndObject.SetActive(true);
