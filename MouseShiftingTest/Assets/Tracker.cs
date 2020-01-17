@@ -127,7 +127,7 @@ public class Tracker : MonoBehaviour, IPunObservable
                 }
                 else
                 {
-                    realPos = trackerRep.transform.position - firstTrackedPosition + initialPosition + sumChange;
+                    realPos = trackerRep.transform.position - firstTrackedPosition + initialPosition ;
                     transform.position = targetedController.giveRetargetedPosition(realPos);
                 }
 
@@ -135,7 +135,8 @@ public class Tracker : MonoBehaviour, IPunObservable
 
 
 
-                refreshPosition(objectTracked.transform.position, objectTracked.transform.rotation);
+                //refreshPosition(objectTracked.transform.position, objectTracked.transform.rotation);
+                refreshPosition(transform.position, transform.rotation);
             }
             if (reatach)
             {
@@ -175,15 +176,14 @@ public class Tracker : MonoBehaviour, IPunObservable
             {
                 InitialPosition = realWorldReference.transform.position ;
                 InitialRotation = VirtualObject.transform.rotation;
-                objectTracked.transform.localPosition = trackedOffset;
                 att = true;
             }
             else
             {
                 InitialPosition = VirtualObject.transform.position;
                 InitialRotation = VirtualObject.transform.rotation;
-                objectTracked.transform.localPosition = -trackedOffset;
             }
+            objectTracked.transform.localPosition = fromHomePoint? -trackedOffset : trackedOffset;
             Debug.Log("Attaching -- Orientation " + InitialRotation);
             yOffset = 0f;
             restartTrackerRef();

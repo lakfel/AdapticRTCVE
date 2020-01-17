@@ -6,6 +6,9 @@ public class PropSpecs : MonoBehaviour, IPunObservable
 {
     public enum SIDE { LEFT, RIGHT, UNDEFINED }
 
+    public Vector3 trackerOffset;
+    public GameObject voCap;
+
     public SIDE currentSide;
     
     public PropMannager.PRESET_TYPE type;
@@ -26,6 +29,9 @@ public class PropSpecs : MonoBehaviour, IPunObservable
     {
         currentSide = SIDE.UNDEFINED;
         grabbed = false;
+
+        objct.transform.localPosition = trackerOffset;
+
     }
 
     [PunRPC]
