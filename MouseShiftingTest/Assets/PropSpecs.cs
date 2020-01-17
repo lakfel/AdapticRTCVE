@@ -73,7 +73,8 @@ public class PropSpecs : MonoBehaviour, IPunObservable
     public float distanceToDock()
     {
         float distance = 0f;
-        distance = Vector3.Distance(transform.position, ghost.transform.position);
+        distance = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(ghost.transform.position.x, ghost.transform.position.z));
+        //distance = Vector3.Distance(transform.position, ghost.transform.position);
         return distance;
     }
 

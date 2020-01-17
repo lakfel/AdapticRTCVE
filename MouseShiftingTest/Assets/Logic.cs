@@ -289,7 +289,7 @@ public class Logic : MonoBehaviour
             {
                 //fillPlayerInformation(); TODO fill player information at the begining of one set of trials
 
-                logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, true,false);
+                logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, true, false);
                 //homePosition.SetActive(true);
                 currentEndObject = logicGame.currentEndObject;
                 currentEndPosition = logicGame.currentEndPosition;
@@ -300,7 +300,7 @@ public class Logic : MonoBehaviour
             else if (stage == 0)
             {
                 targetedController.disableRT = false;
-                targetedController.starShifting( currentEndPosition.transform.position, hand.giveRealPosition()); 
+                targetedController.starShifting(currentEndPosition.transform.position, hand.giveRealPosition());
                 if (currentEndObject.GetComponent<PhotonView>().ownerId != PhotonNetwork.player.ID)
                 {
                     currentEndObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
@@ -312,7 +312,7 @@ public class Logic : MonoBehaviour
 
                 currentEndObject.transform.position = currentEndPosition.transform.position;
                 StartCoroutine(transformProp());
-                logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, false,false);
+                logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, false, false);
 
                 stage = 1;
 
@@ -341,9 +341,11 @@ public class Logic : MonoBehaviour
             }
             // Pre object on ghost in a correct orientation and position
             // Pos Hand appears, Objet released, HP appears on the rigth side.
-            else if (stage == 2) 
+            else if (stage == 2)
             {
                 targetedController.disableRT = true;
+
+                currentEndObject.transform.rotation = currentEndObject.GetComponent<PropSpecs>().ghost.transform.rotation;
                 logicGame.GetComponent<PhotonView>().RPC("setActiveGhost", PhotonTargets.All, false);
                 logicGame.GetComponent<PhotonView>().RPC("relocatePropDock", PhotonTargets.All);
                 handLogic.process();
@@ -412,6 +414,7 @@ public class Logic : MonoBehaviour
             else if (stage == 5)
             {
                 PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
+                currentEndObject.transform.rotation = propSpecs.ghost.transform.rotation;
                 propSpecs.ghost.SetActive(false);
                 logicGame.GetComponent<PhotonView>().RPC("relocatePropDock", PhotonTargets.All);
                 handLogic.process();

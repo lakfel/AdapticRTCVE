@@ -67,8 +67,12 @@ public class Tracker : MonoBehaviour, IPunObservable
     public bool swiping;
     public float minSwipeDist = 0.2f;
     public float minVelocity = 4.0f;
-
+    
     public bool preessing;
+    public bool sameTrackerPosition;
+
+    public bool softChange;
+    public Vector3 softChangeDistance;
 
     // Start is called before the first frame update
     void Start()
@@ -80,7 +84,8 @@ public class Tracker : MonoBehaviour, IPunObservable
         masterController = master.GetComponent<MasterController>();
         realWorldReference = GameObject.Find("MiddlePropPosition");
         reatach = false;
-        objectTracked.transform.localPosition = new Vector3(0f , 0f, 0f);
+        sameTrackerPosition = true;
+        objectTracked.transform.localPosition = trackedOffset;
     }
 
     // Update is called once per frame
@@ -110,17 +115,26 @@ public class Tracker : MonoBehaviour, IPunObservable
                 {
                     preessing = false;
                 }
+
+                Vector3 sumChange = softChange? softChangeDistance : Vector3.zero;
+            
                 
+                transform.rotation = trackerRep.transform.rotation * Quaternion.Inverse(FirstTrackedRotation) * InitialRotation;
+                Vector3 realPos = Vector3.zero;
+                if (sameTrackerPosition)
+                {
+                    transform.position = targetedController.giveRetargetedPosition(trackerRep.transform.position) + sumChange;
+                }
+                else
+                {
+                    realPos = trackerRep.transform.position - firstTrackedPosition + initialPosition + sumChange;
+                    transform.position = targetedController.giveRetargetedPosition(realPos);
+                }
 
-                Vector3 realPos = Vector3.zero; 
-                realPos = trackerRep.transform.position - firstTrackedPosition + initialPosition + objectTracked.transform.localPosition;
-
-                transform.position = targetedController.giveRetargetedPosition(realPos);
-
-               
 
 
-                transform.rotation = trackerRep.transform.rotation* Quaternion.Inverse(FirstTrackedRotation) * InitialRotation  ;
+
+
                 refreshPosition(objectTracked.transform.position, objectTracked.transform.rotation);
             }
             if (reatach)
@@ -131,6 +145,10 @@ public class Tracker : MonoBehaviour, IPunObservable
         }
     }
 
+    public Vector3 absoluteDifference()
+    {
+        return objectTracked.transform.position - transform.position;
+    }
 
     [PunRPC]
     public void refreshPosition(Vector3 pos, Quaternion rota)
@@ -144,7 +162,7 @@ public class Tracker : MonoBehaviour, IPunObservable
     {
 
         FirstTrackedRotation = trackerRep.transform.rotation;
-        firstTrackedPosition = trackerRep.transform.position;
+        firstTrackedPosition = trackerRep.transform.position ;
     }
 
     public  void attach(bool fromHomePoint)
@@ -157,16 +175,19 @@ public class Tracker : MonoBehaviour, IPunObservable
             {
                 InitialPosition = realWorldReference.transform.position ;
                 InitialRotation = VirtualObject.transform.rotation;
+                objectTracked.transform.localPosition = trackedOffset;
                 att = true;
             }
             else
             {
                 InitialPosition = VirtualObject.transform.position;
                 InitialRotation = VirtualObject.transform.rotation;
+                objectTracked.transform.localPosition = -trackedOffset;
             }
             Debug.Log("Attaching -- Orientation " + InitialRotation);
             yOffset = 0f;
             restartTrackerRef();
+            softChangeDistance = initialPosition - firstTrackedPosition;
             atached = true;
         }
     }
