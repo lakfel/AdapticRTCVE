@@ -269,7 +269,7 @@ public class Logic : MonoBehaviour
                     || ViveInput.GetPressDown(HandRole.LeftHand, ControllerButton.Trigger)
                     || Input.GetKeyDown(KeyCode.Q))
                 {
-                    if(onTurn = (idPlayer == logicGame.currentPlayer))
+                    if(logicGame!=null && (onTurn = (idPlayer == logicGame.currentPlayer)))
                     {
                         reGoal();
                     }

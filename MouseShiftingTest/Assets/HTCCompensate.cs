@@ -30,7 +30,7 @@ public class HTCCompensate : MonoBehaviour
             this.enabled = false;
         }
 
-        logicGame = GameObject.Find("LevelMannager").GetComponent<LogicGame>();
+        logicGame = GameObject.Find("LogicGame").GetComponent<LogicGame>();
     }
     // Update is called once per frame
     void Update()
@@ -94,18 +94,18 @@ public class HTCCompensate : MonoBehaviour
                     Debug.Log("JFGA -- No hand found");
                 }
                   
-                if (logicGame != null)
+            if (logicGame != null)
+            {
+                if(!logicGame.started)
                 {
-                    if(!logicGame.started)
-                    {
-                        if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger)
-                                   || ViveInput.GetPressDown(HandRole.LeftHand, ControllerButton.Trigger))
-                            {
-                            selfConfigured = false;
-                            handConfigured = false;
-                        }
+                    if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger)
+                                || ViveInput.GetPressDown(HandRole.LeftHand, ControllerButton.Trigger))
+                        {
+                        selfConfigured = false;
+                        handConfigured = false;
                     }
                 }
+            }
 
         }
     }
