@@ -69,7 +69,7 @@ public class LogicGame : MonoBehaviour, IPunObservable
             GetComponent<PhotonView>().RPC("boadcastError", PhotonTargets.All, "ERROR FROM " + PhotonNetwork.player.NickName + " NOT PLAYER 1 FOUND");
 
 
-
+        Debug.Log("Players ready!");
     }
 
     [PunRPC]
@@ -89,8 +89,6 @@ public class LogicGame : MonoBehaviour, IPunObservable
     public void initialObjectPosition()
     {
 
-        currentEndObject.SetActive(true);
-        currentEndObject.transform.position = currentEndPosition.transform.position;
         currentPlayer = 0;
         playerMasters[1].setNewLogic();// DELETE this and the methind on mastercontroller
         playerMasters[1].nextStage();
@@ -102,7 +100,6 @@ public class LogicGame : MonoBehaviour, IPunObservable
         }
         playerMasters[0].setNewLogic();
         playerMasters[0].nextStage();
-        refreshPlayerProp();
 
     }
 
@@ -111,6 +108,9 @@ public class LogicGame : MonoBehaviour, IPunObservable
     {
         currentEndObject = objects[indexObj];
         currentEndPosition = positions[indexPos];
+        currentEndObject.SetActive(true);
+        currentEndObject.transform.position = currentEndPosition.transform.position;
+        refreshPlayerProp();
     }
 
     [PunRPC]

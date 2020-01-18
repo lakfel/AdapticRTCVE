@@ -1864,6 +1864,7 @@ MonoBehaviour:
   initialPoint: {fileID: 0}
   handOnObject: 0
   handOnInitialPosition: 0
+  currentScenario: 
 --- !u!114 &952661882236132594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2863,6 +2864,7 @@ MonoBehaviour:
   desiredPosition: {fileID: 0}
   camera: {fileID: 952661882236132552}
   hand: {fileID: 952661882236132519}
+  logicGame: {fileID: 0}
 --- !u!114 &952661882236132577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3085,6 +3087,7 @@ MonoBehaviour:
   initialPoint: {fileID: 0}
   handOnObject: 0
   handOnInitialPosition: 0
+  currentScenario: 
 --- !u!114 &952661882236132490
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -86,6 +86,8 @@ public class MasterController : MonoBehaviour, IPunObservable
     public void setCondition(CONDITION nCondition)
     {
         condition = nCondition;
+        if (condition == CONDITION.SM_RT)
+            propMannager.enabled = true;
     }
 
     public void presetPtop(PropMannager.PRESET_TYPE presetType)

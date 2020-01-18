@@ -1033,6 +1033,7 @@ MonoBehaviour:
   desiredPosition: {fileID: 0}
   camera: {fileID: 0}
   hand: {fileID: 0}
+  logicGame: {fileID: 0}
 --- !u!1 &62202181
 GameObject:
   m_ObjectHideFlags: 0
@@ -1255,7 +1256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &87454992
 Transform:
   m_ObjectHideFlags: 0
@@ -4008,7 +4009,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &501762194
 Transform:
   m_ObjectHideFlags: 0
@@ -5443,7 +5444,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &755867429
 Transform:
   m_ObjectHideFlags: 0
@@ -7190,7 +7191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccba309cfcade3641b6f456a5502f07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useFullScenarios: 0
+  testCond: 0
   onTurn: 0
   idPlayer: 0
   logicGame: {fileID: 0}
@@ -7215,6 +7216,7 @@ MonoBehaviour:
   initialPoint: {fileID: 1593526142}
   handOnObject: 0
   handOnInitialPosition: 0
+  currentScenario: 
 --- !u!114 &935095472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7432,7 +7434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccba309cfcade3641b6f456a5502f07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useFullScenarios: 0
+  testCond: 0
   onTurn: 0
   idPlayer: 0
   logicGame: {fileID: 0}
@@ -7458,6 +7460,7 @@ MonoBehaviour:
   initialPoint: {fileID: 0}
   handOnObject: 0
   handOnInitialPosition: 0
+  currentScenario: 
 --- !u!135 &936193220
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -7668,7 +7671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccba309cfcade3641b6f456a5502f07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useFullScenarios: 0
+  testCond: 0
   onTurn: 0
   idPlayer: 0
   logicGame: {fileID: 0}
@@ -7694,6 +7697,7 @@ MonoBehaviour:
   initialPoint: {fileID: 0}
   handOnObject: 0
   handOnInitialPosition: 0
+  currentScenario: 
 --- !u!114 &965901901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9488,7 +9492,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1289388398
 Transform:
   m_ObjectHideFlags: 0
@@ -10645,6 +10649,7 @@ MonoBehaviour:
   desiredPosition: {fileID: 0}
   camera: {fileID: 0}
   hand: {fileID: 0}
+  logicGame: {fileID: 0}
 --- !u!1 &1379290472
 GameObject:
   m_ObjectHideFlags: 0
@@ -12560,7 +12565,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1674250666
 Transform:
   m_ObjectHideFlags: 0
@@ -12657,7 +12662,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1681985526
 Transform:
   m_ObjectHideFlags: 0
@@ -12909,7 +12914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccba309cfcade3641b6f456a5502f07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useFullScenarios: 0
+  testCond: 0
   onTurn: 0
   idPlayer: 0
   logicGame: {fileID: 0}
@@ -12935,6 +12940,7 @@ MonoBehaviour:
   initialPoint: {fileID: 0}
   handOnObject: 0
   handOnInitialPosition: 0
+  currentScenario: 
 --- !u!114 &1709533651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14797,7 +14803,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1920910754
 Transform:
   m_ObjectHideFlags: 0
@@ -15099,7 +15105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1933322010
 Transform:
   m_ObjectHideFlags: 0
@@ -15239,6 +15245,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 1933322011}
   - {fileID: 1933322012}
+  - {fileID: 501762194}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 4
   instantiationId: 4
@@ -16312,7 +16319,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2012329389
 Transform:
   m_ObjectHideFlags: 0
@@ -16374,6 +16381,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 2012329390}
   - {fileID: 2012329392}
+  - {fileID: 1674250666}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 3
   instantiationId: 3

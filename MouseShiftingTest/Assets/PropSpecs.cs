@@ -29,6 +29,9 @@ public class PropSpecs : MonoBehaviour, IPunObservable
     private void Update()
     {
         //Debug.Log(transform.rotation);
+        if (ghost.activeSelf)
+            if (distanceToDock() < 0.05f)
+                ghost.transform.position = new Vector3(ghost.transform.position.x, transform.position.y, ghost.transform.position.z);
     }
     private void Start()
     {
@@ -82,8 +85,8 @@ public class PropSpecs : MonoBehaviour, IPunObservable
     public float distanceToDock()
     {
         float distance = 0f;
-       //distance = Vector2.Distance(new Vector2(objctPar.transform.position.x, objctPar.transform.position.z), new Vector2(ghost.transform.position.x, ghost.transform.position.z));
-        distance = Vector3.Distance(transform.position, ghost.transform.position);
+        distance = Vector2.Distance(new Vector2(objctPar.transform.position.x, objctPar.transform.position.z), new Vector2(ghost.transform.position.x, ghost.transform.position.z));
+        //distance = Vector3.Distance(transform.position, ghost.transform.position);
         return distance;
     }
 

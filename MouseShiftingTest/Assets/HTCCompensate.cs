@@ -96,12 +96,20 @@ public class HTCCompensate : MonoBehaviour
                   
             if (logicGame != null)
             {
-                if(!logicGame.started)
+                
+                if (!logicGame.started)
                 {
                     if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger)
                                 || ViveInput.GetPressDown(HandRole.LeftHand, ControllerButton.Trigger))
                         {
-                        selfConfigured = false;
+
+                        if (hand != null)
+                        {
+                            HandHTCTrack handHTCTrack = hand.transform.GetComponentInParent<HandHTCTrack>();
+                            handHTCTrack.configured = false;
+                        }
+
+                        // selfConfigured = false;
                         handConfigured = false;
                     }
                 }
