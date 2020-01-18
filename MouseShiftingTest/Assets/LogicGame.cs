@@ -86,22 +86,32 @@ public class LogicGame : MonoBehaviour, IPunObservable
         playerMasters[(currentPlayer + 1) % 2].presetPtop(propSpecs.type);
     }
 
-    public void initialObjectPosition(int indexObj, int indexPos)
+    public void initialObjectPosition()
     {
 
-        currentEndObject = objects[indexObj];
-        currentEndPosition = positions[indexPos];
         currentEndObject.SetActive(true);
         currentEndObject.transform.position = currentEndPosition.transform.position;
         currentPlayer = 0;
-        playerMasters[0].setNewLogic();
-        playerMasters[1].setNewLogic();
-        playerMasters[0].nextStage();// DELETE this and the methind on mastercontroller
+        playerMasters[1].setNewLogic();// DELETE this and the methind on mastercontroller
         playerMasters[1].nextStage();
+
+        if(!PhotonNetwork.isMasterClient)
+        {
+            int[] currSce = playerMasters[1].currentScenarioConfiguration();
+            GetComponent<PhotonView>().RPC("setPosObj", PhotonTargets.All, currSce[0], currSce[1]);
+        }
+        playerMasters[0].setNewLogic();
+        playerMasters[0].nextStage();
         refreshPlayerProp();
 
     }
 
+    [PunRPC]
+    public void setPosObj(int indexObj, int indexPos)
+    {
+        currentEndObject = objects[indexObj];
+        currentEndPosition = positions[indexPos];
+    }
 
     [PunRPC]
     public void enableHomePoint(int indexHomePoint, bool nState, bool isSecond )
@@ -195,12 +205,12 @@ public class LogicGame : MonoBehaviour, IPunObservable
         repetition = 0;
     }
     [PunRPC]
-    public void getStared(int indexObj, int indexPos, string nId)
+    public void getStared( string nId)
     {
         experimentId = nId;
         started = true;
         setPlayers();
-        initialObjectPosition(indexObj, indexPos);
+        initialObjectPosition();
         
     }   
     // Update is called once per frame
@@ -211,7 +221,7 @@ public class LogicGame : MonoBehaviour, IPunObservable
             if(!started)
             {
                 string nId = System.DateTime.Now.ToString("yyMMddHHmmss");
-                GetComponent<PhotonView>().RPC("getStared", PhotonTargets.All, Random.Range(0, 2), Random.Range(0, 2),nId);
+                GetComponent<PhotonView>().RPC("getStared", PhotonTargets.All,nId);
             }
         }
     }

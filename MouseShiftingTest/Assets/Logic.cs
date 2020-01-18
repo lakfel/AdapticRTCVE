@@ -10,8 +10,7 @@ using Random = UnityEngine.Random;
 public class Logic : MonoBehaviour
 {
 
-
-    public bool useFullScenarios;
+   
    
 
     // I am on my turn
@@ -125,7 +124,7 @@ public class Logic : MonoBehaviour
     private Queue<int[]> scenariosPlayer;
 
 
-    private int[] currentScenario;
+    public int[] currentScenario;
     public void fillPlayerInformationFull()
     {
 
@@ -140,16 +139,18 @@ public class Logic : MonoBehaviour
         int posRnd;
         Quaternion[] orientations = orientations2; // Change this if other set of orientations is wanted
 
-        // Scenarios Player 0
+        // Scenarios Player
         for (int i = 0; i < 16; i++)
         {
             while (checksS0[posRnd = Random.Range(0, 4) ] < 4) ;
                 checksS0[posRnd]++;
             scenariosPlayer.Enqueue(new int [] { scenarios[posRnd, 0], scenarios[posRnd, 1]});
+            if (i == 15)
+                currentScenario = new int[] { scenarios[posRnd, 0], scenarios[posRnd, 1] };
         }
 
 
-        // Scenarios Player 0
+        // Orientations Player
         for (int i = 0; i < 2; i++)
         {
             for (int j = 0; j < 2; i++)
@@ -161,7 +162,7 @@ public class Logic : MonoBehaviour
                 { 
                     while (checksO0[posRnd = Random.Range(0, 4)]) ;
                         checksO0[posRnd] = true;
-                    orientationsPlayer.Enqueue(orientations2[posRnd + 1]); ;
+                    orientationsPlayerMatrix[i, j].Enqueue(orientations2[posRnd + 1]); ;
                 }
             }
         }
@@ -218,7 +219,7 @@ public class Logic : MonoBehaviour
         hand = handObject.gameObject.GetComponent<IGenericHand>();
         propMannager = gameObject.GetComponent<PropMannager>();
         personalNotifications = gameObject.GetComponent<PersonalNotifications>();
-        useFullScenarios = true;
+        
 
 
     }
@@ -244,7 +245,8 @@ public class Logic : MonoBehaviour
             notificationsMannager.lightStepNotification(7);
         }
         trackerMannager.setTrackers();
-        fillPlayerInformation();
+        //fillPlayerInformation();
+        
     }
 
     public void onTurnStep()

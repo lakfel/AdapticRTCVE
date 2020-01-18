@@ -171,6 +171,12 @@ public class MasterController : MonoBehaviour, IPunObservable
         }
     }
 
+
+    public  int[] currentScenarioConfiguration()
+    {
+        return logic.currentScenario;
+    }
+
     [PunRPC]
     public void fillPlayerInformation()
     {

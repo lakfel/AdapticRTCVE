@@ -68,4 +68,5 @@ MonoBehaviour:
   - relocatePropDock
   - setActiveGhost
   - refreshPlayerProp
+  - setPosObj
   DisableAutoOpenWizard: 1
