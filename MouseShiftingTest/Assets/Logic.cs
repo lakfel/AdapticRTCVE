@@ -9,6 +9,11 @@ using Random = UnityEngine.Random;
 
 public class Logic : MonoBehaviour
 {
+
+
+    public bool useFullScenarios;
+   
+
     // I am on my turn
     public bool onTurn;
 
@@ -54,7 +59,7 @@ public class Logic : MonoBehaviour
 
     // Reference to goals. 3 props in front of the user.
     // 0. Left 1. Middle 2 Right
-    public GameObject [] props;
+    public GameObject[] props;
 
     // Numbre of the current goal. TODO// Change the int for the object?
     public int goal; //   0 , 1,2 
@@ -85,7 +90,7 @@ public class Logic : MonoBehaviour
     private PropMannager propMannager;
     private PersonalNotifications personalNotifications;
 
-    
+
 
 
     #region propEscnearioController
@@ -110,9 +115,58 @@ public class Logic : MonoBehaviour
 
     private Queue<Quaternion> orientationsPlayer;
 
+    // Index 1 - Object 0-1
+    // Index 2 - Side 0-1
+    // Index 3 orientation 0-4
+    private Queue<Quaternion>[,] orientationsPlayerMatrix;
+
+
     private readonly int[,] scenarios = { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } };
     private Queue<int[]> scenariosPlayer;
+
+
     private int[] currentScenario;
+    public void fillPlayerInformationFull()
+    {
+
+
+
+        orientationsPlayerMatrix = new Queue<Quaternion>[2, 2];
+        scenariosPlayer.Clear();
+
+        int[] checksS0 = { 0,0,0,0  };
+        bool[] checksO0 = { false, false, false, false };
+
+        int posRnd;
+        Quaternion[] orientations = orientations2; // Change this if other set of orientations is wanted
+
+        // Scenarios Player 0
+        for (int i = 0; i < 16; i++)
+        {
+            while (checksS0[posRnd = Random.Range(0, 4) ] < 4) ;
+                checksS0[posRnd]++;
+            scenariosPlayer.Enqueue(new int [] { scenarios[posRnd, 0], scenarios[posRnd, 1]});
+        }
+
+
+        // Scenarios Player 0
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < 2; i++)
+            {
+                for (int k = 0; k < 4; k++)
+                    checksO0[k] = false;
+                orientationsPlayerMatrix[i,j] = new Queue<Quaternion>();
+                for (int k = 0; k < 4; k++)
+                { 
+                    while (checksO0[posRnd = Random.Range(0, 4)]) ;
+                        checksO0[posRnd] = true;
+                    orientationsPlayer.Enqueue(orientations2[posRnd + 1]); ;
+                }
+            }
+        }
+
+    }
 
     public void fillPlayerInformation()
     {
@@ -164,7 +218,7 @@ public class Logic : MonoBehaviour
         hand = handObject.gameObject.GetComponent<IGenericHand>();
         propMannager = gameObject.GetComponent<PropMannager>();
         personalNotifications = gameObject.GetComponent<PersonalNotifications>();
-
+        useFullScenarios = true;
 
 
     }
@@ -300,11 +354,11 @@ public class Logic : MonoBehaviour
             else if (stage == 0)
             {
                 targetedController.disableRT = false;
-                targetedController.starShifting(currentEndPosition.transform.position, hand.giveRealPosition());
                 if (currentEndObject.GetComponent<PhotonView>().ownerId != PhotonNetwork.player.ID)
                 {
                     currentEndObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
                 }
+                targetedController.starShifting(currentEndPosition.transform.position, hand.giveRealPosition());
 
                 //currentEndObject.GetComponent<PropSpecs>().activeChildren(false);
 
@@ -339,7 +393,17 @@ public class Logic : MonoBehaviour
                 currentEndObject.GetComponent<PropSpecs>().resetProp(true);
                 pairTracker(true);
                 handLogic.process(); logicGame.GetComponent<PhotonView>().RPC("setActiveGhost", PhotonTargets.All, true);
-                logicGame.GetComponent<PhotonView>().RPC("movePropDock", PhotonTargets.All, true, homePosition.transform.rotation * orientationsPlayer.Dequeue());
+
+
+                // this is normal
+                Quaternion orientationPlayerC = orientationsPlayer.Dequeue();
+
+                // this isfull orientation
+                int posObj = currentEndObject.GetComponent<PropSpecs>().idProp;
+                int posSpot = currentEndPosition.GetComponent<SpotSide>().idSoptSide;
+                orientationPlayerC = orientationsPlayerMatrix[posObj, posSpot].Dequeue();
+
+                logicGame.GetComponent<PhotonView>().RPC("movePropDock", PhotonTargets.All, true, homePosition.transform.rotation * orientationPlayerC);
                 //movePropDock(true);// TODO maybe add some animation to make the "transformation between objects"
 
                 // persistanceManager.saveDocking();

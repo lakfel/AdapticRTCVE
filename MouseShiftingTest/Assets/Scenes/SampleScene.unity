@@ -4374,6 +4374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSide: 1
+  idSoptSide: 1
 --- !u!1 &587200531
 GameObject:
   m_ObjectHideFlags: 0
@@ -7163,18 +7164,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1821c88f28083c44b07e0c0fcf87f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  storeLocal: 0
+  trackedHand: {fileID: 0}
   trackedObject: {fileID: 0}
+  tracker: {fileID: 0}
+  camera: {fileID: 0}
   trialId: 
   movementId: 
   currentStage: 
-  typeMovement: 0
-  stage: 
-  condition1: 
-  condition2: 
+  idStation: 0
+  taskPart: 0
+  condition: 
   counterMovements: 0
   PATH_LOCAL: C:\Users\johannavila\Dropbox\Uniandes\Results\
   recording: 0
+  killProcess: 0
 --- !u!114 &935095471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7187,6 +7190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccba309cfcade3641b6f456a5502f07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useFullScenarios: 0
   onTurn: 0
   idPlayer: 0
   logicGame: {fileID: 0}
@@ -7428,6 +7432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccba309cfcade3641b6f456a5502f07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useFullScenarios: 0
   onTurn: 0
   idPlayer: 0
   logicGame: {fileID: 0}
@@ -7663,6 +7668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccba309cfcade3641b6f456a5502f07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useFullScenarios: 0
   onTurn: 0
   idPlayer: 0
   logicGame: {fileID: 0}
@@ -11998,6 +12004,9 @@ MonoBehaviour:
   sameTrackerPosition: 0
   softChange: 0
   softChangeDistance: {x: 0, y: 0, z: 0}
+  realPosi: {x: 0, y: 0, z: 0}
+  retPosi: {x: 0, y: 0, z: 0}
+  roti: {x: 0, y: 0, z: 0, w: 0}
 --- !u!4 &1603528839
 Transform:
   m_ObjectHideFlags: 0
@@ -12613,6 +12622,9 @@ MonoBehaviour:
   sameTrackerPosition: 0
   softChange: 0
   softChangeDistance: {x: 0, y: 0, z: 0}
+  realPosi: {x: 0, y: 0, z: 0}
+  retPosi: {x: 0, y: 0, z: 0}
+  roti: {x: 0, y: 0, z: 0, w: 0}
 --- !u!4 &1679954004
 Transform:
   m_ObjectHideFlags: 0
@@ -12897,6 +12909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccba309cfcade3641b6f456a5502f07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useFullScenarios: 0
   onTurn: 0
   idPlayer: 0
   logicGame: {fileID: 0}
@@ -14053,18 +14066,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1821c88f28083c44b07e0c0fcf87f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  storeLocal: 0
+  trackedHand: {fileID: 0}
   trackedObject: {fileID: 0}
+  tracker: {fileID: 0}
+  camera: {fileID: 0}
   trialId: 
   movementId: 
   currentStage: 
-  typeMovement: 0
-  stage: 
-  condition1: 
-  condition2: 
+  idStation: 0
+  taskPart: 0
+  condition: 
   counterMovements: 0
   PATH_LOCAL: C:\Users\johannavila\Dropbox\Uniandes\Results\
   recording: 0
+  killProcess: 0
 --- !u!114 &1840562361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15114,6 +15129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a270504b18baefe42b3f36553e7325fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idProp: 1
   trackerOffset: {x: 0.16, y: 0, z: 0}
   voCap: {fileID: 501762193}
   currentSide: 0
@@ -16326,6 +16342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a270504b18baefe42b3f36553e7325fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idProp: 0
   trackerOffset: {x: 0.16, y: 0, z: 0}
   voCap: {fileID: 1674250665}
   currentSide: 0
@@ -16805,6 +16822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSide: 0
+  idSoptSide: 0
 --- !u!1 &2117529463
 GameObject:
   m_ObjectHideFlags: 0

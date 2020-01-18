@@ -36,7 +36,7 @@ public class LogicGame : MonoBehaviour, IPunObservable
     // 2 Docking in home point
     // 3 returning object -- Maybe part 4 is not necessary
     public int repetition;
-    public const int REPETITIONS = 4;
+    public const int REPETITIONS = 16;
 
     
 
@@ -52,7 +52,7 @@ public class LogicGame : MonoBehaviour, IPunObservable
             // playerLogics[0] = master.GetComponent<Logic>();
             master.GetComponent<Logic>().logicGame = this;
             playerMasters[0].setCondition(MasterController.CONDITION.SM_RT);
-
+            playerMasters[0].startRecording(experimentId);
         }
         else
             GetComponent<PhotonView>().RPC("boadcastError", PhotonTargets.All, "ERROR FROM " + PhotonNetwork.player.NickName + " NOT PLAYER 0 FOUND");
@@ -63,6 +63,7 @@ public class LogicGame : MonoBehaviour, IPunObservable
             //playerLogics[1] = master.GetComponent<Logic>();
             master.GetComponent<Logic>().logicGame = this;
             playerMasters[1].setCondition(MasterController.CONDITION.NM_OO);
+            playerMasters[1].startRecording(experimentId);
         }
         else
             GetComponent<PhotonView>().RPC("boadcastError", PhotonTargets.All, "ERROR FROM " + PhotonNetwork.player.NickName + " NOT PLAYER 1 FOUND");

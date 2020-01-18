@@ -6,6 +6,7 @@ public class SpotSide : MonoBehaviour
 {
     public enum SIDE { LEFT, RIGHT };
     public SIDE currentSide;
+    public int idSoptSide;
 
     // Start is called before the first frame update
     void Start()

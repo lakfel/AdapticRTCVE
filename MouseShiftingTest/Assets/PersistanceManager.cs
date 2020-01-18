@@ -7,8 +7,14 @@ using System;
 public class PersistanceManager : MonoBehaviour
 {
 
+    private string hpLine;
+    private string rtLine;
+    private int counter;
+
     //Master
     private LevelController levelController;
+
+    private MasterController masterController;
 
     // Right hand of leapmotion. need to know position to log
     // Maybe is better to ask for the tracker;
@@ -22,7 +28,7 @@ public class PersistanceManager : MonoBehaviour
 
     //TODO this must be assigned on runtime
     //Camera Reference User 1
-    private GameObject camera;
+    public GameObject camera;
 
     // Id of the current trial
     public string trialId;
@@ -51,7 +57,7 @@ public class PersistanceManager : MonoBehaviour
     // Stopwatch to measure times
     private Stopwatch sw;
 
-    public string PATH_LOCAL = @"/Logout/";
+    public string PATH_LOCAL ;
 
     public const string NAME_GENERAL = "general.csv";
     public const string NAME_DETAIL_DOCK = "detail_dock.csv";
@@ -63,6 +69,7 @@ public class PersistanceManager : MonoBehaviour
     public const string HEADINGS_GEN_ID = "ID_TRIAL";
     public const string HEADINGS_GEN_TIME_STAMP = "TIME_STAMP";
     public const string HEADINGS_GEN_ID_STATION = "ID_STATION";
+    public const string HEADINGS_GEN_CONDITION = "CONDITION";
 
 
     // Detail Dock Fields
@@ -93,6 +100,8 @@ public class PersistanceManager : MonoBehaviour
     public const string HEADINGS_DET_FINAL_EULER_AX = "FINAL_EULER_AX ";
     public const string HEADINGS_DET_FINAL_EULER_AY = "FINAL_EULER_AY ";
     public const string HEADINGS_DET_FINAL_EULER_AZ = "FINAL_EULER_AZ ";
+    public const string HEADINGS_DET_SHAPE = "SHAPE";
+    public const string HEADINGS_DET_CONDITION = "CONDITION";
 
 
     // Run time fields. Hand and object positions
@@ -140,7 +149,7 @@ public class PersistanceManager : MonoBehaviour
 
 
     public bool recording;
-
+    public bool killProcess;
 
     private IEnumerator saveLocal(string path, string[] entries, string[] values)
     {
@@ -159,21 +168,44 @@ public class PersistanceManager : MonoBehaviour
         }
         yield return null;
     }
+
+    private IEnumerator saveLocal(string path, string[] entries, string values)
+    {
+        if (recording)
+        {
+            StreamWriter sw = null;
+            if (!File.Exists(path))
+            {
+                sw = new StreamWriter(path, true);
+                sw.WriteLine(string.Join(";", entries));
+            }
+            sw = sw ?? new StreamWriter(path, true);
+
+            sw.WriteLine(values);
+            sw.Close();
+        }
+        yield return null;
+    }
+
+
     private IEnumerator saveRecords()
     {
-        while(true)
+        while(true && !killProcess)
         {
             if ( recording)
             {
-                saveRunTime();
+                counter++;
+                 saveRunTime();
                 saveHeadPose();
+                counter = counter >= 500?0:counter;
             }
             yield return new WaitForSeconds(0.2f);
         }
+        yield return null;
     }
 
-    
 
+    
     private void Update()
     {
        
@@ -188,12 +220,11 @@ public class PersistanceManager : MonoBehaviour
             this.enabled = false;
         }
         recording = false;
-
+        PATH_LOCAL = Application.dataPath + @"/Logout/";
         counterMovements = 1;
 
         
-        idStation = Int32.Parse(gameObject.name.ToCharArray()[gameObject.name.Length - 1] + "");
-        levelController = gameObject.GetComponent<LevelController>();
+        masterController = gameObject.GetComponent<MasterController>();
         StartCoroutine(saveRecords());
         //TODO 
     }
@@ -206,14 +237,15 @@ public class PersistanceManager : MonoBehaviour
 
     public void saveGeneral( )
     {
-        
+
+        idStation = Int32.Parse(gameObject.name.ToCharArray()[gameObject.name.Length - 1] + "");
         string timeStamp = System.DateTime.Now.ToString("HH:mm:ss dd/MM/yy");
         
 
 
-        string[] values = { trialId, timeStamp, idStation + "" };
+        string[] values = { trialId, timeStamp, idStation + "" , masterController.condition.ToString("G")};
         string pathLocal = PATH_LOCAL + NAME_GENERAL;
-        string[] entries2 = { HEADINGS_GEN_ID, HEADINGS_GEN_TIME_STAMP, HEADINGS_GEN_ID_STATION };
+        string[] entries2 = { HEADINGS_GEN_ID, HEADINGS_GEN_TIME_STAMP, HEADINGS_GEN_ID_STATION, HEADINGS_GEN_CONDITION };
 
         
          StartCoroutine(saveLocal(pathLocal, entries2, values));;
@@ -225,7 +257,7 @@ public class PersistanceManager : MonoBehaviour
         sw = Stopwatch.StartNew();
         counterMovements++;
         movementId = System.DateTime.Now.ToString("HHmmss") +"N" + counterMovements;
-        currentStage = levelController.currenStage.ToString("G");
+       // currentStage = levelController.currenStage.ToString("G");
     }
 
     public void saveDocking()
@@ -235,7 +267,7 @@ public class PersistanceManager : MonoBehaviour
         Quaternion goalRotation = Quaternion.identity;
         Vector3 finalPosition = Vector3.zero;
         Quaternion finalRotation = Quaternion.identity;
-
+        string shape = "";
         if (trackedObject != null)
         {
             finalPosition = trackedObject.gameObject.transform.position;
@@ -243,6 +275,7 @@ public class PersistanceManager : MonoBehaviour
             GameObject goalObj = trackedObject.ghost;
             goalPosition = goalObj.transform.position;
             goalRotation = goalObj.transform.rotation;
+            shape = trackedObject.type.ToString("G");
             
         }
 
@@ -252,7 +285,8 @@ public class PersistanceManager : MonoBehaviour
         string[] values = { trialId, movementId, currentStage, idStation.ToString(), timeStamp, sw.ElapsedMilliseconds.ToString(), taskPart.ToString(),
                             goalPosition.x.ToString(), goalPosition.y.ToString() , goalPosition.z.ToString() , finalPosition.x.ToString(), finalPosition.y.ToString() , finalPosition.z.ToString(),
                             goalRotation.x.ToString(), goalRotation.y.ToString() , goalRotation.z.ToString() , goalRotation.w.ToString(), finalRotation.x.ToString(), finalRotation.y.ToString() , finalRotation.z.ToString() , finalRotation.w.ToString(),
-                            goalRotation.eulerAngles.x.ToString(), goalRotation.eulerAngles.y.ToString() , goalRotation.eulerAngles.z.ToString() , finalRotation.eulerAngles.x.ToString(), finalRotation.eulerAngles.y.ToString() , finalRotation.eulerAngles.z.ToString()  };
+                            goalRotation.eulerAngles.x.ToString(), goalRotation.eulerAngles.y.ToString() , goalRotation.eulerAngles.z.ToString() , finalRotation.eulerAngles.x.ToString(), finalRotation.eulerAngles.y.ToString() , finalRotation.eulerAngles.z.ToString(),
+                            shape, masterController.condition.ToString("G")  };
         sw.Stop();
 
 
@@ -262,8 +296,8 @@ public class PersistanceManager : MonoBehaviour
         string pathLocal = PATH_LOCAL + NAME_DETAIL_DOCK;
         string[] entries2 = { HEADINGS_DET_ID_TRIAL, HEADINGS_DET_ID_MOVEMENT, HEADINGS_DET_STAGE, HEADINGS_DET_ID_STATION, HEADINGS_DET_TIME_STAMP, HEADINGS_DET_TIME, HEADINGS_DET_TASK_PART,
                             HEADINGS_DET_GOAL_POS_X, HEADINGS_DET_GOAL_POS_Y, HEADINGS_DET_GOAL_POS_Z, HEADINGS_DET_FINAL_POS_X, HEADINGS_DET_FINAL_POS_Y, HEADINGS_DET_FINAL_POS_Z,
-                            HEADINGS_DET_GOAL_ROT_QX, HEADINGS_DET_GOAL_ROT_QZ, HEADINGS_DET_FINAL_ROT_QX, HEADINGS_DET_FINAL_ROT_QY, HEADINGS_DET_FINAL_ROT_QZ, HEADINGS_DET_FINAL_ROT_QW,
-                            HEADINGS_DET_GOAL_EULER_AX,HEADINGS_DET_GOAL_EULER_AY,HEADINGS_DET_GOAL_EULER_AZ,HEADINGS_DET_FINAL_EULER_AX,HEADINGS_DET_FINAL_EULER_AY,HEADINGS_DET_FINAL_EULER_AZ};
+                            HEADINGS_DET_GOAL_ROT_QX, HEADINGS_DET_GOAL_ROT_QY, HEADINGS_DET_GOAL_ROT_QZ, HEADINGS_DET_GOAL_ROT_QW, HEADINGS_DET_FINAL_ROT_QX, HEADINGS_DET_FINAL_ROT_QY, HEADINGS_DET_FINAL_ROT_QZ, HEADINGS_DET_FINAL_ROT_QW,
+                            HEADINGS_DET_GOAL_EULER_AX,HEADINGS_DET_GOAL_EULER_AY,HEADINGS_DET_GOAL_EULER_AZ,HEADINGS_DET_FINAL_EULER_AX,HEADINGS_DET_FINAL_EULER_AY,HEADINGS_DET_FINAL_EULER_AZ,HEADINGS_DET_SHAPE,HEADINGS_DET_CONDITION};
 
   
         StartCoroutine(saveLocal(pathLocal, entries2, values));
@@ -289,11 +323,14 @@ public class PersistanceManager : MonoBehaviour
         }
         if(trackedObject != null)
         {
-            trackPos = tracker.realPosi;
-            trackPosRet = tracker.retPosi;
             trackRot = trackedObject.transform.rotation;
         }
+        if (tracker != null)
+        {
+            trackPos = tracker.realPosi;
+            trackPosRet = tracker.retPosi;
 
+        }
 
         string timeStamp = System.DateTime.Now.ToString("HH:mm:ss dd/MM/yy");
 
@@ -311,8 +348,17 @@ public class PersistanceManager : MonoBehaviour
                             , HEADINGS_RT_TRACK_REAL_POS_X , HEADINGS_RT_TRACK_REAL_POS_Y, HEADINGS_RT_TRACK_REAL_POS_Z, HEADINGS_RT_TRACK_RET_POS_X, HEADINGS_RT_TRACK_RET_POS_Y, HEADINGS_RT_TRACK_RET_POS_Z
                             , HEADINGS_RT_TRACK_ROT_QUA_X, HEADINGS_RT_TRACK_ROT_QUA_Y, HEADINGS_RT_TRACK_ROT_QUA_Z, HEADINGS_RT_TRACK_ROT_QUA_W, HEADINGS_RT_TRACK_EULER_AX,HEADINGS_RT_TRACK_EULER_AY,HEADINGS_RT_TRACK_EULER_AZ, HEADINGS_RT_CURR_STAGE};
 
-       
-        StartCoroutine(saveLocal(pathLocal, entries2, values));
+        if (counter < 500)
+            rtLine = rtLine + string.Join(";", values) + Environment.NewLine;
+        else if (counter == 500)
+            rtLine = rtLine + string.Join(";", values);
+        else
+        {
+            StartCoroutine(saveLocal(pathLocal, entries2, rtLine));
+            rtLine = "";
+        }
+            // StartCoroutine(saveLocal(pathLocal, entries2, values));
+        
     }
 
     public void saveHeadPose()
@@ -333,9 +379,19 @@ public class PersistanceManager : MonoBehaviour
         string[] entries2 = { HEADINGS_HP_ID_TRIAL, HEADINGS_HP_ID_MOVEMENT, HEADINGS_HP_ID_STATION,HEADINGS_HP_TIME_STAMP,
                              HEADINGS_HP_POS_X, HEADINGS_HP_POS_Y, HEADINGS_HP_POS_Z, HEADINGS_HP_ROT_QUA_X, HEADINGS_HP_ROT_QUA_Y, HEADINGS_HP_ROT_QUA_Z, HEADINGS_HP_ROT_QUA_W,
             HEADINGS_HP_EULER_AX,HEADINGS_HP_EULER_AY,HEADINGS_HP_EULER_AZ,HEADINGS_HP_CURR_STAGE };
+        if (counter < 500)
+            hpLine = hpLine + string.Join(";", values) + Environment.NewLine;
+        else if (counter == 500)
+            hpLine = hpLine + string.Join(";", values);
+        else
+        {
+            StartCoroutine(saveLocal(pathLocal, entries2, hpLine));
+            hpLine = "";
+        }
+        // StartCoroutine(saveLocal(pathLocal, entries2, values));
 
        
-            StartCoroutine(saveLocal(pathLocal, entries2, values));
+        
     }
 
    

@@ -176,7 +176,8 @@ public class MasterController : MonoBehaviour, IPunObservable
     {
         if(GetComponent<PhotonView>().isMine)
         {
-            logic.fillPlayerInformation();
+           // logic.fillPlayerInformation(); //This works
+            logic.fillPlayerInformationFull();
         }
     }
 

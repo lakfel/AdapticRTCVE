@@ -6,6 +6,10 @@ public class PropSpecs : MonoBehaviour, IPunObservable
 {
     public enum SIDE { LEFT, RIGHT, UNDEFINED }
 
+
+
+    public int idProp;
+
     public Vector3 trackerOffset;
     public GameObject voCap;
 

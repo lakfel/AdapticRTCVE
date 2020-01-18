@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.XR;
+using HTC.UnityPlugin.Vive;
 using Leap;
 using System;
 // Position spawn is configured and assured by PUN. Orientation is not. This class tries to set this up.
@@ -19,6 +20,8 @@ public class HTCCompensate : MonoBehaviour
     public GameObject camera;
     public GameObject hand;
 
+    public LogicGame logicGame;
+
     void Start()
     {
         selfConfigured = false;
@@ -26,6 +29,8 @@ public class HTCCompensate : MonoBehaviour
         {
             this.enabled = false;
         }
+
+        logicGame = GameObject.Find("LevelMannager").GetComponent<LogicGame>();
     }
     // Update is called once per frame
     void Update()
@@ -88,6 +93,20 @@ public class HTCCompensate : MonoBehaviour
                     selfConfigured = true;
                     Debug.Log("JFGA -- No hand found");
                 }
+                  
+                if (logicGame != null)
+                {
+                    if(!logicGame.started)
+                    {
+                        if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger)
+                                   || ViveInput.GetPressDown(HandRole.LeftHand, ControllerButton.Trigger))
+                            {
+                            selfConfigured = false;
+                            handConfigured = false;
+                        }
+                    }
+                }
+
         }
     }
 }

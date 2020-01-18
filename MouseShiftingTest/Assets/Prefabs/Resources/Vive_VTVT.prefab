@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &227529791
 Transform:
   m_ObjectHideFlags: 0
@@ -109,7 +109,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &540711754
 Transform:
   m_ObjectHideFlags: 0
@@ -874,6 +874,9 @@ MonoBehaviour:
   sameTrackerPosition: 0
   softChange: 0
   softChangeDistance: {x: 0, y: 0, z: 0}
+  realPosi: {x: 0, y: 0, z: 0}
+  retPosi: {x: 0, y: 0, z: 0}
+  roti: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &9175160798054020684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1137,6 +1140,9 @@ MonoBehaviour:
   sameTrackerPosition: 0
   softChange: 0
   softChangeDistance: {x: 0, y: 0, z: 0}
+  realPosi: {x: 0, y: 0, z: 0}
+  retPosi: {x: 0, y: 0, z: 0}
+  roti: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &1192238039896630818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1496,6 +1502,8 @@ MonoBehaviour:
   configured: 0
   targeted: {fileID: 952661882236132600}
   handRepresentation: {fileID: 952661882236132519}
+  realPositionHand: {x: 0, y: 0, z: 0}
+  retPositionHand: {x: 0, y: 0, z: 0}
 --- !u!1 &952661882236132523
 GameObject:
   m_ObjectHideFlags: 0
@@ -1808,18 +1816,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1821c88f28083c44b07e0c0fcf87f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  storeLocal: 0
+  trackedHand: {fileID: 0}
   trackedObject: {fileID: 0}
+  tracker: {fileID: 0}
+  camera: {fileID: 0}
   trialId: 
   movementId: 
   currentStage: 
-  typeMovement: 0
-  stage: 
-  condition1: 
-  condition2: 
+  idStation: 0
+  taskPart: 0
+  condition: 
   counterMovements: 0
   PATH_LOCAL: /Logout/
   recording: 0
+  killProcess: 0
 --- !u!114 &952661882236132595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2971,18 +2981,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1821c88f28083c44b07e0c0fcf87f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  storeLocal: 0
+  trackedHand: {fileID: 952661882236132602}
   trackedObject: {fileID: 0}
+  tracker: {fileID: 0}
+  camera: {fileID: 952661882236132552}
   trialId: 
   movementId: 
   currentStage: 
-  typeMovement: 0
-  stage: 
-  condition1: 
-  condition2: 
+  idStation: 0
+  taskPart: 0
+  condition: 
   counterMovements: 0
   PATH_LOCAL: /Logout/
   recording: 0
+  killProcess: 0
 --- !u!114 &952661882236132600
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -48,7 +48,7 @@ public class LevelController : MonoBehaviour, IPunObservable
             //TextMesh text = notificacionTextObject.GetComponent<TextMesh>();
             //text.text = "TUTORIAL";
 
-            persistanceManager.saveGeneral();
+
 
             //TODO What is needed for having the instructinos and UI guide work
 

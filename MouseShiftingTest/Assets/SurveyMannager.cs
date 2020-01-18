@@ -112,7 +112,7 @@ public class SurveyMannager : MonoBehaviour
     private void nextQuestion()
     {
         string question = questionMesh.text.Replace("\n","");
-        persistanceManager.saveSurveyResponse(strPrevStage, strCurrStage, question, answer);
+
 
         if (actualStage > 2)
         {
