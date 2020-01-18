@@ -52,6 +52,7 @@ public class LogicGame : MonoBehaviour, IPunObservable
             // playerLogics[0] = master.GetComponent<Logic>();
             master.GetComponent<Logic>().logicGame = this;
             playerMasters[0].setCondition(MasterController.CONDITION.SM_RT);
+
         }
         else
             GetComponent<PhotonView>().RPC("boadcastError", PhotonTargets.All, "ERROR FROM " + PhotonNetwork.player.NickName + " NOT PLAYER 0 FOUND");

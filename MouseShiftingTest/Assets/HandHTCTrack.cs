@@ -21,12 +21,19 @@ public class HandHTCTrack : MonoBehaviour, IGenericHand
 
     public GameObject handRepresentation;
 
+    public Vector3 realPositionHand;
+    public Vector3 retPositionHand;
+
     public Vector3 giveRealPosition()
     {
-        Debug.Log("RealPosition - Object - " + transform.position);
-        Debug.Log("RealPosition - Model - " + handRepresentation.transform.position);
-        Debug.Log("RealPosition - Model Center - " + handRepresentation.transform.GetChild(0).transform.position);
-        return handRepresentation.transform.GetChild(0).transform.position;
+
+        return realPositionHand;//handRepresentation.transform.GetChild(0).transform.position;
+    }
+
+    public Vector3 giveRetPosition()
+    {
+
+        return retPositionHand;//handRepresentation.transform.GetChild(0).transform.position;
     }
 
     //public GameObject camera;
@@ -75,6 +82,8 @@ public class HandHTCTrack : MonoBehaviour, IGenericHand
                 initialStatus();
             }
             Vector3 offsetCenterHand = handRepresentation.transform.GetChild(0).transform.position - transform.position;
+            realPositionHand = tracker.transform.position + offsetCenterHand;
+            retPositionHand = targeted.giveRetargetedPosition(tracker.transform.position + offsetCenterHand);
             transform.position = targeted.giveRetargetedPosition(tracker.transform.position+ offsetCenterHand) - offsetCenterHand;
             transform.rotation = tracker.transform.rotation * Quaternion.Inverse(firstTrackedRotation)* initialRotation;
         }

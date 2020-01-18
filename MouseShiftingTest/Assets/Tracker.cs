@@ -74,6 +74,11 @@ public class Tracker : MonoBehaviour, IPunObservable
     public bool softChange;
     public Vector3 softChangeDistance;
 
+
+    public Vector3 realPosi;
+    public Vector3 retPosi;
+    public Quaternion roti;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -84,7 +89,7 @@ public class Tracker : MonoBehaviour, IPunObservable
         masterController = master.GetComponent<MasterController>();
         realWorldReference = GameObject.Find("MiddlePropPosition");
         reatach = false;
-        sameTrackerPosition = true;
+        sameTrackerPosition = false;
         objectTracked.transform.localPosition = trackedOffset;
     }
 
@@ -123,15 +128,17 @@ public class Tracker : MonoBehaviour, IPunObservable
                 Vector3 realPos = Vector3.zero;
                 if (sameTrackerPosition)
                 {
-                    transform.position = targetedController.giveRetargetedPosition(trackerRep.transform.position) + sumChange;
+                    transform.position = targetedController.giveRetargetedPosition(trackerRep.transform.position);
+                    realPosi = trackerRep.transform.position;
                 }
                 else
                 {
                     realPos = trackerRep.transform.position - firstTrackedPosition + initialPosition ;
                     transform.position = targetedController.giveRetargetedPosition(realPos);
+                    realPosi = realPos;
                 }
-
-
+                retPosi = transform.position;
+                roti = transform.rotation;
 
 
 
@@ -173,17 +180,18 @@ public class Tracker : MonoBehaviour, IPunObservable
         bool att = false;
         if (VirtualObject != null)
         {
+            Vector3 delta = virtualObject.transform.position - virtualObject.transform.parent.position;
             if ((masterController.condition == MasterController.CONDITION.NM_RT || masterController.condition == MasterController.CONDITION.SM_RT) 
                 && !fromHomePoint)
             {
-                InitialPosition = realWorldReference.transform.position ;
-                InitialRotation = VirtualObject.transform.rotation;
+                InitialPosition = realWorldReference.transform.position - delta ;
+                InitialRotation = VirtualObject.transform.parent.rotation; 
                 att = true;
             }
             else
             {
-                InitialPosition = VirtualObject.transform.position;
-                InitialRotation = VirtualObject.transform.rotation;
+                InitialPosition = VirtualObject.transform.position - delta;
+                InitialRotation = VirtualObject.transform.parent.rotation;
             }
             objectTracked.transform.localPosition = fromHomePoint? -trackedOffset : trackedOffset;
             Debug.Log("Attaching -- Orientation " + InitialRotation);

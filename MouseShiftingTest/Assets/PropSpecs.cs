@@ -12,7 +12,7 @@ public class PropSpecs : MonoBehaviour, IPunObservable
     public SIDE currentSide;
     
     public PropMannager.PRESET_TYPE type;
-
+    
     // This game object contains a children with the mesh of the object
     public GameObject objctPar;
     public GameObject objct;
@@ -30,7 +30,7 @@ public class PropSpecs : MonoBehaviour, IPunObservable
     {
         currentSide = SIDE.UNDEFINED;
         grabbed = false;
-        resetProp(false);
+        //resetProp(false);
     }
 
     [PunRPC]
@@ -78,8 +78,8 @@ public class PropSpecs : MonoBehaviour, IPunObservable
     public float distanceToDock()
     {
         float distance = 0f;
-        distance = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(ghost.transform.position.x, ghost.transform.position.z));
-        //distance = Vector3.Distance(transform.position, ghost.transform.position);
+       //distance = Vector2.Distance(new Vector2(objctPar.transform.position.x, objctPar.transform.position.z), new Vector2(ghost.transform.position.x, ghost.transform.position.z));
+        distance = Vector3.Distance(transform.position, ghost.transform.position);
         return distance;
     }
 
@@ -89,10 +89,20 @@ public class PropSpecs : MonoBehaviour, IPunObservable
         //distance = Vector3.Distance(transform.position, virtualObject.transform.position);
         return distance;
     }
-    public void resetProp(bool isHome)
+    public void resetProp(bool trackerToLeft)
     {
-        voCap.transform.localPosition = isHome? trackerOffset: -trackerOffset;
-        objctPar.transform.localPosition = isHome ? -trackerOffset : trackerOffset;
+        //Quaternion tempo = transform.rotation;
+        //transform.rotation = Quaternion.identity;
+        objctPar.transform.localPosition = trackerToLeft ? -trackerOffset : trackerOffset;
+        Vector3 nPos = objctPar.transform.position;
+        objctPar.transform.localPosition = Vector3.zero;
+        voCap.transform.position = nPos;
+        transform.localPosition = Vector3.zero;
+        objctPar.transform.localPosition = trackerToLeft ? trackerOffset : -trackerOffset;
+        nPos = objctPar.transform.position;
+        objctPar.transform.localPosition = Vector3.zero;
+        transform.position = nPos;
+        // transform.rotation = tempo;
     }
 
 

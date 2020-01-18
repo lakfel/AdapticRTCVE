@@ -32,11 +32,7 @@ public class LevelController : MonoBehaviour, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
-        persistanceManager = gameObject.GetComponent<PersistanceManager>();
-        if (persistanceManager != null)
-        {
-            persistanceManager.storeLocal = false;
-        }
+      
 
     }
 

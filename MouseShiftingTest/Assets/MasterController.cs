@@ -37,6 +37,8 @@ public class MasterController : MonoBehaviour, IPunObservable
     // prop mannager
     private PropMannager propMannager;
 
+    private PersistanceManager persistanceManager;
+
     private Logic logic;
 
     // Base condition
@@ -61,6 +63,7 @@ public class MasterController : MonoBehaviour, IPunObservable
         surveyMannager = gameObject.GetComponent<SurveyMannager>();
         logic = gameObject.GetComponent<Logic>();
         propMannager = gameObject.GetComponent<PropMannager>();
+        persistanceManager = gameObject.GetComponent<PersistanceManager>();
 
 
         surveyActivated = false;
@@ -70,6 +73,14 @@ public class MasterController : MonoBehaviour, IPunObservable
 
          
          
+    }
+
+    public void startRecording(string idTrial)
+    {
+        persistanceManager.trialId = idTrial;
+        persistanceManager.currentStage = "TUTORIAL";
+        persistanceManager.recording = true;
+        persistanceManager.saveGeneral();
     }
 
     public void setCondition(CONDITION nCondition)
@@ -150,6 +161,7 @@ public class MasterController : MonoBehaviour, IPunObservable
 
         }
     }
+
 
     public void setNewLogic()
     {

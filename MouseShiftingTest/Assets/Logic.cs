@@ -123,7 +123,7 @@ public class Logic : MonoBehaviour
         bool[] checksS0 = { false, false, false, false };
 
         int posRnd;
-        Quaternion[] orientations = orientations1; // Change this if other set of orientations is wanted
+        Quaternion[] orientations = orientations2; // Change this if other set of orientations is wanted
 
         // Orientations Player 0
         for (int i = 0; i < 4; i++)
@@ -313,6 +313,8 @@ public class Logic : MonoBehaviour
                 currentEndObject.transform.position = currentEndPosition.transform.position;
                 StartCoroutine(transformProp());
                 logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, false, false);
+                
+                persistanceManager.startDocking(stage);
 
                 stage = 1;
 
@@ -321,7 +323,9 @@ public class Logic : MonoBehaviour
             // Post hand hiden, object green and allowed to manipulate. Ghost on home position in radom orientation
             else if (stage == 1) // Hand in object Maybe should check the coliders are overlapped. Pre No shadow in scene. Pos shadow in point Z
             {
-                
+                persistanceManager.tracker = currentTracker;
+                persistanceManager.trackedObject = currentEndObject.GetComponent<PropSpecs>();
+                persistanceManager.saveDocking();
 
                 if (masterController.condition == MasterController.CONDITION.NM_RT ||
                         masterController.condition == MasterController.CONDITION.SM_RT)
@@ -332,7 +336,7 @@ public class Logic : MonoBehaviour
                 {
                     currentEndObject.transform.position = currentEndPosition.transform.position;
                 }
-                currentEndObject.GetComponent<PropSpecs>().resetProp(false);
+                currentEndObject.GetComponent<PropSpecs>().resetProp(true);
                 pairTracker(true);
                 handLogic.process(); logicGame.GetComponent<PhotonView>().RPC("setActiveGhost", PhotonTargets.All, true);
                 logicGame.GetComponent<PhotonView>().RPC("movePropDock", PhotonTargets.All, true, homePosition.transform.rotation * orientationsPlayer.Dequeue());
@@ -340,30 +344,40 @@ public class Logic : MonoBehaviour
 
                 // persistanceManager.saveDocking();
                 // persistanceManager.startDocking(stage);
+
+                persistanceManager.startDocking(stage);
+
                 stage = 2;
             }
             // Pre object on ghost in a correct orientation and position
             // Pos Hand appears, Objet released, HP appears on the rigth side.
             else if (stage == 2)
             {
-                targetedController.disableRT = true;
+                persistanceManager.tracker = currentTracker;
+                persistanceManager.trackedObject = currentEndObject.GetComponent<PropSpecs>();
+                persistanceManager.saveDocking();
+                // bool isLeft = idPlayer == 0 ;
 
+                handLogic.process();
+                targetedController.disableRT = true;
                 currentEndObject.transform.rotation = currentEndObject.GetComponent<PropSpecs>().ghost.transform.rotation;
                 currentEndObject.transform.position = currentEndObject.GetComponent<PropSpecs>().ghost.transform.position;
                 logicGame.GetComponent<PhotonView>().RPC("setActiveGhost", PhotonTargets.All, false);
                 logicGame.GetComponent<PhotonView>().RPC("relocatePropDock", PhotonTargets.All);
-                handLogic.process();
                 handLogic.allowToGrab = false;
                 logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, true,true);
                 //persistanceManager.saveDocking();
                 //propContr.movePropDock(false);
-                //persistanceManager.startDocking(stage);
+                persistanceManager.startDocking(stage);
                 stage = 3;
             }
             // Pre hand on HP2
             // Pos Object transformed, HP2 Hidden
             else if (stage == 3) // Object moved to initial position in desired orientation. Pre. Shadow on, initial status off. Pos Shadow off, initial position on
             {
+                persistanceManager.tracker = currentTracker;
+                persistanceManager.trackedObject = currentEndObject.GetComponent<PropSpecs>();
+                persistanceManager.saveDocking();
                 Quaternion lastOrientation = currentEndObject.transform.rotation;
                 Debug.Log("Last end orientation " + lastOrientation);
                 logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, false,true);
@@ -380,10 +394,10 @@ public class Logic : MonoBehaviour
                 }
 
                 StartCoroutine(transformProp());
-                currentEndObject.transform.rotation = lastOrientation;
-                currentEndObject.transform.Rotate(new Vector3(0f, 180f, 0f));
                 currentEndObject.transform.position = homePosition.transform.position;
+                currentEndObject.transform.rotation = lastOrientation;
                 currentEndObject.GetComponent<PropSpecs>().resetProp(true);
+                currentEndObject.transform.Rotate(new Vector3(0f, 180f, 0f));
 
 
                 Debug.Log("Orientation before pairing " + currentEndObject.transform.rotation);
@@ -391,19 +405,22 @@ public class Logic : MonoBehaviour
                 handLogic.allowToGrab = true;
 
 
-                // persistanceManager.startDocking(stage);
+                persistanceManager.startDocking(stage);
                 stage = 4;
             }
             // Pre, hand on object
             // Pos hand dissapears and object in moving mood.
             else if (stage == 4)
             {
-                
+                persistanceManager.tracker = currentTracker;
+                persistanceManager.trackedObject = currentEndObject.GetComponent<PropSpecs>();
+                persistanceManager.saveDocking();
                 pairTracker(false);
                 targetedController.disableRT = false;
+                handLogic.process();
                 //targetedController.starShifting(currentEndPosition.transform.position, currentEndObject.transform.position);
                 targetedController.starShifting( currentEndPosition.transform.position, currentEndObject.transform.position);
-                handLogic.process();logicGame.GetComponent<PhotonView>().RPC("setActiveGhost", PhotonTargets.All, true);
+                logicGame.GetComponent<PhotonView>().RPC("setActiveGhost", PhotonTargets.All, true);
                 Quaternion neutral = homePosition.transform.rotation;
          
                 logicGame.GetComponent<PhotonView>().RPC("movePropDock", PhotonTargets.All, false,  homePosition.transform.rotation);
@@ -412,22 +429,28 @@ public class Logic : MonoBehaviour
                 //homePosition.SetActive(false);
                 //Vector3 po = homePosition.transform.position;
                 //homePosition.transform.position = new Vector3(po.x - 0.15f, po.y, po.z);
-                //persistanceManager.startDocking(stage);
+                persistanceManager.startDocking(stage);
                 stage = 5;
             }
             // Pre object on end position
             // Pos end. hand appears
             else if (stage == 5)
             {
+                persistanceManager.tracker = currentTracker;
+                persistanceManager.trackedObject = currentEndObject.GetComponent<PropSpecs>();
+                persistanceManager.saveDocking();
+                handLogic.process();
                 PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
                 currentEndObject.transform.rotation = propSpecs.ghost.transform.rotation;
+                currentEndObject.transform.position = propSpecs.ghost.transform.position;
                 propSpecs.ghost.SetActive(false);
                 logicGame.GetComponent<PhotonView>().RPC("relocatePropDock", PhotonTargets.All);
-                handLogic.process();
+                propSpecs.resetProp(false);
                 onTurn = false;
                 logicGame.GetComponent<PhotonView>().RPC("nextStep", PhotonTargets.All);
                 stage = -1;
                 targetedController.disableRT = true;
+                
             }
             if(stage != -1)
                 notificationsMannager.lightStepNotification(stage + 1);
