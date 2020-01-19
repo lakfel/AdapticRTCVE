@@ -102,10 +102,19 @@ public class MasterController : MonoBehaviour, IPunObservable
 
     public void startRecording(string idTrial)
     {
-        persistanceManager.trialId = idTrial;
-        persistanceManager.currentStage = "TUTORIAL";
-        persistanceManager.recording = true;
-        persistanceManager.saveGeneral();
+        if (GetComponent<PhotonView>().isMine)
+        { 
+            persistanceManager.trialId = idTrial;
+            persistanceManager.currentStage = "TUTORIAL";
+            persistanceManager.recording = true;
+            persistanceManager.saveGeneral();
+        }
+    }
+    public void setRecording(bool rRecord)
+    {
+
+        if (GetComponent<PhotonView>().isMine)
+            persistanceManager.recording = rRecord;
     }
 
     public void setCondition(CONDITION nCondition)

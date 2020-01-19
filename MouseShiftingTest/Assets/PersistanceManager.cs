@@ -11,6 +11,7 @@ public class PersistanceManager : MonoBehaviour
     private string rtLine;
     public int counter;
 
+    public float topRegisterToSave;
     //Master
     private LevelController levelController;
 
@@ -218,6 +219,7 @@ public class PersistanceManager : MonoBehaviour
         {
             this.enabled = false;
         }
+        topRegisterToSave = 150;
         recording = false;
         PATH_LOCAL = Application.dataPath + @"/Logout/";
         if (!Directory.Exists(PATH_LOCAL))
@@ -349,9 +351,9 @@ public class PersistanceManager : MonoBehaviour
                             , HEADINGS_RT_TRACK_REAL_POS_X , HEADINGS_RT_TRACK_REAL_POS_Y, HEADINGS_RT_TRACK_REAL_POS_Z, HEADINGS_RT_TRACK_RET_POS_X, HEADINGS_RT_TRACK_RET_POS_Y, HEADINGS_RT_TRACK_RET_POS_Z
                             , HEADINGS_RT_TRACK_ROT_QUA_X, HEADINGS_RT_TRACK_ROT_QUA_Y, HEADINGS_RT_TRACK_ROT_QUA_Z, HEADINGS_RT_TRACK_ROT_QUA_W, HEADINGS_RT_TRACK_EULER_AX,HEADINGS_RT_TRACK_EULER_AY,HEADINGS_RT_TRACK_EULER_AZ, HEADINGS_RT_CURR_STAGE};
 
-        if (counter < 500)
+        if (counter < topRegisterToSave)
             rtLine = rtLine + string.Join(";", values) + Environment.NewLine;
-        else if (counter == 500)
+        else if (counter == topRegisterToSave)
             rtLine = rtLine + string.Join(";", values);
         else
         {
@@ -380,9 +382,9 @@ public class PersistanceManager : MonoBehaviour
         string[] entries2 = { HEADINGS_HP_ID_TRIAL, HEADINGS_HP_ID_MOVEMENT, HEADINGS_HP_ID_STATION,HEADINGS_HP_TIME_STAMP,
                              HEADINGS_HP_POS_X, HEADINGS_HP_POS_Y, HEADINGS_HP_POS_Z, HEADINGS_HP_ROT_QUA_X, HEADINGS_HP_ROT_QUA_Y, HEADINGS_HP_ROT_QUA_Z, HEADINGS_HP_ROT_QUA_W,
             HEADINGS_HP_EULER_AX,HEADINGS_HP_EULER_AY,HEADINGS_HP_EULER_AZ,HEADINGS_HP_CURR_STAGE };
-        if (counter < 500)
+        if (counter < topRegisterToSave)
             hpLine = hpLine + string.Join(";", values) + Environment.NewLine;
-        else if (counter == 500)
+        else if (counter == topRegisterToSave)
             hpLine = hpLine + string.Join(";", values);
         else
         {

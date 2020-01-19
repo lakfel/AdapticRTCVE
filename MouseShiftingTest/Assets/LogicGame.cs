@@ -173,11 +173,14 @@ public class LogicGame : MonoBehaviour, IPunObservable
         numStage++;
         if(numStage>2)
         {
-            paused = true;
+            started = false;
+
         }
         else
         {
 
+            playerMasters[0].setRecording(true);
+            playerMasters[1].setRecording(true);
             playerMasters[0].fillPlayerInformation();
             playerMasters[1].fillPlayerInformation();
             currenStage = stages[numStage];
@@ -213,12 +216,18 @@ public class LogicGame : MonoBehaviour, IPunObservable
         if(repetition == REPETITIONS || (currenStage== STAGE.TUTORIAL && repetition == 4))
         {
             paused = true;
+
+            playerMasters[0].setRecording(false);
+            playerMasters[1].setRecording(false);
             if (currenStage == STAGE.TUTORIAL)
                 centralBannerMannaher.permanentMessage("Fin del tutorial");
             if (currenStage == STAGE.FIRST)
                 centralBannerMannaher.permanentMessage("Fin de la primera parte");
             if (currenStage == STAGE.SECOND)
+            {
                 centralBannerMannaher.permanentMessage("Fin de la prueba");
+            }
+
             paused = true;
             currentPlayer = -1;
             playerMasters[0].nextStage();// DELETE this and the methind on mastercontroller
@@ -270,6 +279,8 @@ public class LogicGame : MonoBehaviour, IPunObservable
     [PunRPC]
     public void getStared( string nId)
     {
+        currenStage = STAGE.TUTORIAL;
+        numStage = 0;
         experimentId = nId;
         started = true;
         setPlayers();
@@ -284,8 +295,16 @@ public class LogicGame : MonoBehaviour, IPunObservable
         {
             if(!started)
             {
-                string nId = System.DateTime.Now.ToString("yyMMddHHmmss");
-                GetComponent<PhotonView>().RPC("getStared", PhotonTargets.All,nId);
+                if(numStage > 2)
+                {
+                    centralBannerMannaher.permanentMessage("Bienvenido!");
+                }
+                else
+                {
+                    string nId = System.DateTime.Now.ToString("yyMMddHHmmss");
+                    GetComponent<PhotonView>().RPC("getStared", PhotonTargets.All, nId);
+                }
+               
             }
             else
             {
