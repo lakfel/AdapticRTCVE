@@ -1801,6 +1801,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userId: 0
+  rendHead: {fileID: 0}
+  rendHand: {fileID: 0}
   condition: 0
   stageCounter: 0
   surveyActivated: 0
@@ -1816,6 +1818,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1821c88f28083c44b07e0c0fcf87f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  counter: 0
   trackedHand: {fileID: 0}
   trackedObject: {fileID: 0}
   tracker: {fileID: 0}
@@ -1842,6 +1845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccba309cfcade3641b6f456a5502f07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testCond: 0
   onTurn: 0
   idPlayer: 0
   logicGame: {fileID: 0}
@@ -2983,6 +2987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1821c88f28083c44b07e0c0fcf87f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  counter: 0
   trackedHand: {fileID: 952661882236132602}
   trackedObject: {fileID: 0}
   tracker: {fileID: 0}
@@ -3033,6 +3038,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userId: 0
+  rendHead: {fileID: 7239594913667764960}
+  rendHand: {fileID: 952661882236132586}
   condition: 2
   stageCounter: 0
   surveyActivated: 0
@@ -3065,6 +3072,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccba309cfcade3641b6f456a5502f07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testCond: 0
   onTurn: 0
   idPlayer: 0
   logicGame: {fileID: 0}

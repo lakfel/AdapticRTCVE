@@ -17,6 +17,10 @@ public class MasterController : MonoBehaviour, IPunObservable
     public static GameObject LocalPlayerInstance;
     #endregion
 
+    public Renderer rendHead;
+    public Renderer rendHand;
+
+
     public enum CONDITION
     {
         SM_RT,
@@ -73,6 +77,18 @@ public class MasterController : MonoBehaviour, IPunObservable
 
          
          
+    }
+
+    public void changeTransparency(bool onTurn)
+    {
+        Color c = rendHead.material.color;
+        c.a = onTurn ? 1f : 0.5f;
+        rendHead.material.color = c;
+
+
+        c = rendHand.material.color;
+        c.a = onTurn ? 1f : 0.5f;
+        rendHand.material.color = c;
     }
 
     public void changeStage(LogicGame.STAGE nStage)
@@ -207,6 +223,7 @@ public class MasterController : MonoBehaviour, IPunObservable
         {
             logic.onTurnStep();
         }
+
     }
 
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

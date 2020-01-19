@@ -118,6 +118,9 @@ public class LogicGame : MonoBehaviour, IPunObservable
         playerMasters[0].setNewLogic();
         playerMasters[0].nextStage();
 
+        playerMasters[0].changeTransparency(currentPlayer == 0);
+        playerMasters[1].changeTransparency(currentPlayer == 1);
+
     }
 
     [PunRPC]
@@ -182,6 +185,7 @@ public class LogicGame : MonoBehaviour, IPunObservable
             playerMasters[0].changeStage(currenStage);
             playerMasters[1].changeStage(currenStage);
             repetition = 0;
+            currentPlayer = 0;
         } 
     }
 
@@ -216,7 +220,11 @@ public class LogicGame : MonoBehaviour, IPunObservable
             if (currenStage == STAGE.SECOND)
                 centralBannerMannaher.permanentMessage("Fin de la prueba");
             paused = true;
-
+            currentPlayer = -1;
+            playerMasters[0].nextStage();// DELETE this and the methind on mastercontroller
+            playerMasters[1].nextStage();
+            playerMasters[0].changeTransparency(currentPlayer == 0);
+            playerMasters[1].changeTransparency(currentPlayer == 1);
 
         }
         else
@@ -225,6 +233,8 @@ public class LogicGame : MonoBehaviour, IPunObservable
             currentPlayer = (currentPlayer + 1) % 2;
             playerMasters[0].nextStage();// DELETE this and the methind on mastercontroller
             playerMasters[1].nextStage();
+            playerMasters[0].changeTransparency(currentPlayer == 0);
+            playerMasters[1].changeTransparency(currentPlayer == 1);
         }
         
 

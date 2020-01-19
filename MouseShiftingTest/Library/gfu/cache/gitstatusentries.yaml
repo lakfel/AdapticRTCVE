@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 6
-  lastUpdatedAtString: 2020-01-19T16:37:43.555-05:00
-  initializedAtString: 2020-01-19T10:18:23.671-05:00
+  lastUpdatedAtString: 2020-01-19T17:11:58.423-05:00
+  initializedAtString: 2020-01-19T16:40:05.597-05:00
   entries:
   - path: MouseShiftingTest\.vs\MouseShiftingTest\v15\.suo
     fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\.vs\MouseShiftingTest\v15\.suo
@@ -40,99 +40,46 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: MouseShiftingTest\Assembly-CSharp.csproj
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Assembly-CSharp.csproj
-    projectPath: Assembly-CSharp.csproj
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: MouseShiftingTest\Assets\CentralBannerMannaher.cs
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Assets\CentralBannerMannaher.cs
-    projectPath: Assets\CentralBannerMannaher.cs
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: MouseShiftingTest\Assets\CentralBannerMannaher.cs.meta
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Assets\CentralBannerMannaher.cs.meta
-    projectPath: Assets\CentralBannerMannaher.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: MouseShiftingTest\Assets\LevelController.cs
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Assets\LevelController.cs
-    projectPath: Assets\LevelController.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: MouseShiftingTest\Assets\Logic.cs
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Assets\Logic.cs
-    projectPath: Assets\Logic.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
   - path: MouseShiftingTest\Assets\LogicGame.cs
     fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Assets\LogicGame.cs
     projectPath: Assets\LogicGame.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: MouseShiftingTest\Assets\Logout\detail_dock.csv
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Assets\Logout\detail_dock.csv
-    projectPath: Assets\Logout\detail_dock.csv
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: MouseShiftingTest\Assets\Logout\detail_dock.csv.meta
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Assets\Logout\detail_dock.csv.meta
-    projectPath: Assets\Logout\detail_dock.csv.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
   - path: MouseShiftingTest\Assets\Logout\general.csv
     fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Assets\Logout\general.csv
     projectPath: Assets\Logout\general.csv
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: MouseShiftingTest\Assets\Logout\general.csv.meta
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Assets\Logout\general.csv.meta
-    projectPath: Assets\Logout\general.csv.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: MouseShiftingTest\Assets\Logout\headpose.csv
     fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Assets\Logout\headpose.csv
     projectPath: Assets\Logout\headpose.csv
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: MouseShiftingTest\Assets\Logout\headpose.csv.meta
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Assets\Logout\headpose.csv.meta
-    projectPath: Assets\Logout\headpose.csv.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: MouseShiftingTest\Assets\Logout\runtime.csv
     fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Assets\Logout\runtime.csv
     projectPath: Assets\Logout\runtime.csv
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: MouseShiftingTest\Assets\Logout\runtime.csv.meta
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Assets\Logout\runtime.csv.meta
-    projectPath: Assets\Logout\runtime.csv.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: MouseShiftingTest\Assets\MasterController.cs
     fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Assets\MasterController.cs
     projectPath: Assets\MasterController.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: MouseShiftingTest\Assets\PersistanceManager.cs
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Assets\PersistanceManager.cs
-    projectPath: Assets\PersistanceManager.cs
+  - path: MouseShiftingTest\Assets\Photon Unity Networking\Resources\PhotonServerSettings.asset
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Assets\Photon
+      Unity Networking\Resources\PhotonServerSettings.asset
+    projectPath: Assets\Photon Unity Networking\Resources\PhotonServerSettings.asset
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: MouseShiftingTest\Assets\Prefabs\Resources\Vive_VTVT.prefab
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Assets\Prefabs\Resources\Vive_VTVT.prefab
+    projectPath: Assets\Prefabs\Resources\Vive_VTVT.prefab
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -172,12 +119,6 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: MouseShiftingTest\Library\gfu\cache\gitlog.yaml
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\gfu\cache\gitlog.yaml
-    projectPath: Library\gfu\cache\gitlog.yaml
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
   - path: MouseShiftingTest\Library\gfu\cache\gitstatusentries.yaml
     fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\gfu\cache\gitstatusentries.yaml
     projectPath: Library\gfu\cache\gitstatusentries.yaml
@@ -206,44 +147,20 @@ MonoBehaviour:
     fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\metadata\0d\0db416552f0150d45b4e16c60b6e170f
     projectPath: Library\metadata\0d\0db416552f0150d45b4e16c60b6e170f
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: MouseShiftingTest\Library\metadata\0d\0db416552f0150d45b4e16c60b6e170f.info
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\metadata\0d\0db416552f0150d45b4e16c60b6e170f.info
-    projectPath: Library\metadata\0d\0db416552f0150d45b4e16c60b6e170f.info
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: MouseShiftingTest\Library\metadata\36\36f525abccd4389469e4babc12c53ff5
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\metadata\36\36f525abccd4389469e4babc12c53ff5
+    projectPath: Library\metadata\36\36f525abccd4389469e4babc12c53ff5
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: MouseShiftingTest\Library\metadata\6b\6b0472658a93ac94fa1cd92d77e44ca8
     fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\metadata\6b\6b0472658a93ac94fa1cd92d77e44ca8
     projectPath: Library\metadata\6b\6b0472658a93ac94fa1cd92d77e44ca8
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: MouseShiftingTest\Library\metadata\6b\6b0472658a93ac94fa1cd92d77e44ca8.info
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\metadata\6b\6b0472658a93ac94fa1cd92d77e44ca8.info
-    projectPath: Library\metadata\6b\6b0472658a93ac94fa1cd92d77e44ca8.info
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: MouseShiftingTest\Library\metadata\76\76db055b5ef88604ead4d9be8524204b
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\metadata\76\76db055b5ef88604ead4d9be8524204b
-    projectPath: Library\metadata\76\76db055b5ef88604ead4d9be8524204b
-    originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: MouseShiftingTest\Library\metadata\a7\a7e8b68e9cd2a704d9cfed9da1d74cd0
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\metadata\a7\a7e8b68e9cd2a704d9cfed9da1d74cd0
-    projectPath: Library\metadata\a7\a7e8b68e9cd2a704d9cfed9da1d74cd0
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: MouseShiftingTest\Library\metadata\a7\a7e8b68e9cd2a704d9cfed9da1d74cd0.info
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\metadata\a7\a7e8b68e9cd2a704d9cfed9da1d74cd0.info
-    projectPath: Library\metadata\a7\a7e8b68e9cd2a704d9cfed9da1d74cd0.info
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
   - path: MouseShiftingTest\Library\metadata\b4\b4320c8b31e0ceb4f96c331e917404c8
     fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\metadata\b4\b4320c8b31e0ceb4f96c331e917404c8
     projectPath: Library\metadata\b4\b4320c8b31e0ceb4f96c331e917404c8
@@ -254,24 +171,6 @@ MonoBehaviour:
     fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\metadata\c0\c0cf8d5d6ab217b4e84df582437fca25
     projectPath: Library\metadata\c0\c0cf8d5d6ab217b4e84df582437fca25
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: MouseShiftingTest\Library\metadata\c0\c0cf8d5d6ab217b4e84df582437fca25.info
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\metadata\c0\c0cf8d5d6ab217b4e84df582437fca25.info
-    projectPath: Library\metadata\c0\c0cf8d5d6ab217b4e84df582437fca25.info
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: MouseShiftingTest\Library\metadata\cc\ccba309cfcade3641b6f456a5502f07e
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\metadata\cc\ccba309cfcade3641b6f456a5502f07e
-    projectPath: Library\metadata\cc\ccba309cfcade3641b6f456a5502f07e
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: MouseShiftingTest\Library\metadata\d1\d1821c88f28083c44b07e0c0fcf87f4f
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\metadata\d1\d1821c88f28083c44b07e0c0fcf87f4f
-    projectPath: Library\metadata\d1\d1821c88f28083c44b07e0c0fcf87f4f
-    originalPath: 
     indexStatus: 0
     workTreeStatus: 3
   - path: MouseShiftingTest\Library\metadata\ef\ef0ca71f805e3e2409e081102db09269
@@ -280,18 +179,6 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: MouseShiftingTest\Library\metadata\f8\f84d73cab47ec4f49b085b9fd36b09eb
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\metadata\f8\f84d73cab47ec4f49b085b9fd36b09eb
-    projectPath: Library\metadata\f8\f84d73cab47ec4f49b085b9fd36b09eb
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: MouseShiftingTest\Library\metadata\f8\f84d73cab47ec4f49b085b9fd36b09eb.info
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\metadata\f8\f84d73cab47ec4f49b085b9fd36b09eb.info
-    projectPath: Library\metadata\f8\f84d73cab47ec4f49b085b9fd36b09eb.info
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
   - path: MouseShiftingTest\Library\ScriptAssemblies\Assembly-CSharp.dll
     fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\ScriptAssemblies\Assembly-CSharp.dll
     projectPath: Library\ScriptAssemblies\Assembly-CSharp.dll
@@ -310,12 +197,102 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
+  - path: MouseShiftingTest\Library\ScriptAssemblies\Assembly-CSharp-Editor-firstpass.dll
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\ScriptAssemblies\Assembly-CSharp-Editor-firstpass.dll
+    projectPath: Library\ScriptAssemblies\Assembly-CSharp-Editor-firstpass.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: MouseShiftingTest\Library\ScriptAssemblies\Assembly-CSharp-firstpass.dll
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\ScriptAssemblies\Assembly-CSharp-firstpass.dll
+    projectPath: Library\ScriptAssemblies\Assembly-CSharp-firstpass.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
   - path: MouseShiftingTest\Library\ScriptAssemblies\BuiltinAssemblies.stamp
     fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\ScriptAssemblies\BuiltinAssemblies.stamp
     projectPath: Library\ScriptAssemblies\BuiltinAssemblies.stamp
     originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: MouseShiftingTest\Library\ScriptAssemblies\Oculus.VR.dll
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\ScriptAssemblies\Oculus.VR.dll
+    projectPath: Library\ScriptAssemblies\Oculus.VR.dll
+    originalPath: 
     indexStatus: 0
-    workTreeStatus: 5
+    workTreeStatus: 3
+  - path: MouseShiftingTest\Library\ScriptAssemblies\Oculus.VR.Editor.dll
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\ScriptAssemblies\Oculus.VR.Editor.dll
+    projectPath: Library\ScriptAssemblies\Oculus.VR.Editor.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: MouseShiftingTest\Library\ScriptAssemblies\Oculus.VR.Scripts.Editor.dll
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\ScriptAssemblies\Oculus.VR.Scripts.Editor.dll
+    projectPath: Library\ScriptAssemblies\Oculus.VR.Scripts.Editor.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: MouseShiftingTest\Library\ScriptAssemblies\SteamVR.dll
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\ScriptAssemblies\SteamVR.dll
+    projectPath: Library\ScriptAssemblies\SteamVR.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: MouseShiftingTest\Library\ScriptAssemblies\SteamVR_Actions.dll
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\ScriptAssemblies\SteamVR_Actions.dll
+    projectPath: Library\ScriptAssemblies\SteamVR_Actions.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: MouseShiftingTest\Library\ScriptAssemblies\SteamVR_Editor.dll
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\ScriptAssemblies\SteamVR_Editor.dll
+    projectPath: Library\ScriptAssemblies\SteamVR_Editor.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: MouseShiftingTest\Library\ScriptAssemblies\SteamVR_Input_Editor.dll
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\ScriptAssemblies\SteamVR_Input_Editor.dll
+    projectPath: Library\ScriptAssemblies\SteamVR_Input_Editor.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: MouseShiftingTest\Library\ScriptAssemblies\SteamVR_Windows_EditorHelper.dll
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\ScriptAssemblies\SteamVR_Windows_EditorHelper.dll
+    projectPath: Library\ScriptAssemblies\SteamVR_Windows_EditorHelper.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: MouseShiftingTest\Library\ScriptAssemblies\Unity.Analytics.DataPrivacy.dll
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\ScriptAssemblies\Unity.Analytics.DataPrivacy.dll
+    projectPath: Library\ScriptAssemblies\Unity.Analytics.DataPrivacy.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: MouseShiftingTest\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+    projectPath: Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: MouseShiftingTest\Library\ScriptAssemblies\Unity.PackageManagerUI.Editor.dll
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\ScriptAssemblies\Unity.PackageManagerUI.Editor.dll
+    projectPath: Library\ScriptAssemblies\Unity.PackageManagerUI.Editor.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: MouseShiftingTest\Library\ScriptAssemblies\Unity.TextMeshPro.dll
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\ScriptAssemblies\Unity.TextMeshPro.dll
+    projectPath: Library\ScriptAssemblies\Unity.TextMeshPro.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: MouseShiftingTest\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+    projectPath: Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
   - path: MouseShiftingTest\Library\shadercompiler-UnityShaderCompiler.exe0.log
     fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Library\shadercompiler-UnityShaderCompiler.exe0.log
     projectPath: Library\shadercompiler-UnityShaderCompiler.exe0.log
@@ -334,24 +311,12 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: MouseShiftingTest\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
-    projectPath: obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
+  - path: MouseShiftingTest\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+    projectPath: obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: MouseShiftingTest\obj\Debug\Assembly-CSharp-Editor.csprojAssemblyReference.cache
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\obj\Debug\Assembly-CSharp-Editor.csprojAssemblyReference.cache
-    projectPath: obj\Debug\Assembly-CSharp-Editor.csprojAssemblyReference.cache
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: MouseShiftingTest\obj\Debug\build.force
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\obj\Debug\build.force
-    projectPath: obj\Debug\build.force
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
   - path: MouseShiftingTest\Temp\__Backupscenes\0.backup
     fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\__Backupscenes\0.backup
     projectPath: Temp\__Backupscenes\0.backup
@@ -370,69 +335,153 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: MouseShiftingTest\Temp\UnityTempFile-20932aafa3f4cd44c8f62dd56c51ac8b
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-20932aafa3f4cd44c8f62dd56c51ac8b
-    projectPath: Temp\UnityTempFile-20932aafa3f4cd44c8f62dd56c51ac8b
+  - path: MouseShiftingTest\Temp\UnityTempFile-054f43d413082dd47ae6117630b8131b
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-054f43d413082dd47ae6117630b8131b
+    projectPath: Temp\UnityTempFile-054f43d413082dd47ae6117630b8131b
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: MouseShiftingTest\Temp\UnityTempFile-31958229113549044a4e36a17f5455bf
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-31958229113549044a4e36a17f5455bf
-    projectPath: Temp\UnityTempFile-31958229113549044a4e36a17f5455bf
+  - path: MouseShiftingTest\Temp\UnityTempFile-1047565cf0352714ab08f8142a1fb331
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-1047565cf0352714ab08f8142a1fb331
+    projectPath: Temp\UnityTempFile-1047565cf0352714ab08f8142a1fb331
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: MouseShiftingTest\Temp\UnityTempFile-4194daedeb8ac644483cd0d95ffca9e5
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-4194daedeb8ac644483cd0d95ffca9e5
-    projectPath: Temp\UnityTempFile-4194daedeb8ac644483cd0d95ffca9e5
+  - path: MouseShiftingTest\Temp\UnityTempFile-151f2fe1dc5364b46b15512f7bfee358
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-151f2fe1dc5364b46b15512f7bfee358
+    projectPath: Temp\UnityTempFile-151f2fe1dc5364b46b15512f7bfee358
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: MouseShiftingTest\Temp\UnityTempFile-79092ce43ad892045aba35a14f98d74c
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-79092ce43ad892045aba35a14f98d74c
-    projectPath: Temp\UnityTempFile-79092ce43ad892045aba35a14f98d74c
+  - path: MouseShiftingTest\Temp\UnityTempFile-15800ecb7be908f4f8f3bb6a1f653c8a
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-15800ecb7be908f4f8f3bb6a1f653c8a
+    projectPath: Temp\UnityTempFile-15800ecb7be908f4f8f3bb6a1f653c8a
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: MouseShiftingTest\Temp\UnityTempFile-9937654a35636974abb74c58baa6fc85
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-9937654a35636974abb74c58baa6fc85
-    projectPath: Temp\UnityTempFile-9937654a35636974abb74c58baa6fc85
+  - path: MouseShiftingTest\Temp\UnityTempFile-2a67af24f4dbb754eaf30db61c058968
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-2a67af24f4dbb754eaf30db61c058968
+    projectPath: Temp\UnityTempFile-2a67af24f4dbb754eaf30db61c058968
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: MouseShiftingTest\Temp\UnityTempFile-9cd0d8b7642123d45a2481b84f04b35b
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-9cd0d8b7642123d45a2481b84f04b35b
-    projectPath: Temp\UnityTempFile-9cd0d8b7642123d45a2481b84f04b35b
+  - path: MouseShiftingTest\Temp\UnityTempFile-3f73eb97535717f478fd02095a110fb5
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-3f73eb97535717f478fd02095a110fb5
+    projectPath: Temp\UnityTempFile-3f73eb97535717f478fd02095a110fb5
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: MouseShiftingTest\Temp\UnityTempFile-a69ee5479f303264f91e0daf2287fb8b
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-a69ee5479f303264f91e0daf2287fb8b
-    projectPath: Temp\UnityTempFile-a69ee5479f303264f91e0daf2287fb8b
+  - path: MouseShiftingTest\Temp\UnityTempFile-51255b282a20e6f459d06cb88aa0d0a1
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-51255b282a20e6f459d06cb88aa0d0a1
+    projectPath: Temp\UnityTempFile-51255b282a20e6f459d06cb88aa0d0a1
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: MouseShiftingTest\Temp\UnityTempFile-bb13389c8027c3e448db8923523d304b
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-bb13389c8027c3e448db8923523d304b
-    projectPath: Temp\UnityTempFile-bb13389c8027c3e448db8923523d304b
+  - path: MouseShiftingTest\Temp\UnityTempFile-54f1dd83953e03f4c86f3bffb7824965
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-54f1dd83953e03f4c86f3bffb7824965
+    projectPath: Temp\UnityTempFile-54f1dd83953e03f4c86f3bffb7824965
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: MouseShiftingTest\Temp\UnityTempFile-d7282486df3736e4eb62a93ee36b7d2f
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-d7282486df3736e4eb62a93ee36b7d2f
-    projectPath: Temp\UnityTempFile-d7282486df3736e4eb62a93ee36b7d2f
+  - path: MouseShiftingTest\Temp\UnityTempFile-68e652f80dfe103498ca89538aa1f8cb
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-68e652f80dfe103498ca89538aa1f8cb
+    projectPath: Temp\UnityTempFile-68e652f80dfe103498ca89538aa1f8cb
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: MouseShiftingTest\Temp\UnityTempFile-f2416302cc8770f488d6f4d906dc6449
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-f2416302cc8770f488d6f4d906dc6449
-    projectPath: Temp\UnityTempFile-f2416302cc8770f488d6f4d906dc6449
+  - path: MouseShiftingTest\Temp\UnityTempFile-6ed5d3d3d3aee3d418cc79b4eaec1a80
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-6ed5d3d3d3aee3d418cc79b4eaec1a80
+    projectPath: Temp\UnityTempFile-6ed5d3d3d3aee3d418cc79b4eaec1a80
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: MouseShiftingTest\Temp\UnityTempFile-ffe9d2968f434294ab9a206c72b15ea0
-    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-ffe9d2968f434294ab9a206c72b15ea0
-    projectPath: Temp\UnityTempFile-ffe9d2968f434294ab9a206c72b15ea0
+  - path: MouseShiftingTest\Temp\UnityTempFile-74ab31b9622542e46b9e5d77e80093c0
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-74ab31b9622542e46b9e5d77e80093c0
+    projectPath: Temp\UnityTempFile-74ab31b9622542e46b9e5d77e80093c0
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: MouseShiftingTest\Temp\UnityTempFile-7d8ca3674b736c240b85475f6f5f499e
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-7d8ca3674b736c240b85475f6f5f499e
+    projectPath: Temp\UnityTempFile-7d8ca3674b736c240b85475f6f5f499e
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: MouseShiftingTest\Temp\UnityTempFile-893c6f5db8633b74ea6acaaa47a66060
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-893c6f5db8633b74ea6acaaa47a66060
+    projectPath: Temp\UnityTempFile-893c6f5db8633b74ea6acaaa47a66060
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: MouseShiftingTest\Temp\UnityTempFile-998299c7e6cfb164ca66e64caf72c546
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-998299c7e6cfb164ca66e64caf72c546
+    projectPath: Temp\UnityTempFile-998299c7e6cfb164ca66e64caf72c546
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: MouseShiftingTest\Temp\UnityTempFile-9bdf2c7a668a8b64f86b08a1478fd273
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-9bdf2c7a668a8b64f86b08a1478fd273
+    projectPath: Temp\UnityTempFile-9bdf2c7a668a8b64f86b08a1478fd273
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: MouseShiftingTest\Temp\UnityTempFile-a33b6ed001a11a34d8a50d7b2183e83d
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-a33b6ed001a11a34d8a50d7b2183e83d
+    projectPath: Temp\UnityTempFile-a33b6ed001a11a34d8a50d7b2183e83d
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: MouseShiftingTest\Temp\UnityTempFile-a51c628767271c1429884984647a7fed
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-a51c628767271c1429884984647a7fed
+    projectPath: Temp\UnityTempFile-a51c628767271c1429884984647a7fed
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: MouseShiftingTest\Temp\UnityTempFile-a82a6af99e2532a438637ae9ba3df67e
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-a82a6af99e2532a438637ae9ba3df67e
+    projectPath: Temp\UnityTempFile-a82a6af99e2532a438637ae9ba3df67e
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: MouseShiftingTest\Temp\UnityTempFile-af33de0ce42d7f844b38bb54a4408aef
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-af33de0ce42d7f844b38bb54a4408aef
+    projectPath: Temp\UnityTempFile-af33de0ce42d7f844b38bb54a4408aef
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: MouseShiftingTest\Temp\UnityTempFile-bae4b115488ac3344b2c7033786cbd12
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-bae4b115488ac3344b2c7033786cbd12
+    projectPath: Temp\UnityTempFile-bae4b115488ac3344b2c7033786cbd12
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: MouseShiftingTest\Temp\UnityTempFile-bc4d31d5101db3f4285e2666144b3ee3
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-bc4d31d5101db3f4285e2666144b3ee3
+    projectPath: Temp\UnityTempFile-bc4d31d5101db3f4285e2666144b3ee3
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: MouseShiftingTest\Temp\UnityTempFile-c778736317ec8374a934057663914ea4
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-c778736317ec8374a934057663914ea4
+    projectPath: Temp\UnityTempFile-c778736317ec8374a934057663914ea4
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: MouseShiftingTest\Temp\UnityTempFile-d9c52a5f436c80542bc89f86f330b649
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-d9c52a5f436c80542bc89f86f330b649
+    projectPath: Temp\UnityTempFile-d9c52a5f436c80542bc89f86f330b649
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: MouseShiftingTest\Temp\UnityTempFile-e919de63be0d45f4f807d36cc88bceac
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-e919de63be0d45f4f807d36cc88bceac
+    projectPath: Temp\UnityTempFile-e919de63be0d45f4f807d36cc88bceac
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: MouseShiftingTest\Temp\UnityTempFile-ff21023bb3ba2f1498e5611c18d7ddde
+    fullPath: C:\Users\Imagine\Documents\jf.gonzalez695\RetargPlusAdaptic\MouseShiftingTest\Temp\UnityTempFile-ff21023bb3ba2f1498e5611c18d7ddde
+    projectPath: Temp\UnityTempFile-ff21023bb3ba2f1498e5611c18d7ddde
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
