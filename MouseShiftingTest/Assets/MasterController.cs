@@ -65,7 +65,7 @@ public class MasterController : MonoBehaviour, IPunObservable
         propMannager = gameObject.GetComponent<PropMannager>();
         persistanceManager = gameObject.GetComponent<PersistanceManager>();
 
-
+   
         surveyActivated = false;
         
         // TODO the steps should be shared. Notification Mannager to be changes drasticly
@@ -74,6 +74,15 @@ public class MasterController : MonoBehaviour, IPunObservable
          
          
     }
+
+    public void changeStage(LogicGame.STAGE nStage)
+    {
+        if (GetComponent<PhotonView>().isMine)
+        {
+            persistanceManager.currentStage = nStage.ToString("G");
+        }
+    }
+
 
     public void startRecording(string idTrial)
     {
@@ -85,9 +94,12 @@ public class MasterController : MonoBehaviour, IPunObservable
 
     public void setCondition(CONDITION nCondition)
     {
-        condition = nCondition;
-        if (condition == CONDITION.SM_RT)
-            propMannager.enabled = true;
+        if(GetComponent<PhotonView>().isMine)
+        { 
+            condition = nCondition;
+            if (condition == CONDITION.SM_RT)
+                propMannager.enabled = true;
+        }
     }
 
     public void presetPtop(PropMannager.PRESET_TYPE presetType)

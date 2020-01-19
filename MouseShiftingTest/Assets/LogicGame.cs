@@ -4,10 +4,27 @@ using UnityEngine;
 
 public class LogicGame : MonoBehaviour, IPunObservable
 {
+    public enum STAGE
+    {
+        // Bases A and B
+        // Base A: SM_RT 
+        // Base B: NM_RT or NM_RT -> TODO
+        TUTORIAL, // TODO what kind of props are gonna use here
+        FIRST, // Base A User 1, Base B User 2
+        SECOND // Base A User 2, Base B User 2 
+    }
+
+
+    public STAGE currenStage;
+    public int numStage;
+    public readonly STAGE[] stages = new STAGE[] { STAGE.TUTORIAL, STAGE.FIRST, STAGE.SECOND };
+
+
     public bool started;
+    public bool paused;
 
     public NotificationsMannager[] playersNotifications;
-
+    public CentralBannerMannaher centralBannerMannaher;
     public MasterController[] playerMasters;
     // public Logic[] playerLogics;
 
@@ -144,6 +161,30 @@ public class LogicGame : MonoBehaviour, IPunObservable
         }
 
     }
+
+
+    [PunRPC]
+    public void nextStage()
+    {
+        paused = false;
+        numStage++;
+        if(numStage>2)
+        {
+            paused = true;
+        }
+        else
+        {
+
+            playerMasters[0].fillPlayerInformation();
+            playerMasters[1].fillPlayerInformation();
+            currenStage = stages[numStage];
+            centralBannerMannaher.temporalMessage("Comenzando parte " + numStage);
+            playerMasters[0].changeStage(currenStage);
+            playerMasters[1].changeStage(currenStage);
+            repetition = 0;
+        } 
+    }
+
     [PunRPC]
     public void setActiveGhost(bool active)
     {
@@ -165,17 +206,26 @@ public class LogicGame : MonoBehaviour, IPunObservable
     public void nextStep()
     {
         repetition += currentPlayer;
-        if(repetition == REPETITIONS)
+        if(repetition == REPETITIONS || (currenStage== STAGE.TUTORIAL && repetition == 4))
         {
-            playerMasters[0].fillPlayerInformation();
-            playerMasters[1].fillPlayerInformation();
-            repetition = 0;
+            paused = true;
+            if (currenStage == STAGE.TUTORIAL)
+                centralBannerMannaher.permanentMessage("Fin del tutorial");
+            if (currenStage == STAGE.FIRST)
+                centralBannerMannaher.permanentMessage("Fin de la primera parte");
+            if (currenStage == STAGE.SECOND)
+                centralBannerMannaher.permanentMessage("Fin de la prueba");
+            paused = true;
+
 
         }
-       // playersNotifications[currentPlayer].lightStepNotification(7);
-        currentPlayer = (currentPlayer + 1) % 2;
-        playerMasters[0].nextStage();// DELETE this and the methind on mastercontroller
-        playerMasters[1].nextStage();
+        else
+        {
+           // playersNotifications[currentPlayer].lightStepNotification(7);
+            currentPlayer = (currentPlayer + 1) % 2;
+            playerMasters[0].nextStage();// DELETE this and the methind on mastercontroller
+            playerMasters[1].nextStage();
+        }
         
 
     }
@@ -203,6 +253,9 @@ public class LogicGame : MonoBehaviour, IPunObservable
     void Start()
     {
         repetition = 0;
+
+        currenStage = STAGE.TUTORIAL;
+        numStage = 0;
     }
     [PunRPC]
     public void getStared( string nId)
@@ -211,6 +264,7 @@ public class LogicGame : MonoBehaviour, IPunObservable
         started = true;
         setPlayers();
         initialObjectPosition();
+        centralBannerMannaher.temporalMessage("Tutorial...");
         
     }   
     // Update is called once per frame
@@ -222,6 +276,11 @@ public class LogicGame : MonoBehaviour, IPunObservable
             {
                 string nId = System.DateTime.Now.ToString("yyMMddHHmmss");
                 GetComponent<PhotonView>().RPC("getStared", PhotonTargets.All,nId);
+            }
+            else
+            {
+                if(paused)
+                    GetComponent<PhotonView>().RPC("nextStage", PhotonTargets.All);
             }
         }
     }

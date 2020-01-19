@@ -7,19 +7,7 @@ public class LevelController : MonoBehaviour, IPunObservable
     // Script to export logs
     private PersistanceManager persistanceManager;
 
-    public enum STAGE
-    {
-        // Bases A and B
-        // Base A: SM_RT 
-        // Base B: NM_RT or NM_RT -> TODO
-        TUTORIAL, // TODO what kind of props are gonna use here
-        FIRST, // Base A User 1, Base B User 2
-        SECOND // Base A User 2, Base B User 2 
-    }
-
-    public STAGE currenStage;
-    public int numStage;
-    public readonly STAGE[] stages = new STAGE[] { STAGE.TUTORIAL, STAGE.FIRST, STAGE.SECOND };
+  
 
     public bool started;
 
@@ -42,8 +30,6 @@ public class LevelController : MonoBehaviour, IPunObservable
         if (!started)
         {
             started = true;
-            currenStage = STAGE.TUTORIAL;
-            numStage = 0;
 
             //TextMesh text = notificacionTextObject.GetComponent<TextMesh>();
             //text.text = "TUTORIAL";

@@ -9,7 +9,7 @@ public class PersistanceManager : MonoBehaviour
 
     private string hpLine;
     private string rtLine;
-    private int counter;
+    public int counter;
 
     //Master
     private LevelController levelController;
@@ -190,14 +190,13 @@ public class PersistanceManager : MonoBehaviour
 
     private IEnumerator saveRecords()
     {
-        while(true && !killProcess)
+        while(true )
         {
             if ( recording)
             {
                 counter++;
                  saveRunTime();
                 saveHeadPose();
-                counter = counter >= 500?0:counter;
             }
             yield return new WaitForSeconds(0.2f);
         }
@@ -221,12 +220,14 @@ public class PersistanceManager : MonoBehaviour
         }
         recording = false;
         PATH_LOCAL = Application.dataPath + @"/Logout/";
+        if (!Directory.Exists(PATH_LOCAL))
+            Directory.CreateDirectory(PATH_LOCAL);
         counterMovements = 1;
-
+        counter = 0;
         
         masterController = gameObject.GetComponent<MasterController>();
         StartCoroutine(saveRecords());
-        //TODO 
+       
     }
 
     [PunRPC]
@@ -387,6 +388,7 @@ public class PersistanceManager : MonoBehaviour
         {
             StartCoroutine(saveLocal(pathLocal, entries2, hpLine));
             hpLine = "";
+            counter = 1;
         }
         // StartCoroutine(saveLocal(pathLocal, entries2, values));
 

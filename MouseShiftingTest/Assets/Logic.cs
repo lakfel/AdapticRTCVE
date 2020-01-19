@@ -273,14 +273,13 @@
                         || ViveInput.GetPressDown(HandRole.LeftHand, ControllerButton.Trigger)
                         || Input.GetKeyDown(KeyCode.Q))
                     {
-                        if(logicGame!=null && (onTurn = (idPlayer == logicGame.currentPlayer)))
+                        if(logicGame!=null && (onTurn = (idPlayer == logicGame.currentPlayer)) && !logicGame.paused)
                         {
                             reGoal();
                         }
                     }
                     else if ( Input.GetKeyDown(KeyCode.T))
                     {
-                      test();
                     }
         }
 
@@ -527,12 +526,6 @@
         }
 
 
-
-
-        public void test()
-        {
-            targetedController.starShifting(testRedicting1.transform.position, testRedicting2.transform.position);
-        }
 
 
         public bool conditionsToProceed(int stage)
