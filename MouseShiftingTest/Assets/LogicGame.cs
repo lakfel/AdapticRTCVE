@@ -179,16 +179,28 @@ public class LogicGame : MonoBehaviour, IPunObservable
         else
         {
 
+            repetition = 0;
+            currentPlayer = 0;
             playerMasters[0].setRecording(true);
             playerMasters[1].setRecording(true);
-            playerMasters[0].fillPlayerInformation();
+
             playerMasters[1].fillPlayerInformation();
+            playerMasters[1].nextStage();
+
+            if (!PhotonNetwork.isMasterClient)
+            {
+                int[] currSce = playerMasters[1].currentScenarioConfiguration();
+                GetComponent<PhotonView>().RPC("setPosObj", PhotonTargets.All, currSce[0], currSce[1]);
+            }
+
+            playerMasters[0].fillPlayerInformation();
+            playerMasters[0].nextStage();
+
+
             currenStage = stages[numStage];
             centralBannerMannaher.temporalMessage("Comenzando parte " + numStage);
             playerMasters[0].changeStage(currenStage);
             playerMasters[1].changeStage(currenStage);
-            repetition = 0;
-            currentPlayer = 0;
         } 
     }
 
@@ -234,7 +246,8 @@ public class LogicGame : MonoBehaviour, IPunObservable
             playerMasters[1].nextStage();
             playerMasters[0].changeTransparency(currentPlayer == 0);
             playerMasters[1].changeTransparency(currentPlayer == 1);
-
+            objects[0].SetActive(false);
+            objects[1].SetActive(false);
         }
         else
         {

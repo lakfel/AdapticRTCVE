@@ -130,7 +130,6 @@
 
 
 
-            orientationsPlayerMatrix = new Queue<Quaternion>[2, 2];
             scenariosPlayer.Clear();
 
             int[] checksS0 = { 0,0,0,0  };
@@ -157,7 +156,7 @@
                 {
                     for (int k = 0; k < 4; k++)
                         checksO0[k] = false;
-                    orientationsPlayerMatrix[i,j] = new Queue<Quaternion>();
+                    orientationsPlayerMatrix[i, j].Clear();
                     for (int k = 0; k < 4; k++)
                     { 
                         while (checksO0[posRnd = Random.Range(0, 4)]) ;
@@ -212,6 +211,7 @@
             orientationsPlayer = new Queue<Quaternion>();
             scenariosPlayer = new Queue<int[]>();
 
+            orientationsPlayerMatrix = new Queue<Quaternion>[2, 2];
             masterController = gameObject.GetComponent<MasterController>();
             targetedController = gameObject.GetComponent<TargetedController>();
             persistanceManager = gameObject.GetComponent<PersistanceManager>();
