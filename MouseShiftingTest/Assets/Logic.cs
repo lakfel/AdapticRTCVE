@@ -354,6 +354,13 @@
                     //homePosition.SetActive(true);
                     currentEndObject = logicGame.currentEndObject;
                     currentEndPosition = logicGame.currentEndPosition;
+                    if (currentEndObject.GetComponent<PhotonView>().ownerId != PhotonNetwork.player.ID)
+                    {
+                        currentEndObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
+                        PropSpecs spcs = currentEndObject.GetComponent<PropSpecs>();
+                        if(spcs.ghost.GetComponent<PhotonView>().ownerId != PhotonNetwork.player.ID)
+                            spcs.ghost.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
+                    }
                     stage = 0;
                 }
                 //Pre Hand on home position.
@@ -361,10 +368,7 @@
                 else if (stage == 0)
                 {
                     targetedController.disableRT = false;
-                    if (currentEndObject.GetComponent<PhotonView>().ownerId != PhotonNetwork.player.ID)
-                    {
-                        currentEndObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
-                    }
+                    
                     targetedController.starShifting(currentEndPosition.transform.position, hand.giveRealPosition());
 
                     //currentEndObject.GetComponent<PropSpecs>().activeChildren(false);
@@ -462,6 +466,9 @@
                     if (currentEndObject.GetComponent<PhotonView>().ownerId != PhotonNetwork.player.ID)
                     {
                         currentEndObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
+                        PropSpecs spcs = currentEndObject.GetComponent<PropSpecs>();
+                        if (spcs.ghost.GetComponent<PhotonView>().ownerId != PhotonNetwork.player.ID)
+                            spcs.ghost.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
                     }
 
                     StartCoroutine(transformProp());
@@ -472,7 +479,9 @@
 
 
                     Debug.Log("Orientation before pairing " + currentEndObject.transform.rotation);
+                    currentEndObject.transform.GetChild(0).gameObject.SetActive(false);
                     currentEndObject.SetActive(true);
+                    currentEndObject.transform.GetChild(0).gameObject.SetActive(false);
                     handLogic.allowToGrab = true;
 
 

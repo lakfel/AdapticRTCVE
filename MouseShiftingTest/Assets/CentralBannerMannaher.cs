@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class CentralBannerMannaher : MonoBehaviour
 {
-
+    public bool allowed;
     public TextMesh banner;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(textConfiguration());
+        allowed = true;
+        permanentMessage("Bienvenido!");
+        if (!PhotonNetwork.isMasterClient)
+            banner.gameObject.transform.Rotate(new Vector3(0f, 180f, 0f));
     }
 
     // Update is called once per frame
@@ -35,19 +38,21 @@ public class CentralBannerMannaher : MonoBehaviour
     }
     public IEnumerator tMessage(string message)
     {
+        allowed = true;
         banner.text = message;
         banner.gameObject.SetActive(true);
         yield return new WaitForSeconds(4);
+        allowed = false;
         banner.gameObject.SetActive(false);
         yield return null;
     }
 
     private IEnumerator textConfiguration()
     {
-        while(true)
+        while(allowed)
         {
             banner.gameObject.transform.Rotate(new Vector3(0f, 5f, 0f));
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.5f);
         }
         yield return null;
     }
