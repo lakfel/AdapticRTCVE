@@ -41,14 +41,23 @@ public class HandLogic : MonoBehaviour
 
             
     }
+
+    public IEnumerator setHand(bool handActive, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        hand.setDraw(handActive);
+        yield return null;
+    }
+
     [PunRPC]
-    public void process()
+    public void process(float segs)
     {
         if (possibleObject != null && allowToGrab && !objectInHand)
         {
             voObject = possibleObject;
             possibleObject = null;
-            hand.setDraw(false);
+            StartCoroutine(setHand(false, segs));
+           // hand.setDraw(false);
             objectInHand = true;
         }
         else if (voObject != null)
@@ -57,7 +66,9 @@ public class HandLogic : MonoBehaviour
             trackerMannager.fRightTracker.detach();
             possibleObject = voObject;
             voObject = null;
-            hand.setDraw(true);
+            //hand.setDraw(true);
+
+            StartCoroutine(setHand(true, segs));
             objectInHand = false;
             PropSpecs propSpecs = possibleObject.GetComponent<PropSpecs>();
             propSpecs.objectGrabbed(false);

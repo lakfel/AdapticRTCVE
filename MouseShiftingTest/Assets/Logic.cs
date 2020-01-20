@@ -399,7 +399,7 @@
                     }
                     currentEndObject.GetComponent<PropSpecs>().resetProp(true);
                     pairTracker(true);
-                    handLogic.process(); logicGame.GetComponent<PhotonView>().RPC("setActiveGhost", PhotonTargets.All, true);
+                    handLogic.process(0f); logicGame.GetComponent<PhotonView>().RPC("setActiveGhost", PhotonTargets.All, true);
 
                     Quaternion orientationPlayerC;
 
@@ -429,7 +429,7 @@
                     persistanceManager.saveDocking();
                     // bool isLeft = idPlayer == 0 ;
 
-                    handLogic.process();
+                    handLogic.process(0f);
                     targetedController.disableRT = true;
                     currentEndObject.transform.rotation = currentEndObject.GetComponent<PropSpecs>().ghost.transform.rotation;
                     currentEndObject.transform.position = currentEndObject.GetComponent<PropSpecs>().ghost.transform.position;
@@ -488,7 +488,7 @@
                     persistanceManager.saveDocking();
                     pairTracker(false);
                     targetedController.disableRT = false;
-                    handLogic.process();
+                    handLogic.process(0f);
                     //targetedController.starShifting(currentEndPosition.transform.position, currentEndObject.transform.position);
                     targetedController.starShifting( currentEndPosition.transform.position, currentEndObject.transform.parent.transform.position);
                     logicGame.GetComponent<PhotonView>().RPC("setActiveGhost", PhotonTargets.All, true);
@@ -510,7 +510,7 @@
                     persistanceManager.tracker = currentTracker;
                     persistanceManager.trackedObject = currentEndObject.GetComponent<PropSpecs>();
                     persistanceManager.saveDocking();
-                    handLogic.process();
+                    handLogic.process(3f);
                     PropSpecs propSpecs = currentEndObject.GetComponent<PropSpecs>();
                     currentEndObject.transform.rotation = propSpecs.ghost.transform.rotation;
                     currentEndObject.transform.position = propSpecs.ghost.transform.position;
