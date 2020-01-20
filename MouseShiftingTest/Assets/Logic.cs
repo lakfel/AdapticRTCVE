@@ -210,8 +210,12 @@
 
             orientationsPlayer = new Queue<Quaternion>();
             scenariosPlayer = new Queue<int[]>();
-
             orientationsPlayerMatrix = new Queue<Quaternion>[2, 2];
+        for (int i = 0; i < 2; i++)
+            for (int j = 0; j < 2; j++)
+                orientationsPlayerMatrix[i, j] = new Queue<Quaternion>();
+                    
+
             masterController = gameObject.GetComponent<MasterController>();
             targetedController = gameObject.GetComponent<TargetedController>();
             persistanceManager = gameObject.GetComponent<PersistanceManager>();
@@ -515,12 +519,21 @@
                     propSpecs.resetProp(false);
                     onTurn = false;
                     logicGame.GetComponent<PhotonView>().RPC("nextStep", PhotonTargets.All);
+                    stage = -1;// put here 6 to fix the problem with  the issue RT
+                    targetedController.disableRT = true; // and delete this
+                                                         // and add   logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, true, false);
+
+            }
+                else if (stage == 6)
+                {
+
+                    logicGame.GetComponent<PhotonView>().RPC("enableHomePoint", PhotonTargets.All, idPlayer, false, false);
                     stage = -1;
                     targetedController.disableRT = true;
-                
+
                 }
-                if(stage != -1)
-                    notificationsMannager.lightStepNotification(stage + 1);
+                if (stage != -1)
+                        notificationsMannager.lightStepNotification(stage + 1);
             }
                
         }
@@ -592,9 +605,18 @@
                     personalNotifications.messageToUser("Que coincida el objeto y el fantasma");
                 }
             }
+            else if(stage == 0) // The hand must be touchin point zero;
+            {
+                NewGoal newGoal = homePosition.GetComponent<NewGoal>();
+                answer = newGoal.handOnInitialPosition;
+                if (!answer)
+                {
+                    //personalNotifications.messageToUser("Be sure your hand is on the sphere");
+                    personalNotifications.messageToUser("La mano en la esfera");
+                }
+            }
 
-
-            return answer || testCond;
+        return answer || testCond;
         }
 
 

@@ -300,7 +300,16 @@ public class LogicGame : MonoBehaviour, IPunObservable
         initialObjectPosition();
         centralBannerMannaher.temporalMessage("Tutorial...");
         
-    }   
+    }
+
+
+    [PunRPC]
+    public void resetBanner(string nMessage)
+    {
+        numStage = 0;
+        centralBannerMannaher.permanentMessage(nMessage);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -310,7 +319,7 @@ public class LogicGame : MonoBehaviour, IPunObservable
             {
                 if(numStage > 2)
                 {
-                    centralBannerMannaher.permanentMessage("Bienvenido!");
+                    GetComponent<PhotonView>().RPC("resetBanner", PhotonTargets.All, "Bienvenido!");
                 }
                 else
                 {

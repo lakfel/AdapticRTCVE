@@ -70,4 +70,5 @@ MonoBehaviour:
   - refreshPlayerProp
   - setPosObj
   - nextStage
+  - resetBanner
   DisableAutoOpenWizard: 1
